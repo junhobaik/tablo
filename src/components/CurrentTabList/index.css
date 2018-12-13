@@ -1,5 +1,31 @@
-.current-tab {
-  border: 1px solid gray;
-  margin: 1em;
-  padding: 1em;
+.list-wrap {
+  max-width: 20rem;
+  border-radius: 5px;
+  overflow: scroll;
+  box-shadow: 0px 0px 3px 0.5px rgba(0,0,0,0.2);
+  background-color: lightblue;
+  padding: 0.5rem 1rem;
+  margin: 1rem;
+}
+.list-title {
+  font-size: 1.1rem;
+}
+.tab {
+  border-radius: 3px;
+  background-color: white;
+  box-shadow: 0.1rem 0.1rem 0.1rem 0.01rem rgba(0, 0, 0, 0.2);
+  margin-bottom: 1rem;
+  padding: 1rem;
+}
+
+.favicon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-right: 0.5rem;
+}
+
+.favicon img {
+  width: inherit;
+  height: inherit;
 }

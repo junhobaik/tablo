@@ -28,7 +28,16 @@ if (fileSystem.existsSync(secretsPath)) {
 
 const options = {
   entry: {
-    index: "./src/index.js"
+    index: path.join(__dirname, "src", "index.js"),
+    popup: path.join(__dirname, "src", "extension", "popup", "index.js"),
+    options: path.join(__dirname, "src", "extension", "options", "index.js"),
+    background: path.join(
+      __dirname,
+      "src",
+      "extension",
+      "background",
+      "index.js"
+    )
   },
 
   output: {
@@ -84,9 +93,46 @@ const options = {
       }
     ]),
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, "src", "index.html"),
+      template: path.join(
+        __dirname,
+        "src",
+        "index.html"
+      ),
       filename: "index.html",
       chunks: ["index"]
+    }),
+    new HtmlWebpackPlugin({
+      template: path.join(
+        __dirname,
+        "src",
+        "extension",
+        "popup",
+        "index.html"
+      ),
+      filename: "popup.html",
+      chunks: ["popup"]
+    }),
+    new HtmlWebpackPlugin({
+      template: path.join(
+        __dirname,
+        "src",
+        "extension",
+        "options",
+        "index.html"
+      ),
+      filename: "options.html",
+      chunks: ["options"]
+    }),
+    new HtmlWebpackPlugin({
+      template: path.join(
+        __dirname,
+        "src",
+        "extension",
+        "background",
+        "index.html"
+      ),
+      filename: "background.html",
+      chunks: ["background"]
     }),
     new WriteFilePlugin()
   ]

@@ -6,6 +6,13 @@
   "chrome_url_overrides": {
     "newtab": "index.html"
   },
+  "options_page": "options.html",
+  "background": {
+    "page": "background.html"
+  },
+  "browser_action": {
+    "default_popup": "popup.html"
+  },
   "permissions": [
     "tabs"
   ],

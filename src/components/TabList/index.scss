@@ -1,15 +1,79 @@
 #TabList {
   display: flex;
   flex-grow: 1;
+  max-width: 80%;
+  overflow: auto;
 
-  .add-column{
+  & > div {
+    margin: 1rem;
+  }
+
+  .tab-list {
+    background-color: lightblue;
+    padding: 0 1rem;
+    min-width: 12em;
+    border-radius: 5px;
+
+    .top {
+      display: flex;
+      align-items: center;
+    }
+
+    .tab {
+      display: flex;
+      border-radius: 3px;
+      background-color: white;
+      box-shadow: 0.1rem 0.1rem 0.1rem 0.01rem rgba(0, 0, 0, 0.2);
+      margin-bottom: 1rem;
+      padding: 0.5rem;
+
+      .favicon {
+        width: 1em;
+        height: 1em;
+        margin-right: 0.5rem;
+
+        img {
+          width: inherit;
+          height: inherit;
+        }
+      }
+    }
+  }
+
+  .add-column {
     $font-size: 1em;
     font-size: $font-size;
     display: flex;
     align-items: center;
     border: 1px dotted gray;
-    height: 1rem;
+    height: $font-size;
     padding: 2rem;
     border-radius: 10px;
   }
 }
+
+/*
+    const tabListObj = this.props.tabList.map((v, i) => {
+      const tabsObj = v.tabs.map((v, i) => {
+        return (
+          <li className="tab" key={"tab-" + v.id}>
+            <div className="favicon">
+              {v.favIconUrl ? <img src={v.favIconUrl} alt="favicon" /> : null}
+            </div>
+            <a href={v.url} target="_blank">
+              {v.title}
+            </a>
+          </li>
+        );
+      });
+      return (
+        <div className="tab-list" key={`tab-list-${v.num}`}>
+          <div className="top">
+            <h2>{v.title}</h2>
+            <div>*</div>
+          </div>
+          <ul>{tabsObj}</ul>
+        </div>
+      );
+    });
+    */

@@ -16,7 +16,6 @@ class CurrentTabList extends Component {
       let temp = [];
       for (let window of windows) {
         for (let tab of window.tabs) {
-          console.log(tab);
           const { id, title, url, favIconUrl } = tab;
           temp.push({ id, title, url, favIconUrl });
         }

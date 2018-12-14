@@ -1,0 +1,15 @@
+#TabList {
+  display: flex;
+  flex-grow: 1;
+
+  .add-column{
+    $font-size: 1em;
+    font-size: $font-size;
+    display: flex;
+    align-items: center;
+    border: 1px dotted gray;
+    height: 1rem;
+    padding: 2rem;
+    border-radius: 10px;
+  }
+}

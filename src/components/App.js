@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./App.css";
-import { addTab } from "../actions";
 import CurrentTabList from "./CurrentTabList";
 
 class App extends Component {

@@ -54,6 +54,11 @@ const options = {
         }
       },
       {
+        test: /\.scss$/,
+        use: ["style-loader", "css-loader", "sass-loader"],
+        exclude: /node_modules/
+      },
+      {
         test: /\.css$/,
         loader: "style-loader!css-loader",
         exclude: /node_modules/
@@ -93,22 +98,12 @@ const options = {
       }
     ]),
     new HtmlWebpackPlugin({
-      template: path.join(
-        __dirname,
-        "src",
-        "index.html"
-      ),
+      template: path.join(__dirname, "src", "index.html"),
       filename: "index.html",
       chunks: ["index"]
     }),
     new HtmlWebpackPlugin({
-      template: path.join(
-        __dirname,
-        "src",
-        "extension",
-        "popup",
-        "index.html"
-      ),
+      template: path.join(__dirname, "src", "extension", "popup", "index.html"),
       filename: "popup.html",
       chunks: ["popup"]
     }),

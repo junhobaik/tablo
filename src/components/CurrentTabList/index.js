@@ -57,7 +57,7 @@ class CurrentTabList extends Component {
       <div id="CurrentTabList">
         <div className="list-wrap">
           <div className="list-title">
-            <p>[TITLE]</p>
+            <p>Current Tabs</p>
           </div>
           <ul className="list">{tabList}</ul>
         </div>

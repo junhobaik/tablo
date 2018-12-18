@@ -1,9 +1,8 @@
 #TabList {
   display: flex;
   flex-grow: 1;
-  max-width: 80%;
   overflow: auto;
-
+  padding-right: 10rem;
   & > div {
     margin: 1rem;
   }
@@ -39,41 +38,19 @@
       }
     }
   }
+  .add-column-wrap {
+    padding-right: 2rem;
+    .add-column {
+      display: flex;
+      align-items: center;
+      border: 1px dotted gray;
+      height: 2em;
+      padding: 2rem;
+      border-radius: 10px;
 
-  .add-column {
-    $font-size: 1em;
-    font-size: $font-size;
-    display: flex;
-    align-items: center;
-    border: 1px dotted gray;
-    height: $font-size;
-    padding: 2rem;
-    border-radius: 10px;
+      p {
+        white-space: nowrap;
+      }
+    }
   }
 }
-
-/*
-    const tabListObj = this.props.tabList.map((v, i) => {
-      const tabsObj = v.tabs.map((v, i) => {
-        return (
-          <li className="tab" key={"tab-" + v.id}>
-            <div className="favicon">
-              {v.favIconUrl ? <img src={v.favIconUrl} alt="favicon" /> : null}
-            </div>
-            <a href={v.url} target="_blank">
-              {v.title}
-            </a>
-          </li>
-        );
-      });
-      return (
-        <div className="tab-list" key={`tab-list-${v.num}`}>
-          <div className="top">
-            <h2>{v.title}</h2>
-            <div>*</div>
-          </div>
-          <ul>{tabsObj}</ul>
-        </div>
-      );
-    });
-    */

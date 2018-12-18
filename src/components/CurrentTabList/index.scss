@@ -1,6 +1,11 @@
+@import "variables";
+
 #CurrentTabList {
   height: 100vh;
   background-color: lightgray;
+  min-width: $current-tab-list-width;
+  max-width: $current-tab-list-width;
+
   a {
     color: black;
     text-decoration: none;

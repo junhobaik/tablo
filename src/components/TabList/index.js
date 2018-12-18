@@ -33,13 +33,15 @@ class TabList extends Component {
     return (
       <div id="TabList">
         {tabListObj}
-        <div
-          className="add-column"
-          onClick={() => {
-            this.props.onAddColumn();
-          }}
-        >
-          <span>+ Add column</span>
+        <div className="add-column-wrap">
+          <div
+            className="add-column"
+            onClick={() => {
+              this.props.onAddColumn();
+            }}
+          >
+            <p>+ Add column</p>
+          </div>
         </div>
       </div>
     );

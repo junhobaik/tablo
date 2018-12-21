@@ -7,33 +7,61 @@
     margin: 1rem;
   }
 
-  .tab-list {
+  .tab {
     background-color: lightblue;
     padding: 0 1rem;
     min-width: 12em;
     border-radius: 5px;
+    display: flex;
+    flex-direction: column;
 
     .top {
       display: flex;
       align-items: center;
     }
-
-    .tab {
+    .tab-list {
       display: flex;
-      border-radius: 3px;
-      background-color: white;
-      box-shadow: 0.1rem 0.1rem 0.1rem 0.01rem rgba(0, 0, 0, 0.2);
-      margin-bottom: 1rem;
-      padding: 0.5rem;
+      flex-direction: column;
+      flex-grow: 1;
 
-      .favicon {
-        width: 1em;
-        height: 1em;
-        margin-right: 0.5rem;
+      .link-wrap {
+        display: flex;
+        flex-direction: column;
 
-        img {
-          width: inherit;
-          height: inherit;
+        .link {
+          display: flex;
+          border-radius: 3px;
+          background-color: white;
+          box-shadow: 0.1rem 0.1rem 0.1rem 0.01rem rgba(0, 0, 0, 0.2);
+
+          padding: 0.5rem;
+
+          .favicon {
+            width: 1em;
+            height: 1em;
+            margin-right: 0.5rem;
+
+            img {
+              width: inherit;
+              height: inherit;
+            }
+          }
+        }
+
+        .space {
+          font-size: 2em;
+          border: 1px solid green;
+          color: gray;
+          text-align: center;
+          opacity: 0.3;
+        }
+
+        &:last-child {
+          flex-grow: 1;
+
+          .space {
+            flex-grow: 1;
+          }
         }
       }
     }

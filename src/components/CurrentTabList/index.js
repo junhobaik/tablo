@@ -10,7 +10,22 @@ class CurrentTabList extends Component {
       tabs: []
     };
   }
-
+  dragEnd(event) {
+    console.log("dragEnd", event.target);
+  }
+  dragStart(event) {
+    console.log("dargStart", event.target);
+    event.dataTransfer.setData("text", event.target.id);
+  }
+  dragOver(event) {
+    // console.log("onDragOver", event.target);
+    event.preventDefault();
+  }
+  drop(event) {
+    const data = event.dataTransfer.getData("text");
+    console.log("drop", event.target, data);
+    event.dataTransfer.clearData();
+  }
   getAllTabs() {
     chrome.windows.getAll({ populate: true }, windows => {
       let temp = [];
@@ -41,12 +56,19 @@ class CurrentTabList extends Component {
   render() {
     const tabList = this.state.tabs.map((v, i) => {
       return (
-        <li className="tab" key={"tab-" + v.id}>
+        <li
+          className="tab"
+          key={"tab-" + v.id}
+          draggable="true"
+          onDragStart={this.dragStart}
+          onDragEnd={this.dragEnd}
+        >
           <div className="favicon">
             {v.favIconUrl ? <img src={v.favIconUrl} alt="favicon" /> : null}
           </div>
           <a href={v.url} target="_blank">
-            {v.title}
+            {/* {v.title} */}
+            v.title
           </a>
         </li>
       );

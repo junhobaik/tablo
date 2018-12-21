@@ -1,53 +1,71 @@
-import { ADD_COLUMN } from "../actions";
+import { ADD_COLUMN, ADD_ROW, REMOVE_ROW, SET_DRAG_STATUS } from "../actions";
 import { combineReducers } from "redux";
 
 const tabInitialState = {
+  msg: "",
+  dragStatus: {
+    dragData: {},
+    dragCol: 0,
+    dragRow: 0
+  },
   tabList: [
     {
-      num: 1,
-      title: "dummy 1",
+      title: "1",
       tabs: [
         {
-          id: 1,
-          title: "dummy 1",
+          title: "1 1",
           url: "#",
-          favIconUrl: "#"
+          favIconUrl: "https://www.google.com/favicon.ico"
         },
         {
-          id: 2,
-          title: "dummy 2",
+          title: "1 2",
           url: "#",
-          favIconUrl: "#"
+          favIconUrl: "https://www.google.com/favicon.ico"
         },
         {
-          id: 3,
-          title: "dummy 3",
+          title: "1 3",
           url: "#",
-          favIconUrl: "#"
+          favIconUrl: "https://www.google.com/favicon.ico"
         }
       ]
     },
     {
-      num: 2,
-      title: "dummy 2",
+      title: "2",
       tabs: [
         {
-          id: 1,
-          title: "dummy 1",
+          title: "2 1",
           url: "#",
-          favIconUrl: "#"
+          favIconUrl: "https://www.google.com/favicon.ico"
         },
         {
-          id: 2,
-          title: "dummy 2",
+          title: "2 2",
           url: "#",
-          favIconUrl: "#"
+          favIconUrl: "https://www.google.com/favicon.ico"
         },
         {
-          id: 3,
-          title: "dummy 3",
+          title: "2 3",
           url: "#",
-          favIconUrl: "#"
+          favIconUrl: "https://www.google.com/favicon.ico"
+        }
+      ]
+    },
+    {
+      title: "3",
+      tabs: [
+        {
+          title: "3 1",
+          url: "#",
+          favIconUrl: "https://www.google.com/favicon.ico"
+        },
+        {
+          title: "3 2",
+          url: "#",
+          favIconUrl: "https://www.google.com/favicon.ico"
+        },
+        {
+          title: "3 3",
+          url: "#",
+          favIconUrl: "https://www.google.com/favicon.ico"
         }
       ]
     }
@@ -61,11 +79,52 @@ const tab = (state = tabInitialState, action) => {
         tabList: [
           ...state.tabList,
           {
-            num: state.tabList.length + 1,
             title: `New column`,
             tabs: []
           }
         ]
+      });
+    case ADD_ROW:
+      return Object.assign({}, state, {
+        tabList: [
+          ...state.tabList.slice(0, action.col),
+          {
+            title: state.tabList[action.col].title,
+            tabs: [
+              ...state.tabList[action.col].tabs.slice(0, action.row),
+              state.dragStatus.dragData,
+              ...state.tabList[action.col].tabs.slice(action.row)
+            ]
+          },
+          ...state.tabList.slice(action.col + 1)
+        ]
+      });
+    case REMOVE_ROW:
+      return Object.assign({}, state, {
+        tabList: [
+          ...state.tabList.slice(0, state.dragStatus.dragCol),
+          {
+            title: state.tabList[state.dragStatus.dragCol].title,
+            tabs: [
+              ...state.tabList[state.dragStatus.dragCol].tabs.slice(
+                0,
+                state.dragStatus.dragRow
+              ),
+              ...state.tabList[state.dragStatus.dragCol].tabs.slice(
+                state.dragStatus.dragRow + 1
+              )
+            ]
+          },
+          ...state.tabList.slice(state.dragStatus.dragCol + 1)
+        ]
+      });
+    case SET_DRAG_STATUS:
+      return Object.assign({}, state, {
+        dragStatus: {
+          dragData: action.item,
+          dragCol: action.col,
+          dragRow: action.row
+        }
       });
     default:
       return state;

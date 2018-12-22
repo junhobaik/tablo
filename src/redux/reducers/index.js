@@ -2,11 +2,10 @@ import { ADD_COLUMN, ADD_ROW, REMOVE_ROW, SET_DRAG_STATUS } from "../actions";
 import { combineReducers } from "redux";
 
 const tabInitialState = {
-  msg: "",
   dragStatus: {
-    dragData: {},
-    dragCol: 0,
-    dragRow: 0
+    dragData: null,
+    dragCol: null,
+    dragRow: null
   },
   tabList: [
     {

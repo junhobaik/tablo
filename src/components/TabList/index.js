@@ -17,6 +17,7 @@ class TabList extends Component {
     this.dragStart = this.dragStart.bind(this);
     this.dragOver = this.dragOver.bind(this);
   }
+  
   dragStart(event) {
     const dragCol = parseInt(event.target.attributes.col.value);
     const dragRow = parseInt(event.target.attributes.row.value);
@@ -36,7 +37,7 @@ class TabList extends Component {
     console.log("drop", event.target, dropCol, dropRow);
 
     this.props.onAddRow(dropCol, dropRow);
-    this.props.onRemoveRow();
+    if(this.props.dragStatus.dragCol) this.props.onRemoveRow();
   }
   dragEnd(event) {
     // console.log("dragEnd", event.target, event.target.attributes);
@@ -74,7 +75,7 @@ class TabList extends Component {
                   <img src={data.favIconUrl} alt="favicon" />
                 ) : (
                   <div className="noFavIcon">
-                    <span>{v.title[0]}</span>
+                    <span>{data.title[0]}</span>
                   </div>
                 )}
               </div>
@@ -143,7 +144,7 @@ let mapDispatchToProps = dispatch => {
 
 let mapStateToProps = state => {
   return {
-    msg: state.msg,
+    dragStatus: state.tab.dragStatus,
     tabList: state.tab.tabList
   };
 };

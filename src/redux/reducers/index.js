@@ -1,7 +1,7 @@
 import { ADD_COLUMN, ADD_ROW, REMOVE_ROW, SET_DRAG_STATUS, CLEAR_DRAG_STATUS } from "../actions";
 import { combineReducers } from "redux";
 
-const tabInitialState = {
+let tabInitialState = JSON.parse(localStorage.getItem('tablo')) || {
   dragStatus: {
     dragData: null,
     dragCol: null,
@@ -9,62 +9,12 @@ const tabInitialState = {
   },
   tabList: [
     {
-      title: "1",
+      title: "Column 1",
       tabs: [
         {
-          title: "1 1",
-          url: "#",
-          favIconUrl: "https://www.google.com/favicon.ico"
-        },
-        {
-          title: "1 2",
-          url: "#",
-          favIconUrl: "https://www.google.com/favicon.ico"
-        },
-        {
-          title: "1 3",
-          url: "#",
-          favIconUrl: "https://www.google.com/favicon.ico"
-        }
-      ]
-    },
-    {
-      title: "2",
-      tabs: [
-        {
-          title: "2 1",
-          url: "#",
-          favIconUrl: "https://www.google.com/favicon.ico"
-        },
-        {
-          title: "2 2",
-          url: "#",
-          favIconUrl: "https://www.google.com/favicon.ico"
-        },
-        {
-          title: "2 3",
-          url: "#",
-          favIconUrl: "https://www.google.com/favicon.ico"
-        }
-      ]
-    },
-    {
-      title: "3",
-      tabs: [
-        {
-          title: "3 1",
-          url: "#",
-          favIconUrl: "https://www.google.com/favicon.ico"
-        },
-        {
-          title: "3 2",
-          url: "#",
-          favIconUrl: "https://www.google.com/favicon.ico"
-        },
-        {
-          title: "3 3",
-          url: "#",
-          favIconUrl: "https://www.google.com/favicon.ico"
+          title: "HUNDRED's Blog",
+          url: "https://junhobaik.github.io",
+          favIconUrl: ""
         }
       ]
     }

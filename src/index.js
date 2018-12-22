@@ -7,7 +7,9 @@ import Reducer from "./redux/reducers";
 
 const store = createStore(Reducer);
 
-// ReactDOM.render(<App />, document.getElementById("root"));
+store.subscribe(() => {
+  localStorage.setItem('tablo', JSON.stringify(store.getState().tab));
+});
 
 ReactDOM.render(
   <Provider store={store}>

@@ -1,4 +1,4 @@
-import { ADD_COLUMN, ADD_ROW, REMOVE_ROW, SET_DRAG_STATUS } from "../actions";
+import { ADD_COLUMN, ADD_ROW, REMOVE_ROW, SET_DRAG_STATUS, CLEAR_DRAG_STATUS } from "../actions";
 import { combineReducers } from "redux";
 
 const tabInitialState = {
@@ -136,6 +136,14 @@ const extraInitialState = {
 
 const extra = (state = extraInitialState, action) => {
   switch (action.type) {
+    case CLEAR_DRAG_STATUS:
+      return Object.assign({}, state, {
+        dragStatus: {
+          dragData: null,
+          dragCol: null,
+          dragRow: null
+        }
+      });
     default:
       return state;
   }

@@ -5,7 +5,8 @@ import {
   addColumn,
   addRow,
   removeRow,
-  setDragStatus
+  setDragStatus,
+  clearDragStatus
 } from "../../redux/actions";
 import "./index.scss";
 
@@ -17,7 +18,7 @@ class TabList extends Component {
     this.dragStart = this.dragStart.bind(this);
     this.dragOver = this.dragOver.bind(this);
   }
-  
+
   dragStart(event) {
     const dragCol = parseInt(event.target.attributes.col.value);
     const dragRow = parseInt(event.target.attributes.row.value);
@@ -37,7 +38,8 @@ class TabList extends Component {
     console.log("drop", event.target, dropCol, dropRow);
 
     this.props.onAddRow(dropCol, dropRow);
-    if(this.props.dragStatus.dragCol) this.props.onRemoveRow();
+    if (this.props.dragStatus.dragCol) this.props.onRemoveRow();
+    this.props.onClearDragStatus();
   }
   dragEnd(event) {
     // console.log("dragEnd", event.target, event.target.attributes);
@@ -138,7 +140,9 @@ let mapDispatchToProps = dispatch => {
     onAddColumn: () => dispatch(addColumn()),
     onAddRow: (col, row) => dispatch(addRow(col, row)),
     onRemoveRow: () => dispatch(removeRow()),
-    onSetDragStatus: (col, row, item) => dispatch(setDragStatus(col, row, item))
+    onSetDragStatus: (col, row, item) =>
+      dispatch(setDragStatus(col, row, item)),
+    onClearDragStatus: () => dispatch(clearDragStatus())
   };
 };
 

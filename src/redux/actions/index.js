@@ -2,6 +2,7 @@ export const ADD_COLUMN = "ADD_COLUMN";
 export const ADD_ROW = "ADD_ROW";
 export const REMOVE_ROW = "REMOVE_ROW";
 export const SET_DRAG_STATUS = "SET_DRAG_STATUS";
+export const CLEAR_DRAG_STATUS = "CLEAR_DRAG_STATUS";
 
 export function addColumn(test) {
   console.log("addColumn");
@@ -33,5 +34,12 @@ export function setDragStatus(col, row, item) {
     col,
     row,
     item
+  };
+}
+
+export function clearDragStatus() {
+  console.log("clearDragStatus");
+  return {
+    type: CLEAR_DRAG_STATUS
   };
 }

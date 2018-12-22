@@ -17,6 +17,8 @@ class TabList extends Component {
     this.dragEnd = this.dragEnd.bind(this);
     this.dragStart = this.dragStart.bind(this);
     this.dragOver = this.dragOver.bind(this);
+    this.dragLeave = this.dragLeave.bind(this);
+    this.dragEnter = this.dragEnter.bind(this);
   }
 
   dragStart(event) {
@@ -37,6 +39,8 @@ class TabList extends Component {
 
     console.log("drop", event.target, dropCol, dropRow);
 
+    event.target.classList.remove("drag-hover");
+
     this.props.onAddRow(dropCol, dropRow);
     if (this.props.dragStatus.dragCol) this.props.onRemoveRow();
     this.props.onClearDragStatus();
@@ -45,8 +49,18 @@ class TabList extends Component {
     // console.log("dragEnd", event.target, event.target.attributes);
   }
   dragOver(event) {
-    // console.log("onDragOver", event.target);
     event.preventDefault();
+    // console.log("dragOver", event.target);
+  }
+  dragEnter(event) {
+    event.preventDefault();
+    console.log("dragEnter", event.target);
+    event.target.classList.add("drag-hover");
+  }
+  dragLeave(event) {
+    event.preventDefault();
+    console.log("dragLeave", event.target);
+    event.target.classList.remove("drag-hover");
   }
 
   render() {
@@ -89,9 +103,13 @@ class TabList extends Component {
               id={`SPACE_${i}`}
               className="space"
               onDragOver={this.dragOver}
+              onDragEnter={this.dragEnter}
+              onDragLeave={this.dragLeave}
               col={colData.num}
               row={i + 1}
-            >{`col=${colData.num}, row=${i + 1}`}</div>
+            >
+              {/* {`col=${colData.num}, row=${i + 1}`} */}
+            </div>
           </div>
         );
       }, this);
@@ -109,7 +127,11 @@ class TabList extends Component {
                 row={0}
                 className="space"
                 onDragOver={this.dragOver}
-              >{`col=${colData.num}, row=0`}</div>
+                onDragEnter={this.dragEnter}
+                onDragLeave={this.dragLeave}
+              >
+                {/* {`col=${colData.num}, row=0`} */}
+              </div>
             </div>
             {tabsObj}
           </ul>

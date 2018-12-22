@@ -64,11 +64,12 @@
         }
 
         .space {
-          font-size: 2em;
-          border: 1px solid green;
-          color: gray;
-          text-align: center;
-          opacity: 0.3;
+          height: 1em;
+          transition: 0.3s;
+        }
+
+        .drag-hover {
+          height: 3em;
         }
 
         &:last-child {

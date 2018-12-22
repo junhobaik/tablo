@@ -64,11 +64,16 @@ class CurrentTabList extends Component {
           onDragEnd={this.dragEnd}
         >
           <div className="favicon">
-            {v.favIconUrl ? <img src={v.favIconUrl} alt="favicon" /> : null}
+            {v.favIconUrl ? (
+              <img src={v.favIconUrl} alt="favicon" draggable="false" />
+            ) : (
+              <div className="noFavIcon">
+                <span>{v.title[0]}</span>
+              </div>
+            )}
           </div>
-          <a href={v.url} target="_blank">
-            {/* {v.title} */}
-            v.title
+          <a href={v.url} target="_blank" draggable="false">
+            <span className="title-text">{v.title}</span>
           </a>
         </li>
       );

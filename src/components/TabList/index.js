@@ -72,10 +72,14 @@ class TabList extends Component {
               <div className="favicon">
                 {data.favIconUrl ? (
                   <img src={data.favIconUrl} alt="favicon" />
-                ) : null}
+                ) : (
+                  <div className="noFavIcon">
+                    <span>{v.title[0]}</span>
+                  </div>
+                )}
               </div>
               <a href={data.url} target="_blank">
-                {data.title}
+                <span className="title-text">{data.title}</span>
               </a>
             </li>
             <div

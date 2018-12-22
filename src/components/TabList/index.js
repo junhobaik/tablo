@@ -42,7 +42,7 @@ class TabList extends Component {
     event.target.classList.remove("drag-hover");
 
     this.props.onAddRow(dropCol, dropRow);
-    if (this.props.dragStatus.dragCol) this.props.onRemoveRow();
+    if (this.props.dragStatus.dragCol !== null) this.props.onRemoveRow();
     this.props.onClearDragStatus();
   }
   dragEnd(event) {
@@ -95,7 +95,7 @@ class TabList extends Component {
                   </div>
                 )}
               </div>
-              <a href={data.url} target="_blank">
+              <a href={data.url} target="_blank" draggable="false">
                 <span className="title-text">{data.title}</span>
               </a>
             </li>

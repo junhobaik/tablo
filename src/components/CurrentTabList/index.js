@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-
+import { connect } from "react-redux";
+import { setDragStatus } from "../../redux/actions";
 import "./index.scss";
 
 class CurrentTabList extends Component {
@@ -9,30 +10,22 @@ class CurrentTabList extends Component {
     this.state = {
       tabs: []
     };
+    this.dragStart = this.dragStart.bind(this);
   }
-  dragEnd(event) {
-    console.log("dragEnd", event.target);
-  }
+
   dragStart(event) {
     console.log("dargStart", event.target);
-    event.dataTransfer.setData("text", event.target.id);
+    const row = parseInt(event.target.attributes.row.value);
+    this.props.onSetDragStatus(null, null, this.state.tabs[row])
   }
-  dragOver(event) {
-    // console.log("onDragOver", event.target);
-    event.preventDefault();
-  }
-  drop(event) {
-    const data = event.dataTransfer.getData("text");
-    console.log("drop", event.target, data);
-    event.dataTransfer.clearData();
-  }
+
   getAllTabs() {
     chrome.windows.getAll({ populate: true }, windows => {
       let temp = [];
       for (let window of windows) {
         for (let tab of window.tabs) {
           const { id, title, url, favIconUrl } = tab;
-          temp.push({ id, title, url, favIconUrl });
+          temp.push({ title, url, favIconUrl });
         }
       }
       this.setState({
@@ -58,10 +51,10 @@ class CurrentTabList extends Component {
       return (
         <li
           className="tab"
-          key={"tab-" + v.id}
+          key={"current-tab-" + i}
           draggable="true"
           onDragStart={this.dragStart}
-          onDragEnd={this.dragEnd}
+          row={i}
         >
           <div className="favicon">
             {v.favIconUrl ? (
@@ -91,7 +84,23 @@ class CurrentTabList extends Component {
     );
   }
 }
+let mapDispatchToProps = dispatch => {
+  return {
+    onSetDragStatus: (col, row, item) => dispatch(setDragStatus(col, row, item))
+  };
+};
+
+let mapStateToProps = state => {
+  return {
+    tabList: state.tab.tabList
+  };
+};
 
 CurrentTabList.propTypes = {};
+
+CurrentTabList = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CurrentTabList);
 
 export default CurrentTabList;

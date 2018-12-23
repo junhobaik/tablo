@@ -85,18 +85,22 @@ class TabList extends Component {
               onDragStart={this.linkDragStart}
               onDragEnd={this.linkDragEnd}
             >
-              <div className="favicon">
-                {data.favIconUrl ? (
-                  <img src={data.favIconUrl} alt="favicon" />
-                ) : (
-                  <div className="noFavIcon">
-                    <span>{data.title[0]}</span>
-                  </div>
-                )}
-              </div>
               <a href={data.url} target="_blank" draggable="false">
+                <div className="favicon">
+                  {data.favIconUrl ? (
+                    <img src={data.favIconUrl} alt="favicon" />
+                  ) : (
+                    <div className="noFavIcon">
+                      <span>{data.title[0]}</span>
+                    </div>
+                  )}
+                </div>
                 <span className="title-text">{data.title}</span>
               </a>
+
+              <div className="link-setting">
+              *
+              </div>
             </li>
             <div
               className="space"

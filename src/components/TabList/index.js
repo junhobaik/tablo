@@ -13,19 +13,21 @@ import "./index.scss";
 class TabList extends Component {
   constructor(props) {
     super(props);
-    this.drop = this.drop.bind(this);
-    this.dragEnd = this.dragEnd.bind(this);
-    this.dragStart = this.dragStart.bind(this);
     this.dragOver = this.dragOver.bind(this);
-    this.dragLeave = this.dragLeave.bind(this);
-    this.dragEnter = this.dragEnter.bind(this);
+    this.linkDragStart = this.linkDragStart.bind(this);
+    this.linkDragEnd = this.linkDragEnd.bind(this);
+    this.spaceDragEnter = this.spaceDragEnter.bind(this);
+    this.spaceDragLeave = this.spaceDragLeave.bind(this);
+    this.spaceDrop = this.spaceDrop.bind(this);
   }
+  dragOver(e) {
+    e.preventDefault();
+  }
+  linkDragStart(e) {
+    console.log("linkDragStart()", e.target);
 
-  dragStart(event) {
-    const dragCol = parseInt(event.target.attributes.col.value);
-    const dragRow = parseInt(event.target.attributes.row.value);
-
-    console.log("dargStart", event.target, dragCol, dragRow);
+    const dragCol = parseInt(e.target.attributes.col.value);
+    const dragRow = parseInt(e.target.attributes.row.value);
 
     this.props.onSetDragStatus(
       dragCol,
@@ -33,34 +35,29 @@ class TabList extends Component {
       this.props.tabList[dragCol].tabs[dragRow]
     );
   }
-  drop(event) {
-    const dropCol = parseInt(event.target.attributes.col.value);
-    const dropRow = parseInt(event.target.attributes.row.value);
+  linkDragEnd(e) {
+    console.log("linkDragEnd()", e.target);
+    this.props.onClearDragStatus();
+  }
+  spaceDrop(e) {
+    const dropCol = parseInt(e.target.attributes.col.value);
+    const dropRow = parseInt(e.target.attributes.row.value);
 
-    console.log("drop", event.target, dropCol, dropRow);
+    console.log("spaceDrop()", e.target, dropCol, dropRow);
 
-    event.target.classList.remove("drag-hover");
+    e.target.classList.remove("drag-hover");
 
     this.props.onAddRow(dropCol, dropRow);
     if (this.props.dragStatus.dragCol !== null) this.props.onRemoveRow();
     this.props.onClearDragStatus();
   }
-  dragEnd(event) {
-    // console.log("dragEnd", event.target, event.target.attributes);
+  spaceDragEnter(e) {
+    console.log("spaceDragEnter", e.target);
+    e.target.classList.add("drag-hover");
   }
-  dragOver(event) {
-    event.preventDefault();
-    // console.log("dragOver", event.target);
-  }
-  dragEnter(event) {
-    event.preventDefault();
-    console.log("dragEnter", event.target);
-    event.target.classList.add("drag-hover");
-  }
-  dragLeave(event) {
-    event.preventDefault();
-    console.log("dragLeave", event.target);
-    event.target.classList.remove("drag-hover");
+  spaceDragLeave(e) {
+    console.log("spaceDragLeave", e.target);
+    e.target.classList.remove("drag-hover");
   }
 
   render() {
@@ -70,21 +67,23 @@ class TabList extends Component {
         num: i,
         tabs: v.tabs
       };
+
       const tabsObj = colData.tabs.map((tab, i) => {
         const data = {
           title: tab.title,
           url: tab.url,
           favIconUrl: tab.favIconUrl
         };
+
         return (
-          <div className="link-wrap" key={"link-" + i}>
+          <div className="link-list-inner" key={"link-" + i}>
             <li
               className="link"
-              draggable="true"
               col={colData.num}
               row={i}
-              onDragStart={this.dragStart}
-              onDragEnd={this.dragEnd}
+              draggable="true"
+              onDragStart={this.linkDragStart}
+              onDragEnd={this.linkDragEnd}
             >
               <div className="favicon">
                 {data.favIconUrl ? (
@@ -100,38 +99,38 @@ class TabList extends Component {
               </a>
             </li>
             <div
-              id={`SPACE_${i}`}
               className="space"
-              onDragOver={this.dragOver}
-              onDragEnter={this.dragEnter}
-              onDragLeave={this.dragLeave}
               col={colData.num}
               row={i + 1}
-            >
-              {/* {`col=${colData.num}, row=${i + 1}`} */}
-            </div>
+              onDrop={this.spaceDrop}
+              onDragOver={this.dragOver}
+              onDragEnter={this.spaceDragEnter}
+              onDragLeave={this.spaceDragLeave}
+            />
           </div>
         );
       }, this);
+
       return (
         <div className="tab" key={`tab-${i}`}>
-          <div className="top">
-            <h2>{v.title}</h2>
-            <div>*</div>
+          <div className="tab-header">
+            <h2 className="tab-title">{v.title}</h2>
+            <div className="tab-setting">*</div>
           </div>
-          <ul className="tab-list" onDrop={this.drop} data={colData}>
-            <div className="link-wrap" col={colData.num} row={0}>
+          <ul
+            className="link-list"
+            //  onDrop={this.linkListDrop}
+          >
+            <div className="link-list-inner" col={colData.num} row={0}>
               <div
-                id={`SPACE_${i}`}
+                className="space"
                 col={colData.num}
                 row={0}
-                className="space"
+                onDrop={this.spaceDrop}
                 onDragOver={this.dragOver}
-                onDragEnter={this.dragEnter}
-                onDragLeave={this.dragLeave}
-              >
-                {/* {`col=${colData.num}, row=0`} */}
-              </div>
+                onDragEnter={this.spaceDragEnter}
+                onDragLeave={this.spaceDragLeave}
+              />
             </div>
             {tabsObj}
           </ul>

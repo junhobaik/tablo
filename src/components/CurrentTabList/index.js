@@ -50,7 +50,7 @@ class CurrentTabList extends Component {
     const tabList = this.state.tabs.map((v, i) => {
       return (
         <li
-          className="tab"
+          className="current-tab"
           key={"current-tab-" + i}
           draggable="true"
           onDragStart={this.dragStart}

@@ -1,3 +1,5 @@
+@import "variables";
+
 #TabList {
   display: flex;
   flex-grow: 1;
@@ -8,13 +10,15 @@
   }
 
   .tab {
-    background-color: lightblue;
+    background-color: $tab-background-color;
     padding: 0 1rem;
     min-width: 18em;
     max-width: 18em;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
+    border: 0;
+    box-shadow: $tab-box-shadow;
 
     .tab-header {
       display: flex;
@@ -37,7 +41,7 @@
         .link {
           display: flex;
           border-radius: 3px;
-          background-color: white;
+          background-color: $white-color;
           box-shadow: 0.1rem 0.1rem 0.1rem 0.01rem rgba(0, 0, 0, 0.2);
 
           padding: 0.5rem;
@@ -60,7 +64,7 @@
 
               .noFavIcon {
                 font-size: 0.8em;
-                color: white;
+                color: $white-color;
                 width: inherit;
                 height: inherit;
                 border-radius: 3px;
@@ -92,10 +96,12 @@
   }
   .add-column-wrap {
     padding-right: 2rem;
+
     .add-column {
       display: flex;
       align-items: center;
-      border: 1px dotted gray;
+      background-color: $add-column-background-color;
+      border: $add-column-border;
       height: 2em;
       padding: 2rem;
       border-radius: 10px;

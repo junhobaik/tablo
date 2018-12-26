@@ -2,9 +2,11 @@
 
 #CurrentTabList {
   height: 100vh;
-  background-color: lightgray;
+  background-color: $current-tab-background-color;
   min-width: $current-tab-list-width;
   max-width: $current-tab-list-width;
+  color: $current-tab-font-color;
+  box-shadow: $current-tab-box-shadow;
 
   .list-wrap {
     overflow: scroll !important;
@@ -23,7 +25,7 @@
       .current-tab {
         display: flex;
         border-radius: 3px;
-        background-color: white;
+        background-color: $white-color;
         box-shadow: 0.1rem 0.1rem 0.1rem 0.01rem rgba(0, 0, 0, 0.2);
         margin-bottom: 1rem;
         padding: 0.5rem;
@@ -40,7 +42,7 @@
 
           .noFavIcon {
             font-size: 0.8em;
-            color: white;
+            color: $white-color;
             width: inherit;
             height: inherit;
             border-radius: 3px;

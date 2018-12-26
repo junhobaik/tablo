@@ -1,1 +1,15 @@
 $current-tab-list-width: 20em;
+
+$white-color: white;
+$app-background-color: white;
+
+$current-tab-background-color: rgba(0,0,0,0.075);
+$current-tab-font-color: black;
+$current-tab-box-shadow: -1px 0px 1px 0px rgba(95, 95, 100, 0.1), -2px 0px 5px 0px rgba(95, 95, 100, 0.2);
+
+$tab-background-color: rgba(0, 0, 0, 0.025);
+$tab-border: 1px solid gray;
+$tab-box-shadow: 1px 1px 0px 0px rgba(95, 95, 100, 0.1),
+  2px 2px 3px 0px rgba(95, 95, 100, 0.1);
+$add-column-background-color: rgba(0, 0, 0, 0.025);
+$add-column-border: 1px dotted rgba(0, 0, 0, 0.025);

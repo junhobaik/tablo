@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { FontAwesomeIcon as Fa } from "@fortawesome/react-fontawesome";
+
 import {
   addColumn,
   addRow,
@@ -99,7 +101,7 @@ class TabList extends Component {
               </a>
 
               <div className="link-setting">
-              *
+                <Fa className="setting-icon" icon="ellipsis-h" />
               </div>
             </li>
             <div
@@ -119,7 +121,9 @@ class TabList extends Component {
         <div className="tab" key={`tab-${i}`}>
           <div className="tab-header">
             <h2 className="tab-title">{v.title}</h2>
-            <div className="tab-setting">*</div>
+            <div className="tab-setting">
+              <Fa className="setting-icon" icon="ellipsis-v" />
+            </div>
           </div>
           <ul
             className="link-list"

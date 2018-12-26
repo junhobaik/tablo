@@ -20,3 +20,11 @@ ul, li {
   background-color: $app-background-color;
   min-height: 100vh;
 }
+
+.setting-icon {
+  opacity: 0.25;
+  &:hover{
+    cursor: pointer;
+    opacity: 0.5;
+  }
+}

@@ -21,10 +21,9 @@ ul, li {
   min-height: 100vh;
 }
 
-.setting-icon {
-  opacity: 0.25;
-  &:hover{
-    cursor: pointer;
-    opacity: 0.5;
+.no-event {
+  pointer-events: none;
+  &>*{
+    pointer-events: none;
   }
 }

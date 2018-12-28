@@ -93,6 +93,41 @@
         }
       }
     }
+
+    .setting-icon {
+      opacity: 0.25;
+      height: 1.2em;
+      width: 1.2em;
+
+      &:hover {
+        cursor: pointer;
+        opacity: 0.5;
+      }
+
+      .setting-component {
+        display: none;
+        position: relative;
+        top: -2.5em;
+        left: 1.2em;
+
+        &>div {
+          display: flex;
+          align-items: center;
+          height: 2em;
+          width: 2em;
+          background-color: gray;
+          border-radius: 100%;
+
+          &>*{
+            margin: 0 auto;
+          }
+
+          svg {
+            color: $white-color;
+          }
+        }
+      }
+    }
   }
   .add-column-wrap {
     padding-right: 2rem;

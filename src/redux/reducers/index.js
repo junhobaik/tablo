@@ -1,7 +1,21 @@
-import { ADD_COLUMN, ADD_ROW, REMOVE_ROW, SET_DRAG_STATUS, CLEAR_DRAG_STATUS } from "../actions";
+import {
+  ADD_COLUMN,
+  ADD_ROW,
+  REMOVE_ROW,
+  SET_DRAG_STATUS,
+  CLEAR_DRAG_STATUS,
+  SET_EDIT_STATUS,
+  CLEAR_EDIT_STATUS,
+  SET_REMOVE_ROW,
+  SET_REMOVE_COL
+} from "../actions";
 import { combineReducers } from "redux";
 
-let tabInitialState = JSON.parse(localStorage.getItem('tablo')) || {
+let tabInitialState = JSON.parse(localStorage.getItem("tablo")) || {
+  settingStatus: {
+    col: null,
+    row: null
+  },
   dragStatus: {
     dragData: null,
     dragCol: null,
@@ -75,6 +89,39 @@ const tab = (state = tabInitialState, action) => {
           dragRow: action.row
         }
       });
+    case SET_EDIT_STATUS:
+      return Object.assign({}, state, {
+        settingStatus: {
+          col: action.col,
+          row: action.row
+        }
+      });
+    case SET_REMOVE_ROW:
+      return Object.assign({}, state, {
+        tabList: [
+          ...state.tabList.slice(0, state.settingStatus.col),
+          {
+            title: state.tabList[state.settingStatus.col].title,
+            tabs: [
+              ...state.tabList[state.settingStatus.col].tabs.slice(
+                0,
+                state.settingStatus.row
+              ),
+              ...state.tabList[state.settingStatus.col].tabs.slice(
+                state.settingStatus.row + 1
+              )
+            ]
+          },
+          ...state.tabList.slice(state.settingStatus.col + 1)
+        ]
+      });
+    case SET_REMOVE_COL:
+      return Object.assign({}, state, {
+        tabList: [
+          ...state.tabList.slice(0, state.settingStatus.col),
+          ...state.tabList.slice(state.settingStatus.col + 1)
+        ]
+      });
     default:
       return state;
   }
@@ -92,6 +139,13 @@ const extra = (state = extraInitialState, action) => {
           dragData: null,
           dragCol: null,
           dragRow: null
+        }
+      });
+    case CLEAR_EDIT_STATUS:
+      return Object.assign({}, state, {
+        settingStatus: {
+          col: null,
+          row: null
         }
       });
     default:

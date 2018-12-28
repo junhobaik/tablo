@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { FontAwesomeIcon as Fa } from "@fortawesome/react-fontawesome";
-
 import {
   addColumn,
   addRow,
@@ -11,22 +10,31 @@ import {
   clearDragStatus
 } from "../../redux/actions";
 import "./index.scss";
+import Setting from "./Setting";
 
 class TabList extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      settingCol: null,
+      settingRow: null
+    };
+
     this.dragOver = this.dragOver.bind(this);
     this.linkDragStart = this.linkDragStart.bind(this);
     this.linkDragEnd = this.linkDragEnd.bind(this);
     this.spaceDragEnter = this.spaceDragEnter.bind(this);
     this.spaceDragLeave = this.spaceDragLeave.bind(this);
     this.spaceDrop = this.spaceDrop.bind(this);
+    this.settingMouseEnter = this.settingMouseEnter.bind(this);
+    this.settingMouseLeave = this.settingMouseLeave.bind(this);
   }
   dragOver(e) {
     e.preventDefault();
   }
   linkDragStart(e) {
-    console.log("linkDragStart()", e.target);
+    // console.log("linkDragStart()", e.target);
 
     const dragCol = parseInt(e.target.attributes.col.value);
     const dragRow = parseInt(e.target.attributes.row.value);
@@ -38,14 +46,14 @@ class TabList extends Component {
     );
   }
   linkDragEnd(e) {
-    console.log("linkDragEnd()", e.target);
+    // console.log("linkDragEnd()", e.target);
     this.props.onClearDragStatus();
   }
   spaceDrop(e) {
     const dropCol = parseInt(e.target.attributes.col.value);
     const dropRow = parseInt(e.target.attributes.row.value);
 
-    console.log("spaceDrop()", e.target, dropCol, dropRow);
+    // console.log("spaceDrop()", e.target, dropCol, dropRow);
 
     e.target.classList.remove("drag-hover");
 
@@ -54,12 +62,40 @@ class TabList extends Component {
     this.props.onClearDragStatus();
   }
   spaceDragEnter(e) {
-    console.log("spaceDragEnter", e.target);
+    // console.log("spaceDragEnter", e.target);
     e.target.classList.add("drag-hover");
   }
   spaceDragLeave(e) {
-    console.log("spaceDragLeave", e.target);
+    // console.log("spaceDragLeave", e.target);
     e.target.classList.remove("drag-hover");
+  }
+  /***************************************************************** */
+  settingMouseEnter(e) {
+    // console.log("settingMouseEnter()", e.target);
+    // console.log(e.target.classList.contains(".setting-icon"));
+    if (e.target.classList.contains("setting-icon"))
+      e.target.querySelector(".setting-component").style.display = "inline";
+
+    if (e.target.parentNode.attributes.col) {
+      this.setState({
+        settingCol: e.target.parentNode.attributes.col.value,
+        settingRow: e.target.parentNode.attributes.row.value
+      });
+    }
+  }
+  settingMouseLeave(e) {
+    // console.log("settingMouseLeave()", e.target);
+    if (e.target.querySelector(".setting-component")) {
+      e.target.querySelector(".setting-component").style.display = "none";
+    } else {
+      e.target.parentNode.parentNode.querySelector(
+        ".setting-component"
+      ).style.display = "none";
+    }
+    this.setState({
+      settingCol: null,
+      settingRow: null
+    });
   }
 
   render() {
@@ -97,11 +133,31 @@ class TabList extends Component {
                     </div>
                   )}
                 </div>
-                <span className="title-text">{data.title}</span>
-              </a>
 
-              <div className="link-setting">
-                <Fa className="setting-icon" icon="ellipsis-h" />
+                {true ? (
+                  <span className="title-text">{data.title}</span>
+                ) : (
+                  <input
+                    type="text"
+                    value={data.title}
+                    onClick={e => {
+                      e.preventDefault();
+                    }}
+                  />
+                )}
+
+              </a>
+              {/* setting */}
+              <div
+                className="link-setting setting-icon"
+                onMouseEnter={this.settingMouseEnter}
+                onMouseLeave={this.settingMouseLeave}
+              >
+                <Fa className="no-event" icon="ellipsis-h" />
+                <Setting
+                  col={this.state.settingCol}
+                  row={this.state.settingRow}
+                />
               </div>
             </li>
             <div
@@ -121,14 +177,19 @@ class TabList extends Component {
         <div className="tab" key={`tab-${i}`}>
           <div className="tab-header">
             <h2 className="tab-title">{v.title}</h2>
-            <div className="tab-setting">
-              <Fa className="setting-icon" icon="ellipsis-v" />
+            {/* setting */}
+            <div
+              className="tab-setting setting-icon"
+              onMouseEnter={this.settingMouseEnter}
+              onMouseLeave={this.settingMouseLeave}
+            >
+              <Fa className="no-event" icon="ellipsis-v" />
+              <Setting
+                col={colData.num}
+              />
             </div>
           </div>
-          <ul
-            className="link-list"
-            //  onDrop={this.linkListDrop}
-          >
+          <ul className="link-list">
             <div className="link-list-inner" col={colData.num} row={0}>
               <div
                 className="space"

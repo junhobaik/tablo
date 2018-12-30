@@ -26,7 +26,7 @@ class Setting extends Component {
   }
   compMouseLeave(e) {
     console.log("compMouseLeave");
-    // this.props.onClearEditStatus();
+    this.props.onClearEditStatus();
   }
   clickRemove(e) {
     console.log("clickRemove()", e.target, this.props.col, this.props.row);
@@ -35,7 +35,6 @@ class Setting extends Component {
       this.props.onSetRemoveRow();
     } else {
       this.props.onSetRemoveCol();
-      this.props.onClearEditStatus();
     }
   }
   clickModify(e) {

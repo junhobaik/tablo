@@ -7,7 +7,9 @@ import {
   addRow,
   removeRow,
   setDragStatus,
-  clearDragStatus
+  clearDragStatus,
+  submitEditTitle,
+  submitEditTabTitle
 } from "../../redux/actions";
 import "./index.scss";
 import Setting from "./Setting";
@@ -17,6 +19,7 @@ class TabList extends Component {
     super(props);
 
     this.state = {
+      editValue: "",
       settingCol: null,
       settingRow: null
     };
@@ -29,6 +32,9 @@ class TabList extends Component {
     this.spaceDrop = this.spaceDrop.bind(this);
     this.settingMouseEnter = this.settingMouseEnter.bind(this);
     this.settingMouseLeave = this.settingMouseLeave.bind(this);
+    this.handleEditValue = this.handleEditValue.bind(this);
+    this.submitEditTitle = this.submitEditTitle.bind(this);
+    this.submitEditTabTitle = this.submitEditTabTitle.bind(this);
   }
   dragOver(e) {
     e.preventDefault();
@@ -97,7 +103,34 @@ class TabList extends Component {
       settingRow: null
     });
   }
-
+  handleEditValue(e) {
+    this.setState({
+      editValue: e.target.value
+    });
+  }
+  submitEditTitle(e) {
+    if (e.key === "Enter") {
+      console.log("submitEditTitle", this.state.editValue);
+      this.props.onSubmitEditTitle(this.state.editValue);
+      this.setState({
+        editValue: ""
+      });
+      e.target.style.display = "none";
+      e.target.parentNode.querySelector("a>.title-text").style.display =
+        "inline";
+    }
+  }
+  submitEditTabTitle(e) {
+    if (e.key === "Enter") {
+      console.log("submitEditTabTitle", this.state.editValue);
+      this.props.onSubmitEditTabTitle(this.state.editValue);
+      this.setState({
+        editValue: ""
+      });
+      e.target.style.display = "none";
+      e.target.parentNode.querySelector(".tab-title").style.display = "inline";
+    }
+  }
   render() {
     const tabListObj = this.props.tabList.map((v, i) => {
       const colData = {
@@ -134,18 +167,18 @@ class TabList extends Component {
                   )}
                 </div>
 
-                {true ? (
-                  <span className="title-text">{data.title}</span>
-                ) : (
-                  <input
-                    type="text"
-                    value={data.title}
-                    onClick={e => {
-                      e.preventDefault();
-                    }}
-                  />
-                )}
-
+                <span className="title-text">{data.title}</span>
+                <input
+                  className="title-edit"
+                  type="text"
+                  value={this.state.editValue}
+                  onClick={e => {
+                    e.preventDefault();
+                  }}
+                  onChange={this.handleEditValue}
+                  placeholder="After editing, press Enter."
+                  onKeyPress={this.submitEditTitle}
+                />
               </a>
               {/* setting */}
               <div
@@ -177,6 +210,17 @@ class TabList extends Component {
         <div className="tab" key={`tab-${i}`}>
           <div className="tab-header">
             <h2 className="tab-title">{v.title}</h2>
+            <input
+              className="tab-title-edit"
+              type="text"
+              value={this.state.editValue}
+              onClick={e => {
+                e.preventDefault();
+              }}
+              onChange={this.handleEditValue}
+              placeholder="After editing, press Enter."
+              onKeyPress={this.submitEditTabTitle}
+            />
             {/* setting */}
             <div
               className="tab-setting setting-icon"
@@ -184,9 +228,7 @@ class TabList extends Component {
               onMouseLeave={this.settingMouseLeave}
             >
               <Fa className="no-event" icon="ellipsis-v" />
-              <Setting
-                col={colData.num}
-              />
+              <Setting col={colData.num} />
             </div>
           </div>
           <ul className="link-list">
@@ -232,7 +274,10 @@ let mapDispatchToProps = dispatch => {
     onRemoveRow: () => dispatch(removeRow()),
     onSetDragStatus: (col, row, item) =>
       dispatch(setDragStatus(col, row, item)),
-    onClearDragStatus: () => dispatch(clearDragStatus())
+    onClearDragStatus: () => dispatch(clearDragStatus()),
+    onSubmitEditTitle: title => dispatch(submitEditTitle(title)),
+    onSubmitEditTabTitle: title => dispatch(submitEditTabTitle(title))
+
   };
 };
 

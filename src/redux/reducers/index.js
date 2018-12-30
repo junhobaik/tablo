@@ -7,7 +7,9 @@ import {
   SET_EDIT_STATUS,
   CLEAR_EDIT_STATUS,
   SET_REMOVE_ROW,
-  SET_REMOVE_COL
+  SET_REMOVE_COL,
+  SUBMIT_EDIT_TITLE,
+  SUBMIT_EDIT_TAB_TITLE
 } from "../actions";
 import { combineReducers } from "redux";
 
@@ -119,6 +121,47 @@ const tab = (state = tabInitialState, action) => {
       return Object.assign({}, state, {
         tabList: [
           ...state.tabList.slice(0, state.settingStatus.col),
+          ...state.tabList.slice(state.settingStatus.col + 1)
+        ]
+      });
+    case SUBMIT_EDIT_TITLE:
+      return Object.assign({}, state, {
+        tabList: [
+          ...state.tabList.slice(0, state.settingStatus.col),
+          {
+            title: state.tabList[state.settingStatus.col].title,
+            tabs: [
+              ...state.tabList[state.settingStatus.col].tabs.slice(
+                0,
+                state.settingStatus.row
+              ),
+              {
+                title: action.title,
+                url:
+                  state.tabList[state.settingStatus.col].tabs[
+                    state.settingStatus.row
+                  ].url,
+                favIconUrl:
+                  state.tabList[state.settingStatus.col].tabs[
+                    state.settingStatus.row
+                  ].favIconUrl
+              },
+              ...state.tabList[state.settingStatus.col].tabs.slice(
+                state.settingStatus.row + 1
+              )
+            ]
+          },
+          ...state.tabList.slice(state.settingStatus.col + 1)
+        ]
+      });
+    case SUBMIT_EDIT_TAB_TITLE:
+      return Object.assign({}, state, {
+        tabList: [
+          ...state.tabList.slice(0, state.settingStatus.col),
+          {
+            title: action.title,
+            tabs: state.tabList[state.settingStatus.col].tabs
+          },
           ...state.tabList.slice(state.settingStatus.col + 1)
         ]
       });

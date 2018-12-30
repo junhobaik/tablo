@@ -18,15 +18,15 @@ class Setting extends Component {
     this.compMouseLeave = this.compMouseLeave.bind(this);
   }
 
-  compMouseEnter(e){
-    console.log('compMouseEnter');
+  compMouseEnter(e) {
+    console.log("compMouseEnter");
     const col = parseInt(this.props.col);
     const row = parseInt(this.props.row);
     this.props.onSetEditStatus(col, row);
   }
-  compMouseLeave(e){
-    console.log('compMouseLeave');
-    this.props.onClearEditStatus();
+  compMouseLeave(e) {
+    console.log("compMouseLeave");
+    // this.props.onClearEditStatus();
   }
   clickRemove(e) {
     console.log("clickRemove()", e.target, this.props.col, this.props.row);
@@ -35,15 +35,29 @@ class Setting extends Component {
       this.props.onSetRemoveRow();
     } else {
       this.props.onSetRemoveCol();
+      this.props.onClearEditStatus();
     }
   }
-  clickModify(e){
+  clickModify(e) {
     console.log("clickModify()", e.target, this.props.col, this.props.row);
+
+    const link = e.target.parentNode.parentNode.parentNode;
+    if (this.props.row !== undefined) {
+      link.querySelector("a>.title-text").style.display = "none";
+      link.querySelector("a>.title-edit").style.display = "inline";
+    } else {
+      link.querySelector(".tab-title").style.display = "none";
+      link.querySelector(".tab-title-edit").style.display = "inline";
+    }
   }
 
   render() {
     return (
-      <div className="setting-component" onMouseEnter={this.compMouseEnter} onMouseLeave={this.compMouseLeave}>
+      <div
+        className="setting-component"
+        onMouseEnter={this.compMouseEnter}
+        onMouseLeave={this.compMouseLeave}
+      >
         <div className="remove" onClick={this.clickRemove}>
           <Fa className="no-event" icon="trash-alt" />
         </div>

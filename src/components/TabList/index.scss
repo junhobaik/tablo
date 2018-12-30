@@ -24,8 +24,11 @@
       display: flex;
       align-items: center;
 
-      .tab-title {
+      .tab-title, .tab-title-edit {
         flex-grow: 1;
+      }
+      .tab-title-edit{
+        display: none;
       }
     }
 
@@ -51,7 +54,7 @@
             flex-grow: 1;
             color: black;
             text-decoration: none;
-
+            
             .favicon {
               width: 1em;
               height: 1em;
@@ -71,6 +74,10 @@
                 background-color: gray;
                 text-align: center;
               }
+            }
+
+            .title-edit {
+              display: none;
             }
           }
         }

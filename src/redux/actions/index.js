@@ -7,6 +7,8 @@ export const SET_EDIT_STATUS = "SET_EDIT_STATUS";
 export const CLEAR_EDIT_STATUS = "CLEAR_EDIT_STATUS";
 export const SET_REMOVE_ROW = "SET_REMOVE_ROW";
 export const SET_REMOVE_COL = "SET_REMOVE_COL";
+export const SUBMIT_EDIT_TITLE = "SUBMIT_EDIT_TITLE";
+export const SUBMIT_EDIT_TAB_TITLE = "SUBMIT_EDIT_TAB_TITLE";
 
 export function addColumn(test) {
   console.log("addColumn");
@@ -75,5 +77,19 @@ export function setRemoveCol() {
   console.log("setRemoveRow");
   return {
     type: SET_REMOVE_COL
+  };
+}
+export function submitEditTitle(title) {
+  console.log("submitEditTitle");
+  return {
+    type: SUBMIT_EDIT_TITLE,
+    title
+  };
+}
+export function submitEditTabTitle(title) {
+  console.log("submitEditTabTitle");
+  return {
+    type: SUBMIT_EDIT_TAB_TITLE,
+    title
   };
 }

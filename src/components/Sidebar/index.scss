@@ -10,12 +10,11 @@
   flex-direction: column;
 
   #CurrentTabList {
-    border: 1px solid red;
     max-height: 70%;
     overflow: auto;
   }
   #LinkCart{
-    border: 1px solid blue;
     min-height: 30%;
+    border-top: 1px solid gray;
   }
 }

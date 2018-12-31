@@ -131,6 +131,7 @@ class TabList extends Component {
       e.target.parentNode.querySelector(".tab-title").style.display = "inline";
     }
   }
+  
   render() {
     const tabListObj = this.props.tabList.map((v, i) => {
       const colData = {
@@ -167,9 +168,9 @@ class TabList extends Component {
                   )}
                 </div>
 
-                <span className="title-text">{data.title}</span>
+                <span className="title-text title">{data.title}</span>
                 <input
-                  className="title-edit"
+                  className="title-edit edit"
                   type="text"
                   value={this.state.editValue}
                   onClick={e => {
@@ -209,9 +210,9 @@ class TabList extends Component {
       return (
         <div className="tab" key={`tab-${i}`}>
           <div className="tab-header">
-            <h2 className="tab-title">{v.title}</h2>
+            <h2 className="tab-title title">{v.title}</h2>
             <input
-              className="tab-title-edit"
+              className="tab-title-edit edit"
               type="text"
               value={this.state.editValue}
               onClick={e => {

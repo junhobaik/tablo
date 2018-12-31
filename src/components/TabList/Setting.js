@@ -41,18 +41,30 @@ class Setting extends Component {
     console.log("clickModify()", e.target, this.props.col, this.props.row);
 
     const link = e.target.parentNode.parentNode.parentNode;
-    
-    const editInput = document.querySelectorAll('.edit');
-    for(let v of editInput){
+
+    const editInputs = document.querySelectorAll(".edit");
+    for (let v of editInputs) {
       v.style.display = "none";
+    }
+    const titles = document.querySelectorAll(".title");
+    for (let v of titles) {
+      v.style.display = "inline";
     }
 
     if (this.props.row !== undefined) {
-      link.querySelector("a>.title-text").style.display = "none";
-      link.querySelector("a>.title-edit").style.display = "inline";
+      const titleText = link.querySelector("a>.title-text");
+      const titleEdit = link.querySelector("a>.title-edit");
+
+      titleText.style.display = "none";
+      titleEdit.style.display = "inline";
+      titleEdit.focus();
     } else {
-      link.querySelector(".tab-title").style.display = "none";
-      link.querySelector(".tab-title-edit").style.display = "inline";
+      const tabTitle = link.querySelector(".tab-title");
+      const tabTitleEdit = link.querySelector(".tab-title-edit");
+
+      tabTitle.style.display = "none";
+      tabTitleEdit.style.display = "inline";
+      tabTitleEdit.focus();
     }
   }
 

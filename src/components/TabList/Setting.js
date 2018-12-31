@@ -26,7 +26,7 @@ class Setting extends Component {
   }
   compMouseLeave(e) {
     console.log("compMouseLeave");
-    this.props.onClearEditStatus();
+    // this.props.onClearEditStatus();
   }
   clickRemove(e) {
     console.log("clickRemove()", e.target, this.props.col, this.props.row);

@@ -41,6 +41,12 @@ class Setting extends Component {
     console.log("clickModify()", e.target, this.props.col, this.props.row);
 
     const link = e.target.parentNode.parentNode.parentNode;
+    
+    const editInput = document.querySelectorAll('.edit');
+    for(let v of editInput){
+      v.style.display = "none";
+    }
+
     if (this.props.row !== undefined) {
       link.querySelector("a>.title-text").style.display = "none";
       link.querySelector("a>.title-edit").style.display = "inline";

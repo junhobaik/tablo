@@ -78,7 +78,9 @@
                 text-align: center;
               }
             }
-
+            .title-text {
+              word-break: break-all;
+            }
             .title-edit {
               display: none;
             }

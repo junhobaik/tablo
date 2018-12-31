@@ -1,11 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-</head>
-<body>
-  popup
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <style>
+      body {
+        width: 15em;
+      }
+      .add {
+        border: 1px solid black;
+        border-radius: 3px;
+        padding: 1em;
+        text-align: center;
+      }
+      .link-title {
+        display: block;
+      }
+      .link {
+        border: 1px solid gray;
+        border-radius: 3px;
+        display: flex;
+        align-items: center;
+        padding: 0.2em;
+      }
+    </style>
+  </head>
+  <body>
+    <section>
+      <div class="container">
+        <h1>Tablo</h1>
+        <div class="add">
+          <h2>Add to Cart</h2>
+
+          <div class="link">
+              <img src="" alt="">
+              <span class="link-title"></span>
+          </div>
+          
+          <button class="add-button">+</button>
+        </div>
+      </div>
+    </section>
+
+    <script src="./index.js"></script>
+  </body>
 </html>

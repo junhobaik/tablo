@@ -8,8 +8,7 @@ import createReducer from "./redux/reducers";
 const store = createStore(createReducer());
 
 store.subscribe(() => {
-  console.log(store.getState())
-  localStorage.setItem("tablo", JSON.stringify(store.getState().tab));
+  localStorage.setItem("tablo_tab", JSON.stringify(store.getState().tab));
 
   chrome.storage.sync.set(
     {

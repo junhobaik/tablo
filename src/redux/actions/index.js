@@ -9,6 +9,7 @@ export const SET_REMOVE_ROW = "SET_REMOVE_ROW";
 export const SET_REMOVE_COL = "SET_REMOVE_COL";
 export const SUBMIT_EDIT_TITLE = "SUBMIT_EDIT_TITLE";
 export const SUBMIT_EDIT_TAB_TITLE = "SUBMIT_EDIT_TAB_TITLE";
+export const LOAD_TABS = 'LOAD_TABS';
 
 export function addColumn(test) {
   console.log("addColumn");
@@ -92,4 +93,12 @@ export function submitEditTabTitle(title) {
     type: SUBMIT_EDIT_TAB_TITLE,
     title
   };
+}
+
+export function loadTabs(state){
+  console.log('loadTabs', state);
+  return {
+    type: LOAD_TABS,
+    state
+  }
 }

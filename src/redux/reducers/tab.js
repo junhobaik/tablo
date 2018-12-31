@@ -9,7 +9,8 @@ import {
   SET_REMOVE_ROW,
   SET_REMOVE_COL,
   SUBMIT_EDIT_TITLE,
-  SUBMIT_EDIT_TAB_TITLE
+  SUBMIT_EDIT_TAB_TITLE,
+  LOAD_TABS
 } from "../actions";
 
 let tabInitialState = JSON.parse(localStorage.getItem("tablo")) || {
@@ -181,6 +182,8 @@ const tab = (state = tabInitialState, action) => {
           row: null
         }
       });
+    case LOAD_TABS:
+      return Object.assign({}, state, action.state);
   }
 };
 

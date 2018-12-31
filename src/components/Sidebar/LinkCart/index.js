@@ -1,17 +1,19 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import "./index.scss";
+import LinkList from '../LinkList';
 
 class index extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      list: []
+    }
+  }
   render() {
     return (
       <div id="LinkCart">
-        <div className="list-wrap">
-          <div className="list-title">
-            <p>Link Cart</p>
-          </div>
-          <ul className="list"></ul>
-        </div>
+        <LinkList title="Link Cart" list={this.state.list}/>
       </div>
     );
   }

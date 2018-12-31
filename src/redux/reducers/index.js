@@ -11,7 +11,9 @@ import {
   SUBMIT_EDIT_TITLE,
   SUBMIT_EDIT_TAB_TITLE
 } from "../actions";
+
 import { combineReducers } from "redux";
+
 
 let tabInitialState = JSON.parse(localStorage.getItem("tablo")) || {
   settingStatus: {
@@ -167,15 +169,6 @@ const tab = (state = tabInitialState, action) => {
       });
     default:
       return state;
-  }
-};
-
-const extraInitialState = {
-  value: "extra"
-};
-
-const extra = (state = extraInitialState, action) => {
-  switch (action.type) {
     case CLEAR_DRAG_STATUS:
       return Object.assign({}, state, {
         dragStatus: {
@@ -191,6 +184,15 @@ const extra = (state = extraInitialState, action) => {
           row: null
         }
       });
+  }
+};
+
+const extraInitialState = {
+  value: "extra"
+};
+
+const extra = (state = extraInitialState, action) => {
+  switch (action.type) {
     default:
       return state;
   }

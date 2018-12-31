@@ -81,7 +81,7 @@ export function setRemoveCol() {
   };
 }
 export function submitEditTitle(title) {
-  console.log("submitEditTitle");
+  console.log("submitEditTitle", title);
   return {
     type: SUBMIT_EDIT_TITLE,
     title

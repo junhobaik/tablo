@@ -23,12 +23,15 @@
     .tab-header {
       display: flex;
       align-items: center;
+      height: 4em;
 
-      .tab-title, .tab-title-edit {
+      .tab-title,
+      .tab-title-edit {
         flex-grow: 1;
       }
-      .tab-title-edit{
+      .tab-title-edit {
         display: none;
+        font-size: 1em;
       }
     }
 
@@ -54,7 +57,7 @@
             flex-grow: 1;
             color: black;
             text-decoration: none;
-            
+
             .favicon {
               width: 1em;
               height: 1em;
@@ -105,6 +108,7 @@
       opacity: 0.25;
       height: 1.2em;
       width: 1.2em;
+      transition: 0.3s;
 
       &:hover {
         cursor: pointer;
@@ -114,18 +118,21 @@
       .setting-component {
         display: none;
         position: relative;
-        top: -2.5em;
+        top: -2.6em;
         left: 1.2em;
 
-        &>div {
+        & > div {
           display: flex;
           align-items: center;
           height: 2em;
           width: 2em;
           background-color: gray;
           border-radius: 100%;
+          &:first-child {
+            margin-bottom: 0.2em;
+          }
 
-          &>*{
+          & > * {
             margin: 0 auto;
           }
 
@@ -135,7 +142,14 @@
         }
       }
     }
+
+    input.edit {
+      all: unset;
+      font-size: 0.9em;
+      width: 100%;
+    }
   }
+
   .add-column-wrap {
     padding-right: 2rem;
 

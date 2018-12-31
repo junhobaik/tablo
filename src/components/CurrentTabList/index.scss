@@ -1,6 +1,7 @@
 @import "variables";
 
 #CurrentTabList {
+  z-index: 9;
   height: 100vh;
   background-color: $current-tab-background-color;
   min-width: $current-tab-list-width;

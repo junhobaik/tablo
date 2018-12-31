@@ -10,6 +10,7 @@
   flex-direction: column;
 
   #CurrentTabList {
+    flex-grow: 1;
     max-height: 70%;
     overflow: auto;
   }

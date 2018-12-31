@@ -8,6 +8,15 @@ class LinkList extends Component {
   constructor(props) {
     super(props);
     this.dragStart = this.dragStart.bind(this);
+    this.state = {
+      list: []
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.list !== this.props.list) {
+      this.setState({ list: nextProps.list });
+    }
   }
 
   dragStart(event) {
@@ -17,7 +26,7 @@ class LinkList extends Component {
   }
 
   render() {
-    const linkList = (this.props.list || []).map((v, i) => {
+    const linkList = (this.state.list || []).map((v, i) => {
       return (
         <li
           className="link"

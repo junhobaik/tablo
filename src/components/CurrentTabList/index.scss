@@ -1,13 +1,6 @@
 @import "variables";
 
 #CurrentTabList {
-  z-index: 9;
-  height: 100vh;
-  background-color: $current-tab-background-color;
-  min-width: $current-tab-list-width;
-  max-width: $current-tab-list-width;
-  color: $current-tab-font-color;
-  box-shadow: $current-tab-box-shadow;
 
   .list-wrap {
     overflow: scroll !important;

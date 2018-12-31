@@ -1,0 +1,21 @@
+#Sidebar {
+  z-index: 9;
+  background-color: $current-tab-background-color;
+  color: $current-tab-font-color;
+  height: 100vh;
+  min-width: $current-tab-list-width;
+  max-width: $current-tab-list-width;
+  box-shadow: $current-tab-box-shadow;
+  display: flex;
+  flex-direction: column;
+
+  #CurrentTabList {
+    border: 1px solid red;
+    max-height: 70%;
+    overflow: auto;
+  }
+  #LinkCart{
+    border: 1px solid blue;
+    min-height: 30%;
+  }
+}

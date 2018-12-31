@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./App.scss";
-import CurrentTabList from "./CurrentTabList";
+import Sidebar from "./Sidebar";
 import TabList from "./TabList";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
@@ -26,7 +26,7 @@ class App extends Component {
     return (
       <div id="App">
         <TabList />
-        <CurrentTabList />
+        <Sidebar />
       </div>
     );
   }

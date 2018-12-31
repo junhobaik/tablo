@@ -133,7 +133,6 @@ class TabList extends Component {
   }
   
   render() {
-    console.log(this.props.states);
     const tabListObj = this.props.tabList.map((v, i) => {
       const colData = {
         title: v.title,

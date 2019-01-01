@@ -9,9 +9,19 @@ import {
   faEllipsisV,
   faTrashAlt,
   faEdit,
-  faMinusCircle
+  faMinusCircle,
+  faWindowRestore,
+  faShoppingCart
 } from "@fortawesome/free-solid-svg-icons";
-library.add(faEllipsisH, faEllipsisV, faTrashAlt, faEdit, faMinusCircle);
+library.add(
+  faEllipsisH,
+  faEllipsisV,
+  faTrashAlt,
+  faEdit,
+  faMinusCircle,
+  faWindowRestore,
+  faShoppingCart
+);
 
 import { loadTabs } from "../redux/actions";
 

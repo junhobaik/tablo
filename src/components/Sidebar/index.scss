@@ -11,12 +11,11 @@
 
   #CurrentTabList {
     flex-grow: 1;
-    // max-height: 70%;
     overflow: auto;
   }
   #LinkCart{
     flex-grow: 1;
-    // min-height: 30%;
+    min-height: 30%;
     border-top: 2px solid lightgray;
   }
 
@@ -30,6 +29,7 @@
     }
 
     .link-list-title {
+      color: $side-bar-title-color;
       display: flex;
       align-items: center;
 

@@ -13,22 +13,22 @@ class CurrentTabList extends Component {
     };
   }
 
-  dragStart = e => {
+  linkDragStart = e => {
     const row = parseInt(e.target.attributes.row.value);
     this.props.onSetDragStatus(null, null, this.state.list[row]);
   };
 
   getAllTabs() {
     chrome.windows.getAll({ populate: true }, windows => {
-      let temp = [];
+      let list = [];
       for (let window of windows) {
         for (let tab of window.tabs) {
           const { id, title, url, favIconUrl } = tab;
-          temp.push({ title, url, favIconUrl });
+          list.push({ title, url, favIconUrl });
         }
       }
       this.setState({
-        list: temp,
+        list,
       });
     });
   }
@@ -52,7 +52,7 @@ class CurrentTabList extends Component {
           className="link"
           key={'link-' + i}
           draggable="true"
-          onDragStart={this.dragStart}
+          onDragStart={this.linkDragStart}
           row={i}
         >
           <a href={v.url} target="_blank" draggable="false">

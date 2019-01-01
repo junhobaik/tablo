@@ -14,13 +14,13 @@ class LinkCart extends Component {
     };
   }
 
-  dragStart = e => {
+  linkDragStart = e => {
     const row = parseInt(e.target.attributes.row.value);
     this.props.onSetDragStatus(null, null, this.state.list[row]);
   };
 
   componentDidMount() {
-    const updateList = list => {
+    const updateCartList = list => {
       this.setState({
         list,
       });
@@ -34,11 +34,12 @@ class LinkCart extends Component {
       } else {
         const list = [
           {
-            title: "HUNDRED's Blog, In cart",
+            title: "HUNDRED's Blog",
             url: 'https://junhobaik.github.io',
             favIconUrl: '',
           },
         ];
+
         chrome.storage.sync.set(
           {
             tablo_cart: list,
@@ -53,9 +54,7 @@ class LinkCart extends Component {
     });
 
     chrome.storage.onChanged.addListener(function(changes, namespace) {
-      if (changes.tablo_cart) {
-        updateList(changes.tablo_cart.newValue);
-      }
+      if (changes.tablo_cart) updateCartList(changes.tablo_cart.newValue);
     });
   }
 
@@ -83,7 +82,7 @@ class LinkCart extends Component {
           className="link"
           key={'link-' + i}
           draggable="true"
-          onDragStart={this.dragStart}
+          onDragStart={this.linkDragStart}
           row={i}
         >
           <a href={v.url} target="_blank" draggable="false">

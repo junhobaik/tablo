@@ -6,11 +6,15 @@
       .link {
         .link-remove{
           cursor: pointer;
-          opacity: 0.5;
+          opacity: 0.25;
+          transition: 0.3s;
 
           svg {
             pointer-events: none;
           }
+        }
+        .link-remove:hover{
+          opacity: 0.5;
         }
       }
     }

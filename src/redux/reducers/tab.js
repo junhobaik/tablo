@@ -10,31 +10,31 @@ import {
   SET_REMOVE_COL,
   SUBMIT_EDIT_TITLE,
   SUBMIT_EDIT_TAB_TITLE,
-  LOAD_TABS
-} from "../actions";
+  LOAD_TABS,
+} from '../actions';
 
-let tabInitialState = JSON.parse(localStorage.getItem("tablo")) || {
+let tabInitialState = JSON.parse(localStorage.getItem('tablo')) || {
   settingStatus: {
     col: null,
-    row: null
+    row: null,
   },
   dragStatus: {
     dragData: null,
     dragCol: null,
-    dragRow: null
+    dragRow: null,
   },
   tabList: [
     {
-      title: "Column 1",
+      title: 'Column 1',
       tabs: [
         {
           title: "HUNDRED's Blog",
-          url: "https://junhobaik.github.io",
-          favIconUrl: ""
-        }
-      ]
-    }
-  ]
+          url: 'https://junhobaik.github.io',
+          favIconUrl: '',
+        },
+      ],
+    },
+  ],
 };
 
 const tab = (state = tabInitialState, action) => {
@@ -45,9 +45,9 @@ const tab = (state = tabInitialState, action) => {
           ...state.tabList,
           {
             title: `New column`,
-            tabs: []
-          }
-        ]
+            tabs: [],
+          },
+        ],
       });
     case ADD_ROW:
       return Object.assign({}, state, {
@@ -58,11 +58,11 @@ const tab = (state = tabInitialState, action) => {
             tabs: [
               ...state.tabList[action.col].tabs.slice(0, action.row),
               state.dragStatus.dragData,
-              ...state.tabList[action.col].tabs.slice(action.row)
-            ]
+              ...state.tabList[action.col].tabs.slice(action.row),
+            ],
           },
-          ...state.tabList.slice(action.col + 1)
-        ]
+          ...state.tabList.slice(action.col + 1),
+        ],
       });
     case REMOVE_ROW:
       return Object.assign({}, state, {
@@ -77,26 +77,26 @@ const tab = (state = tabInitialState, action) => {
               ),
               ...state.tabList[state.dragStatus.dragCol].tabs.slice(
                 state.dragStatus.dragRow + 1
-              )
-            ]
+              ),
+            ],
           },
-          ...state.tabList.slice(state.dragStatus.dragCol + 1)
-        ]
+          ...state.tabList.slice(state.dragStatus.dragCol + 1),
+        ],
       });
     case SET_DRAG_STATUS:
       return Object.assign({}, state, {
         dragStatus: {
           dragData: action.item,
           dragCol: action.col,
-          dragRow: action.row
-        }
+          dragRow: action.row,
+        },
       });
     case SET_EDIT_STATUS:
       return Object.assign({}, state, {
         settingStatus: {
           col: action.col,
-          row: action.row
-        }
+          row: action.row,
+        },
       });
     case SET_REMOVE_ROW:
       return Object.assign({}, state, {
@@ -111,18 +111,18 @@ const tab = (state = tabInitialState, action) => {
               ),
               ...state.tabList[state.settingStatus.col].tabs.slice(
                 state.settingStatus.row + 1
-              )
-            ]
+              ),
+            ],
           },
-          ...state.tabList.slice(state.settingStatus.col + 1)
-        ]
+          ...state.tabList.slice(state.settingStatus.col + 1),
+        ],
       });
     case SET_REMOVE_COL:
       return Object.assign({}, state, {
         tabList: [
           ...state.tabList.slice(0, state.settingStatus.col),
-          ...state.tabList.slice(state.settingStatus.col + 1)
-        ]
+          ...state.tabList.slice(state.settingStatus.col + 1),
+        ],
       });
     case SUBMIT_EDIT_TITLE:
       return Object.assign({}, state, {
@@ -144,15 +144,15 @@ const tab = (state = tabInitialState, action) => {
                 favIconUrl:
                   state.tabList[state.settingStatus.col].tabs[
                     state.settingStatus.row
-                  ].favIconUrl
+                  ].favIconUrl,
               },
               ...state.tabList[state.settingStatus.col].tabs.slice(
                 state.settingStatus.row + 1
-              )
-            ]
+              ),
+            ],
           },
-          ...state.tabList.slice(state.settingStatus.col + 1)
-        ]
+          ...state.tabList.slice(state.settingStatus.col + 1),
+        ],
       });
     case SUBMIT_EDIT_TAB_TITLE:
       return Object.assign({}, state, {
@@ -160,10 +160,10 @@ const tab = (state = tabInitialState, action) => {
           ...state.tabList.slice(0, state.settingStatus.col),
           {
             title: action.title,
-            tabs: state.tabList[state.settingStatus.col].tabs
+            tabs: state.tabList[state.settingStatus.col].tabs,
           },
-          ...state.tabList.slice(state.settingStatus.col + 1)
-        ]
+          ...state.tabList.slice(state.settingStatus.col + 1),
+        ],
       });
     default:
       return state;
@@ -172,15 +172,15 @@ const tab = (state = tabInitialState, action) => {
         dragStatus: {
           dragData: null,
           dragCol: null,
-          dragRow: null
-        }
+          dragRow: null,
+        },
       });
     case CLEAR_EDIT_STATUS:
       return Object.assign({}, state, {
         settingStatus: {
           col: null,
-          row: null
-        }
+          row: null,
+        },
       });
     case LOAD_TABS:
       return Object.assign({}, state, action.state);

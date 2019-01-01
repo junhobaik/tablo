@@ -1,5 +1,5 @@
 const appInitialState = {
-  load: false
+  load: false,
 };
 
 const app = (state = appInitialState, action) => {

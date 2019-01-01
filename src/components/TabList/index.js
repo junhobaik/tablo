@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { FontAwesomeIcon as Fa } from "@fortawesome/react-fontawesome";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { FontAwesomeIcon as Fa } from '@fortawesome/react-fontawesome';
 import {
   addColumn,
   addRow,
@@ -9,19 +9,19 @@ import {
   setDragStatus,
   clearDragStatus,
   submitEditTitle,
-  submitEditTabTitle
-} from "../../redux/actions";
-import "./index.scss";
-import Setting from "./Setting";
+  submitEditTabTitle,
+} from '../../redux/actions';
+import './index.scss';
+import Setting from './Setting';
 
 class TabList extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      editValue: "",
+      editValue: '',
       settingCol: null,
-      settingRow: null
+      settingRow: null,
     };
 
     this.dragOver = this.dragOver.bind(this);
@@ -61,7 +61,7 @@ class TabList extends Component {
     const dropCol = parseInt(e.target.attributes.col.value);
     const dropRow = parseInt(e.target.attributes.row.value);
 
-    e.target.classList.remove("drag-hover");
+    e.target.classList.remove('drag-hover');
 
     this.props.onAddRow(dropCol, dropRow);
     if (this.props.dragStatus.dragCol !== null) this.props.onRemoveRow();
@@ -69,77 +69,77 @@ class TabList extends Component {
   }
 
   spaceDragEnter(e) {
-    e.target.classList.add("drag-hover");
+    e.target.classList.add('drag-hover');
   }
 
   spaceDragLeave(e) {
-    e.target.classList.remove("drag-hover");
+    e.target.classList.remove('drag-hover');
   }
 
   settingMouseEnter(e) {
-    if (e.target.classList.contains("setting-icon"))
-      e.target.querySelector(".setting-component").style.display = "inline";
+    if (e.target.classList.contains('setting-icon'))
+      e.target.querySelector('.setting-component').style.display = 'inline';
 
     if (e.target.parentNode.attributes.col) {
       this.setState({
         settingCol: e.target.parentNode.attributes.col.value,
-        settingRow: e.target.parentNode.attributes.row.value
+        settingRow: e.target.parentNode.attributes.row.value,
       });
     }
   }
   settingMouseLeave(e) {
-    if (e.target.querySelector(".setting-component")) {
-      e.target.querySelector(".setting-component").style.display = "none";
+    if (e.target.querySelector('.setting-component')) {
+      e.target.querySelector('.setting-component').style.display = 'none';
     } else {
       e.target.parentNode.parentNode.querySelector(
-        ".setting-component"
-      ).style.display = "none";
+        '.setting-component'
+      ).style.display = 'none';
     }
     this.setState({
       settingCol: null,
-      settingRow: null
+      settingRow: null,
     });
   }
   handleEditValue(e) {
     this.setState({
-      editValue: e.target.value
+      editValue: e.target.value,
     });
   }
   submitEditTitle(e) {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       this.props.onSubmitEditTitle(this.state.editValue);
       this.setState({
-        editValue: ""
+        editValue: '',
       });
-      e.target.style.display = "none";
-      e.target.parentNode.querySelector("a>.title-text").style.display =
-        "inline";
+      e.target.style.display = 'none';
+      e.target.parentNode.querySelector('a>.title-text').style.display =
+        'inline';
     }
   }
   submitEditTabTitle(e) {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       this.props.onSubmitEditTabTitle(this.state.editValue);
       this.setState({
-        editValue: ""
+        editValue: '',
       });
-      e.target.style.display = "none";
-      e.target.parentNode.querySelector(".tab-title").style.display = "inline";
+      e.target.style.display = 'none';
+      e.target.parentNode.querySelector('.tab-title').style.display = 'inline';
     }
   }
 
   blurEditTitle(e) {
-    const edit = document.querySelectorAll(".edit");
-    const title = document.querySelectorAll(".title");
+    const edit = document.querySelectorAll('.edit');
+    const title = document.querySelectorAll('.title');
 
     for (let v of edit) {
-      v.style.display = "none";
+      v.style.display = 'none';
     }
     for (let v of title) {
-      v.style.display = "inline";
+      v.style.display = 'inline';
     }
 
     this.setState({
-      editValue: ""
+      editValue: '',
     });
   }
 
@@ -148,18 +148,18 @@ class TabList extends Component {
       const colData = {
         title: v.title,
         num: i,
-        tabs: v.tabs
+        tabs: v.tabs,
       };
 
       const tabsObj = colData.tabs.map((tab, i) => {
         const data = {
           title: tab.title,
           url: tab.url,
-          favIconUrl: tab.favIconUrl
+          favIconUrl: tab.favIconUrl,
         };
 
         return (
-          <div className="link-list-inner" key={"link-" + i}>
+          <div className="link-list-inner" key={'link-' + i}>
             <li
               className="link"
               col={colData.num}
@@ -290,14 +290,14 @@ let mapDispatchToProps = dispatch => {
       dispatch(setDragStatus(col, row, item)),
     onClearDragStatus: () => dispatch(clearDragStatus()),
     onSubmitEditTitle: title => dispatch(submitEditTitle(title)),
-    onSubmitEditTabTitle: title => dispatch(submitEditTabTitle(title))
+    onSubmitEditTabTitle: title => dispatch(submitEditTabTitle(title)),
   };
 };
 
 let mapStateToProps = state => {
   return {
     dragStatus: state.tab.dragStatus,
-    tabList: state.tab.tabList
+    tabList: state.tab.tabList,
   };
 };
 

@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import "./App.scss";
-import Sidebar from "./Sidebar";
-import TabList from "./TabList";
-import { library } from "@fortawesome/fontawesome-svg-core";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import './App.scss';
+import Sidebar from './Sidebar';
+import TabList from './TabList';
+import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faEllipsisH,
   faEllipsisV,
@@ -11,8 +11,8 @@ import {
   faEdit,
   faMinusCircle,
   faWindowRestore,
-  faShoppingCart
-} from "@fortawesome/free-solid-svg-icons";
+  faShoppingCart,
+} from '@fortawesome/free-solid-svg-icons';
 library.add(
   faEllipsisH,
   faEllipsisV,
@@ -23,12 +23,12 @@ library.add(
   faShoppingCart
 );
 
-import { loadTabs } from "../redux/actions";
+import { loadTabs } from '../redux/actions';
 
 class App extends Component {
   componentDidMount() {
     const load = this.props.onLoadTabs;
-    chrome.storage.sync.get("tablo_tab", function(items) {
+    chrome.storage.sync.get('tablo_tab', function(items) {
       load(items.tablo_tab);
     });
   }
@@ -44,7 +44,7 @@ class App extends Component {
 }
 let mapDispatchToProps = dispatch => {
   return {
-    onLoadTabs: state => dispatch(loadTabs(state))
+    onLoadTabs: state => dispatch(loadTabs(state)),
   };
 };
 

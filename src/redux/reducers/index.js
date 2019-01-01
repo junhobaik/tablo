@@ -5,8 +5,8 @@ import app from './app';
 const createReducer = () => {
   return combineReducers({
     tab,
-    app
+    app,
   });
-}
+};
 
 export default createReducer;

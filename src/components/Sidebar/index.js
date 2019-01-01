@@ -4,20 +4,17 @@ import CurrentTabList from './CurrentTabList';
 import LinkCart from './LinkCart';
 import './index.scss';
 
-
 class index extends Component {
   render() {
     return (
       <div id="Sidebar">
-        <CurrentTabList />    
-        <LinkCart />    
+        <CurrentTabList />
+        <LinkCart />
       </div>
     );
   }
 }
 
-index.propTypes = {
-
-};
+index.propTypes = {};
 
 export default index;

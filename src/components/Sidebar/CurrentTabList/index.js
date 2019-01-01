@@ -1,15 +1,15 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { FontAwesomeIcon as Fa } from "@fortawesome/react-fontawesome";
-import { connect } from "react-redux";
-import { setDragStatus } from "../../../redux/actions";
-import "./index.scss";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { FontAwesomeIcon as Fa } from '@fortawesome/react-fontawesome';
+import { connect } from 'react-redux';
+import { setDragStatus } from '../../../redux/actions';
+import './index.scss';
 
 class CurrentTabList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      list: []
+      list: [],
     };
     this.dragStart = this.dragStart.bind(this);
   }
@@ -29,7 +29,7 @@ class CurrentTabList extends Component {
         }
       }
       this.setState({
-        list: temp
+        list: temp,
       });
     });
   }
@@ -38,7 +38,7 @@ class CurrentTabList extends Component {
     this.getAllTabs();
 
     chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-      if (changeInfo.status === "complete") this.getAllTabs();
+      if (changeInfo.status === 'complete') this.getAllTabs();
     });
 
     chrome.tabs.onRemoved.addListener((tabId, removeInfo) => {
@@ -51,7 +51,7 @@ class CurrentTabList extends Component {
       return (
         <li
           className="link"
-          key={"link-" + i}
+          key={'link-' + i}
           draggable="true"
           onDragStart={this.dragStart}
           row={i}
@@ -89,7 +89,8 @@ class CurrentTabList extends Component {
 
 let mapDispatchToProps = dispatch => {
   return {
-    onSetDragStatus: (col, row, item) => dispatch(setDragStatus(col, row, item))
+    onSetDragStatus: (col, row, item) =>
+      dispatch(setDragStatus(col, row, item)),
   };
 };
 

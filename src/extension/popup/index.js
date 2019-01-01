@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('DOMContentLoaded', () => {
   let title,
     url,
     favIconUrl,
@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     favIconUrl = tab.favIconUrl || undefined;
     isReady = true;
 
-    const img = document.querySelector(".link img");
+    const img = document.querySelector('.link img');
 
     console.log(favIconUrl);
     if (favIconUrl !== undefined) {
@@ -21,14 +21,14 @@ document.addEventListener("DOMContentLoaded", () => {
       noFavicon.style.display = 'flex';
       noFavicon.querySelector('span').innerHTML = title[0].toUpperCase();
     }
-    document.querySelector(".link .link-title").innerHTML = title;
+    document.querySelector('.link .link-title').innerHTML = title;
   });
 
-  document.querySelector(".add-button").addEventListener("click", e => {
-    console.log("click");
+  document.querySelector('.add-button').addEventListener('click', e => {
+    console.log('click');
 
     if (isReady) {
-      chrome.storage.sync.get("tablo_cart", function(items) {
+      chrome.storage.sync.get('tablo_cart', function(items) {
         const cart = items.tablo_cart;
         chrome.storage.sync.set(
           {
@@ -37,15 +37,15 @@ document.addEventListener("DOMContentLoaded", () => {
               {
                 title,
                 url,
-                favIconUrl
-              }
-            ]
+                favIconUrl,
+              },
+            ],
           },
           () => {}
         );
       });
     } else {
-      alert("fail");
+      alert('fail');
     }
   });
 });

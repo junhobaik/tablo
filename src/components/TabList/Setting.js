@@ -1,13 +1,13 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { FontAwesomeIcon as Fa } from "@fortawesome/react-fontawesome";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { FontAwesomeIcon as Fa } from '@fortawesome/react-fontawesome';
 import {
   setEditStatus,
   clearEditStatus,
   setRemoveRow,
-  setRemoveCol
-} from "../../redux/actions";
+  setRemoveCol,
+} from '../../redux/actions';
 
 class Setting extends Component {
   constructor(props) {
@@ -39,28 +39,28 @@ class Setting extends Component {
   clickModify(e) {
     const link = e.target.parentNode.parentNode.parentNode;
 
-    const editInputs = document.querySelectorAll(".edit");
+    const editInputs = document.querySelectorAll('.edit');
     for (let v of editInputs) {
-      v.style.display = "none";
+      v.style.display = 'none';
     }
-    const titles = document.querySelectorAll(".title");
+    const titles = document.querySelectorAll('.title');
     for (let v of titles) {
-      v.style.display = "inline";
+      v.style.display = 'inline';
     }
 
     if (this.props.row !== undefined) {
-      const titleText = link.querySelector("a>.title-text");
-      const titleEdit = link.querySelector("a>.title-edit");
+      const titleText = link.querySelector('a>.title-text');
+      const titleEdit = link.querySelector('a>.title-edit');
 
-      titleText.style.display = "none";
-      titleEdit.style.display = "inline";
+      titleText.style.display = 'none';
+      titleEdit.style.display = 'inline';
       titleEdit.focus();
     } else {
-      const tabTitle = link.querySelector(".tab-title");
-      const tabTitleEdit = link.querySelector(".tab-title-edit");
+      const tabTitle = link.querySelector('.tab-title');
+      const tabTitleEdit = link.querySelector('.tab-title-edit');
 
-      tabTitle.style.display = "none";
-      tabTitleEdit.style.display = "inline";
+      tabTitle.style.display = 'none';
+      tabTitleEdit.style.display = 'inline';
       tabTitleEdit.focus();
     }
   }
@@ -88,13 +88,13 @@ let mapDispatchToProps = dispatch => {
     onSetEditStatus: (col, row) => dispatch(setEditStatus(col, row)),
     onClearEditStatus: () => dispatch(clearEditStatus()),
     onSetRemoveRow: () => dispatch(setRemoveRow()),
-    onSetRemoveCol: () => dispatch(setRemoveCol())
+    onSetRemoveCol: () => dispatch(setRemoveCol()),
   };
 };
 
 let mapStateToProps = state => {
   return {
-    settingStatus: state.tab.settingStatus
+    settingStatus: state.tab.settingStatus,
   };
 };
 

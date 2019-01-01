@@ -1,16 +1,16 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { FontAwesomeIcon as Fa } from "@fortawesome/react-fontawesome";
-import { setDragStatus } from "../../../redux/actions";
-import { connect } from "react-redux";
-import "./index.scss";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { FontAwesomeIcon as Fa } from '@fortawesome/react-fontawesome';
+import { setDragStatus } from '../../../redux/actions';
+import { connect } from 'react-redux';
+import './index.scss';
 
 class LinkCart extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      list: []
+      list: [],
     };
 
     this.removeLink = this.removeLink.bind(this);
@@ -25,30 +25,30 @@ class LinkCart extends Component {
   componentDidMount() {
     const updateList = list => {
       this.setState({
-        list
+        list,
       });
     };
 
-    chrome.storage.sync.get("tablo_cart", i => {
+    chrome.storage.sync.get('tablo_cart', i => {
       if (i.tablo_cart) {
         this.setState({
-          list: i.tablo_cart
+          list: i.tablo_cart,
         });
       } else {
         const list = [
           {
             title: "HUNDRED's Blog, In cart",
-            url: "https://junhobaik.github.io",
-            favIconUrl: ""
-          }
+            url: 'https://junhobaik.github.io',
+            favIconUrl: '',
+          },
         ];
         chrome.storage.sync.set(
           {
-            tablo_cart: list
+            tablo_cart: list,
           },
           () => {
             this.setState({
-              list
+              list,
             });
           }
         );
@@ -69,11 +69,11 @@ class LinkCart extends Component {
 
     chrome.storage.sync.set(
       {
-        tablo_cart: list
+        tablo_cart: list,
       },
       () => {
         this.setState({
-          list
+          list,
         });
       }
     );
@@ -84,7 +84,7 @@ class LinkCart extends Component {
       return (
         <li
           className="link"
-          key={"link-" + i}
+          key={'link-' + i}
           draggable="true"
           onDragStart={this.dragStart}
           row={i}
@@ -125,7 +125,8 @@ class LinkCart extends Component {
 
 let mapDispatchToProps = dispatch => {
   return {
-    onSetDragStatus: (col, row, item) => dispatch(setDragStatus(col, row, item))
+    onSetDragStatus: (col, row, item) =>
+      dispatch(setDragStatus(col, row, item)),
   };
 };
 

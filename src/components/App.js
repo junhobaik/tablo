@@ -8,9 +8,10 @@ import {
   faEllipsisH,
   faEllipsisV,
   faTrashAlt,
-  faEdit
+  faEdit,
+  faMinusCircle
 } from "@fortawesome/free-solid-svg-icons";
-library.add(faEllipsisH, faEllipsisV, faTrashAlt, faEdit);
+library.add(faEllipsisH, faEllipsisV, faTrashAlt, faEdit, faMinusCircle);
 
 import { loadTabs } from "../redux/actions";
 

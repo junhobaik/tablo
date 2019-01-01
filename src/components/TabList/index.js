@@ -25,7 +25,9 @@ class TabList extends Component {
     };
   }
 
-  dragOver = e => {
+
+
+  allDragOver = e => {
     e.preventDefault();
   };
 
@@ -45,12 +47,12 @@ class TabList extends Component {
   };
 
   spaceDrop = e => {
-    const dropCol = parseInt(e.target.attributes.col.value);
-    const dropRow = parseInt(e.target.attributes.row.value);
-
     e.target.classList.remove('drag-hover');
 
-    this.props.onAddRow(dropCol, dropRow);
+    this.props.onAddRow(
+      parseInt(e.target.attributes.col.value),
+      parseInt(e.target.attributes.row.value)
+    );
     if (this.props.dragStatus.dragCol !== null) this.props.onRemoveRow();
     this.props.onClearDragStatus();
   };
@@ -64,21 +66,24 @@ class TabList extends Component {
   };
 
   settingMouseEnter = e => {
-    if (e.target.classList.contains('setting-icon'))
-      e.target.querySelector('.setting-component').style.display = 'inline';
+    const target = e.target;
+    if (target.classList.contains('setting-icon'))
+      target.querySelector('.setting-component').style.display = 'inline';
 
-    if (e.target.parentNode.attributes.col) {
+    if (target.parentNode.attributes.col) {
       this.setState({
-        settingCol: e.target.parentNode.attributes.col.value,
-        settingRow: e.target.parentNode.attributes.row.value,
+        settingCol: e.parentNode.attributes.col.value,
+        settingRow: e.parentNode.attributes.row.value,
       });
     }
   };
+
   settingMouseLeave = e => {
-    if (e.target.querySelector('.setting-component')) {
-      e.target.querySelector('.setting-component').style.display = 'none';
+    const target = e.target;
+    if (target.querySelector('.setting-component')) {
+      target.querySelector('.setting-component').style.display = 'none';
     } else {
-      e.target.parentNode.parentNode.querySelector(
+      target.parentNode.parentNode.querySelector(
         '.setting-component'
       ).style.display = 'none';
     }
@@ -87,34 +92,41 @@ class TabList extends Component {
       settingRow: null,
     });
   };
+
   handleEditValue = e => {
     this.setState({
       editValue: e.target.value,
     });
   };
+
   submitEditTitle = e => {
+    const target = e.target;
+
     if (e.key === 'Enter') {
       this.props.onSubmitEditTitle(this.state.editValue);
       this.setState({
         editValue: '',
       });
-      e.target.style.display = 'none';
-      e.target.parentNode.querySelector('a>.title-text').style.display =
+      target.style.display = 'none';
+      target.parentNode.querySelector('a>.title-text').style.display =
         'inline';
     }
   };
+
   submitEditTabTitle = e => {
-    if (e.key === 'Enter') {
+    const { key, target } = e;
+
+    if (key === 'Enter') {
       this.props.onSubmitEditTabTitle(this.state.editValue);
       this.setState({
         editValue: '',
       });
-      e.target.style.display = 'none';
-      e.target.parentNode.querySelector('.tab-title').style.display = 'inline';
+      target.style.display = 'none';
+      target.parentNode.querySelector('.tab-title').style.display = 'inline';
     }
   };
 
-  blurEditTitle = e => {
+  blurEditTitles = e => {
     const edit = document.querySelectorAll('.edit');
     const title = document.querySelectorAll('.title');
 
@@ -131,14 +143,14 @@ class TabList extends Component {
   };
 
   render() {
-    const tabListObj = this.props.tabList.map((v, i) => {
+    const tabList = this.props.tabList.map((v, i) => {
       const colData = {
         title: v.title,
         num: i,
         tabs: v.tabs,
       };
 
-      const tabsObj = colData.tabs.map((tab, i) => {
+      const linkList = colData.tabs.map((tab, i) => {
         const data = {
           title: tab.title,
           url: tab.url,
@@ -146,7 +158,7 @@ class TabList extends Component {
         };
 
         return (
-          <div className="link-list-inner" key={'link-' + i}>
+          <div className="link-container" key={'link-' + i}>
             <li
               className="link"
               col={colData.num}
@@ -167,6 +179,7 @@ class TabList extends Component {
                 </div>
 
                 <span className="title-text title">{data.title}</span>
+
                 <input
                   className="title-edit edit"
                   type="text"
@@ -177,10 +190,10 @@ class TabList extends Component {
                   onChange={this.handleEditValue}
                   placeholder="After editing, press Enter."
                   onKeyPress={this.submitEditTitle}
-                  onBlur={this.blurEditTitle}
+                  onBlur={this.blurEditTitles}
                 />
               </a>
-              {/* setting */}
+
               <div
                 className="link-setting setting-icon"
                 onMouseEnter={this.settingMouseEnter}
@@ -193,12 +206,13 @@ class TabList extends Component {
                 />
               </div>
             </li>
+
             <div
               className="space"
               col={colData.num}
               row={i + 1}
               onDrop={this.spaceDrop}
-              onDragOver={this.dragOver}
+              onDragOver={this.allDragOver}
               onDragEnter={this.spaceDragEnter}
               onDragLeave={this.spaceDragLeave}
             />
@@ -210,6 +224,7 @@ class TabList extends Component {
         <div className="tab" key={`tab-${i}`}>
           <div className="tab-header">
             <h2 className="tab-title title">{v.title}</h2>
+
             <input
               className="tab-title-edit edit"
               type="text"
@@ -220,9 +235,9 @@ class TabList extends Component {
               onChange={this.handleEditValue}
               placeholder="After editing, press Enter."
               onKeyPress={this.submitEditTabTitle}
-              onBlur={this.blurEditTitle}
+              onBlur={this.blurEditTitles}
             />
-            {/* setting */}
+
             <div
               className="tab-setting setting-icon"
               onMouseEnter={this.settingMouseEnter}
@@ -232,19 +247,20 @@ class TabList extends Component {
               <Setting col={colData.num} />
             </div>
           </div>
+
           <ul className="link-list">
-            <div className="link-list-inner" col={colData.num} row={0}>
+            <div className="link-container" col={colData.num} row={0}>
               <div
                 className="space"
                 col={colData.num}
                 row={0}
                 onDrop={this.spaceDrop}
-                onDragOver={this.dragOver}
+                onDragOver={this.allDragOver}
                 onDragEnter={this.spaceDragEnter}
                 onDragLeave={this.spaceDragLeave}
               />
             </div>
-            {tabsObj}
+            {linkList}
           </ul>
         </div>
       );
@@ -252,7 +268,7 @@ class TabList extends Component {
 
     return (
       <div id="TabList">
-        {tabListObj}
+        {tabList}
         <div className="add-column-wrap">
           <div
             className="add-column"

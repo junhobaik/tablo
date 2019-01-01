@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import LinkList from '../LinkList';
 import "./index.scss";
 
 class CurrentTabList extends Component {
@@ -40,9 +39,42 @@ class CurrentTabList extends Component {
   }
 
   render() {
+    const linkList = (this.state.list || []).map((v, i) => {
+      return (
+        <li
+          className="link"
+          key={"link-" + i}
+          draggable="true"
+          onDragStart={this.dragStart}
+          row={i}
+        >
+
+          <a href={v.url} target="_blank" draggable="false">
+          
+            <div className="favicon">
+              {v.favIconUrl ? (
+                <img src={v.favIconUrl} alt="favicon" draggable="false" />
+              ) : (
+                <div className="noFavIcon">
+                  <span>{v.title[0]}</span>
+                </div>
+              )}
+            </div>
+
+            <span className="link-title">{v.title}</span>
+          </a>
+        </li>
+      );
+    });
+
     return (
       <div id="CurrentTabList">
-        <LinkList title="Current Tabs" list={this.state.list}/>
+        <div className="link-list">
+          <div className="link-list-title">
+            <p>Current Tabs</p>
+          </div>
+          <ul className="list">{linkList}</ul>
+        </div>
       </div>
     );
   }

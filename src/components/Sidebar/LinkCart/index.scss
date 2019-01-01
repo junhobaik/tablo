@@ -1,0 +1,68 @@
+@import "variables";
+
+#LinkCart {
+  .link-list {
+    overflow: scroll !important;
+    padding: 0 1rem;
+
+    a {
+      color: black;
+      text-decoration: none;
+    }
+
+    .link-list-title {
+      font-size: 1.1rem;
+    }
+
+    .list {
+      .link {
+        display: flex;
+        border-radius: 3px;
+        background-color: $white-color;
+        box-shadow: 0.1rem 0.1rem 0.1rem 0.01rem rgba(0, 0, 0, 0.2);
+        margin-bottom: 1rem;
+        padding: 0.5rem;
+
+        a {
+          flex-grow: 1;
+          display: flex;
+
+          .favicon {
+            width: 1em;
+            height: 1em;
+            margin-right: 0.5rem;
+            align-items: center;
+
+            img {
+              width: inherit;
+              height: inherit;
+            }
+
+            .noFavIcon {
+              font-size: 0.8em;
+              color: $white-color;
+              width: inherit;
+              height: inherit;
+              border-radius: 3px;
+              background-color: gray;
+              text-align: center;
+            }
+          }
+
+          .link-title {
+            word-break: break-all;
+            flex-grow: 1;
+          }
+        }
+        .link-remove{
+          cursor: pointer;
+          opacity: 0.5;
+
+          svg {
+            pointer-events: none;
+          }
+        }
+      }
+    }
+  }
+}

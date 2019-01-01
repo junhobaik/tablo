@@ -23,26 +23,13 @@ class TabList extends Component {
       settingCol: null,
       settingRow: null,
     };
-
-    this.dragOver = this.dragOver.bind(this);
-    this.linkDragStart = this.linkDragStart.bind(this);
-    this.linkDragEnd = this.linkDragEnd.bind(this);
-    this.spaceDragEnter = this.spaceDragEnter.bind(this);
-    this.spaceDragLeave = this.spaceDragLeave.bind(this);
-    this.spaceDrop = this.spaceDrop.bind(this);
-    this.settingMouseEnter = this.settingMouseEnter.bind(this);
-    this.settingMouseLeave = this.settingMouseLeave.bind(this);
-    this.handleEditValue = this.handleEditValue.bind(this);
-    this.submitEditTitle = this.submitEditTitle.bind(this);
-    this.submitEditTabTitle = this.submitEditTabTitle.bind(this);
-    this.blurEditTitle = this.blurEditTitle.bind(this);
   }
 
-  dragOver(e) {
+  dragOver = e => {
     e.preventDefault();
-  }
+  };
 
-  linkDragStart(e) {
+  linkDragStart = e => {
     const dragCol = parseInt(e.target.attributes.col.value);
     const dragRow = parseInt(e.target.attributes.row.value);
 
@@ -51,13 +38,13 @@ class TabList extends Component {
       dragRow,
       this.props.tabList[dragCol].tabs[dragRow]
     );
-  }
+  };
 
-  linkDragEnd(e) {
+  linkDragEnd = e => {
     this.props.onClearDragStatus();
-  }
+  };
 
-  spaceDrop(e) {
+  spaceDrop = e => {
     const dropCol = parseInt(e.target.attributes.col.value);
     const dropRow = parseInt(e.target.attributes.row.value);
 
@@ -66,17 +53,17 @@ class TabList extends Component {
     this.props.onAddRow(dropCol, dropRow);
     if (this.props.dragStatus.dragCol !== null) this.props.onRemoveRow();
     this.props.onClearDragStatus();
-  }
+  };
 
-  spaceDragEnter(e) {
+  spaceDragEnter = e => {
     e.target.classList.add('drag-hover');
-  }
+  };
 
-  spaceDragLeave(e) {
+  spaceDragLeave = e => {
     e.target.classList.remove('drag-hover');
-  }
+  };
 
-  settingMouseEnter(e) {
+  settingMouseEnter = e => {
     if (e.target.classList.contains('setting-icon'))
       e.target.querySelector('.setting-component').style.display = 'inline';
 
@@ -86,8 +73,8 @@ class TabList extends Component {
         settingRow: e.target.parentNode.attributes.row.value,
       });
     }
-  }
-  settingMouseLeave(e) {
+  };
+  settingMouseLeave = e => {
     if (e.target.querySelector('.setting-component')) {
       e.target.querySelector('.setting-component').style.display = 'none';
     } else {
@@ -99,13 +86,13 @@ class TabList extends Component {
       settingCol: null,
       settingRow: null,
     });
-  }
-  handleEditValue(e) {
+  };
+  handleEditValue = e => {
     this.setState({
       editValue: e.target.value,
     });
-  }
-  submitEditTitle(e) {
+  };
+  submitEditTitle = e => {
     if (e.key === 'Enter') {
       this.props.onSubmitEditTitle(this.state.editValue);
       this.setState({
@@ -115,8 +102,8 @@ class TabList extends Component {
       e.target.parentNode.querySelector('a>.title-text').style.display =
         'inline';
     }
-  }
-  submitEditTabTitle(e) {
+  };
+  submitEditTabTitle = e => {
     if (e.key === 'Enter') {
       this.props.onSubmitEditTabTitle(this.state.editValue);
       this.setState({
@@ -125,9 +112,9 @@ class TabList extends Component {
       e.target.style.display = 'none';
       e.target.parentNode.querySelector('.tab-title').style.display = 'inline';
     }
-  }
+  };
 
-  blurEditTitle(e) {
+  blurEditTitle = e => {
     const edit = document.querySelectorAll('.edit');
     const title = document.querySelectorAll('.title');
 
@@ -141,7 +128,7 @@ class TabList extends Component {
     this.setState({
       editValue: '',
     });
-  }
+  };
 
   render() {
     const tabListObj = this.props.tabList.map((v, i) => {

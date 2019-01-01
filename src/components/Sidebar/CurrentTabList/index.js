@@ -11,13 +11,12 @@ class CurrentTabList extends Component {
     this.state = {
       list: [],
     };
-    this.dragStart = this.dragStart.bind(this);
   }
 
-  dragStart(event) {
-    const row = parseInt(event.target.attributes.row.value);
+  dragStart = e => {
+    const row = parseInt(e.target.attributes.row.value);
     this.props.onSetDragStatus(null, null, this.state.list[row]);
-  }
+  };
 
   getAllTabs() {
     chrome.windows.getAll({ populate: true }, windows => {

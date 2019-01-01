@@ -10,33 +10,26 @@ import {
 } from '../../redux/actions';
 
 class Setting extends Component {
-  constructor(props) {
-    super(props);
-    this.clickRemove = this.clickRemove.bind(this);
-    this.clickModify = this.clickModify.bind(this);
-    this.compMouseEnter = this.compMouseEnter.bind(this);
-    this.compMouseLeave = this.compMouseLeave.bind(this);
-  }
+  compMouseEnter = e => {
+    this.props.onSetEditStatus(
+      parseInt(this.props.col),
+      parseInt(this.props.row)
+    );
+  };
 
-  compMouseEnter(e) {
-    const col = parseInt(this.props.col);
-    const row = parseInt(this.props.row);
-    this.props.onSetEditStatus(col, row);
-  }
-
-  compMouseLeave(e) {
+  compMouseLeave = e => {
     // this.props.onClearEditStatus();
-  }
+  };
 
-  clickRemove(e) {
+  clickRemove = e => {
     if (this.props.row !== undefined) {
       this.props.onSetRemoveRow();
     } else {
       this.props.onSetRemoveCol();
     }
-  }
+  };
 
-  clickModify(e) {
+  clickModify = e => {
     const link = e.target.parentNode.parentNode.parentNode;
 
     const editInputs = document.querySelectorAll('.edit');
@@ -63,7 +56,7 @@ class Setting extends Component {
       tabTitleEdit.style.display = 'inline';
       tabTitleEdit.focus();
     }
-  }
+  };
 
   render() {
     return (

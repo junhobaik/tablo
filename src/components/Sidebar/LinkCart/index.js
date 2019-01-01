@@ -12,15 +12,12 @@ class LinkCart extends Component {
     this.state = {
       list: [],
     };
-
-    this.removeLink = this.removeLink.bind(this);
-    this.dragStart = this.dragStart.bind(this);
   }
 
-  dragStart(event) {
-    const row = parseInt(event.target.attributes.row.value);
+  dragStart = e => {
+    const row = parseInt(e.target.attributes.row.value);
     this.props.onSetDragStatus(null, null, this.state.list[row]);
-  }
+  };
 
   componentDidMount() {
     const updateList = list => {
@@ -62,7 +59,7 @@ class LinkCart extends Component {
     });
   }
 
-  removeLink(e) {
+  removeLink = e => {
     const row = parseInt(e.target.parentNode.attributes.row.value);
     const list = this.state.list;
     list.splice(row, 1);
@@ -77,7 +74,7 @@ class LinkCart extends Component {
         });
       }
     );
-  }
+  };
 
   render() {
     const linkList = (this.state.list || []).map((v, i) => {

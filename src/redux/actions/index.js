@@ -12,14 +12,12 @@ export const SUBMIT_EDIT_TAB_TITLE = "SUBMIT_EDIT_TAB_TITLE";
 export const LOAD_TABS = 'LOAD_TABS';
 
 export function addColumn(test) {
-  console.log("addColumn");
   return {
     type: ADD_COLUMN
   };
 }
 
 export function addRow(col, row) {
-  console.log("addRow", col, row);
   return {
     type: ADD_ROW,
     col,
@@ -28,14 +26,12 @@ export function addRow(col, row) {
 }
 
 export function removeRow() {
-  console.log("removeRow");
   return {
     type: REMOVE_ROW
   };
 }
 
 export function setDragStatus(col, row, item) {
-  console.log("setDragStatus", col, row, item);
   return {
     type: SET_DRAG_STATUS,
     col,
@@ -45,14 +41,12 @@ export function setDragStatus(col, row, item) {
 }
 
 export function clearDragStatus() {
-  console.log("clearDragStatus");
   return {
     type: CLEAR_DRAG_STATUS
   };
 }
 
 export function setEditStatus(col, row) {
-  console.log("setEditStatus", col, row);
   return {
     type: SET_EDIT_STATUS,
     col,
@@ -61,34 +55,29 @@ export function setEditStatus(col, row) {
 }
 
 export function clearEditStatus() {
-  console.log("clearEditStatus");
   return {
     type: CLEAR_EDIT_STATUS
   };
 }
 
 export function setRemoveRow() {
-  console.log("setRemoveRow");
   return {
     type: SET_REMOVE_ROW
   };
 }
 
 export function setRemoveCol() {
-  console.log("setRemoveRow");
   return {
     type: SET_REMOVE_COL
   };
 }
 export function submitEditTitle(title) {
-  console.log("submitEditTitle", title);
   return {
     type: SUBMIT_EDIT_TITLE,
     title
   };
 }
 export function submitEditTabTitle(title) {
-  console.log("submitEditTabTitle");
   return {
     type: SUBMIT_EDIT_TAB_TITLE,
     title
@@ -96,7 +85,6 @@ export function submitEditTabTitle(title) {
 }
 
 export function loadTabs(state){
-  console.log('loadTabs', state);
   return {
     type: LOAD_TABS,
     state

@@ -15,7 +15,6 @@ class CurrentTabList extends Component {
   }
 
   dragStart(event) {
-    console.log("dargStart", event.target);
     const row = parseInt(event.target.attributes.row.value);
     this.props.onSetDragStatus(null, null, this.state.list[row]);
   }

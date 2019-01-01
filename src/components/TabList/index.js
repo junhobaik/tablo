@@ -37,12 +37,12 @@ class TabList extends Component {
     this.submitEditTabTitle = this.submitEditTabTitle.bind(this);
     this.blurEditTitle = this.blurEditTitle.bind(this);
   }
+
   dragOver(e) {
     e.preventDefault();
   }
-  linkDragStart(e) {
-    // console.log("linkDragStart()", e.target);
 
+  linkDragStart(e) {
     const dragCol = parseInt(e.target.attributes.col.value);
     const dragRow = parseInt(e.target.attributes.row.value);
 
@@ -52,15 +52,14 @@ class TabList extends Component {
       this.props.tabList[dragCol].tabs[dragRow]
     );
   }
+
   linkDragEnd(e) {
-    // console.log("linkDragEnd()", e.target);
     this.props.onClearDragStatus();
   }
+
   spaceDrop(e) {
     const dropCol = parseInt(e.target.attributes.col.value);
     const dropRow = parseInt(e.target.attributes.row.value);
-
-    // console.log("spaceDrop()", e.target, dropCol, dropRow);
 
     e.target.classList.remove("drag-hover");
 
@@ -68,18 +67,16 @@ class TabList extends Component {
     if (this.props.dragStatus.dragCol !== null) this.props.onRemoveRow();
     this.props.onClearDragStatus();
   }
+
   spaceDragEnter(e) {
-    // console.log("spaceDragEnter", e.target);
     e.target.classList.add("drag-hover");
   }
+
   spaceDragLeave(e) {
-    // console.log("spaceDragLeave", e.target);
     e.target.classList.remove("drag-hover");
   }
-  /***************************************************************** */
+
   settingMouseEnter(e) {
-    // console.log("settingMouseEnter()", e.target);
-    // console.log(e.target.classList.contains(".setting-icon"));
     if (e.target.classList.contains("setting-icon"))
       e.target.querySelector(".setting-component").style.display = "inline";
 
@@ -91,7 +88,6 @@ class TabList extends Component {
     }
   }
   settingMouseLeave(e) {
-    // console.log("settingMouseLeave()", e.target);
     if (e.target.querySelector(".setting-component")) {
       e.target.querySelector(".setting-component").style.display = "none";
     } else {
@@ -111,7 +107,6 @@ class TabList extends Component {
   }
   submitEditTitle(e) {
     if (e.key === "Enter") {
-      console.log("submitEditTitle", this.state.editValue);
       this.props.onSubmitEditTitle(this.state.editValue);
       this.setState({
         editValue: ""
@@ -123,7 +118,6 @@ class TabList extends Component {
   }
   submitEditTabTitle(e) {
     if (e.key === "Enter") {
-      console.log("submitEditTabTitle", this.state.editValue);
       this.props.onSubmitEditTabTitle(this.state.editValue);
       this.setState({
         editValue: ""
@@ -132,7 +126,7 @@ class TabList extends Component {
       e.target.parentNode.querySelector(".tab-title").style.display = "inline";
     }
   }
-  
+
   blurEditTitle(e) {
     const edit = document.querySelectorAll(".edit");
     const title = document.querySelectorAll(".title");

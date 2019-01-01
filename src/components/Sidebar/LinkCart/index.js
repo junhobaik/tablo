@@ -18,7 +18,6 @@ class LinkCart extends Component {
   }
 
   dragStart(event) {
-    console.log("dargStart", event.target);
     const row = parseInt(event.target.attributes.row.value);
     this.props.onSetDragStatus(null, null, this.state.list[row]);
   }
@@ -32,7 +31,6 @@ class LinkCart extends Component {
 
     chrome.storage.sync.get("tablo_cart", i => {
       if (i.tablo_cart) {
-        console.log("cart, ", i.tablo_cart);
         this.setState({
           list: i.tablo_cart
         });
@@ -59,7 +57,6 @@ class LinkCart extends Component {
 
     chrome.storage.onChanged.addListener(function(changes, namespace) {
       if (changes.tablo_cart) {
-        console.log("changes.tablo_cart", changes.tablo_cart);
         updateList(changes.tablo_cart.newValue);
       }
     });

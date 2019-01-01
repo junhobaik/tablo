@@ -14,9 +14,7 @@ store.subscribe(() => {
     {
       tablo_tab: store.getState().tab
     },
-    () => {
-      console.log("Save to storage, ", store.getState().tab);
-    }
+    () => {}
   );
 });
 

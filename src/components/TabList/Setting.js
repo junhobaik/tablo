@@ -19,27 +19,24 @@ class Setting extends Component {
   }
 
   compMouseEnter(e) {
-    console.log("compMouseEnter");
     const col = parseInt(this.props.col);
     const row = parseInt(this.props.row);
     this.props.onSetEditStatus(col, row);
   }
+
   compMouseLeave(e) {
-    console.log("compMouseLeave");
     // this.props.onClearEditStatus();
   }
-  clickRemove(e) {
-    console.log("clickRemove()", e.target, this.props.col, this.props.row);
 
+  clickRemove(e) {
     if (this.props.row !== undefined) {
       this.props.onSetRemoveRow();
     } else {
       this.props.onSetRemoveCol();
     }
   }
-  clickModify(e) {
-    console.log("clickModify()", e.target, this.props.col, this.props.row);
 
+  clickModify(e) {
     const link = e.target.parentNode.parentNode.parentNode;
 
     const editInputs = document.querySelectorAll(".edit");

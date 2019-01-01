@@ -35,6 +35,7 @@ class TabList extends Component {
     this.handleEditValue = this.handleEditValue.bind(this);
     this.submitEditTitle = this.submitEditTitle.bind(this);
     this.submitEditTabTitle = this.submitEditTabTitle.bind(this);
+    this.blurEditTitle = this.blurEditTitle.bind(this);
   }
   dragOver(e) {
     e.preventDefault();
@@ -132,6 +133,22 @@ class TabList extends Component {
     }
   }
   
+  blurEditTitle(e) {
+    const edit = document.querySelectorAll(".edit");
+    const title = document.querySelectorAll(".title");
+
+    for (let v of edit) {
+      v.style.display = "none";
+    }
+    for (let v of title) {
+      v.style.display = "inline";
+    }
+
+    this.setState({
+      editValue: ""
+    });
+  }
+
   render() {
     const tabListObj = this.props.tabList.map((v, i) => {
       const colData = {
@@ -179,6 +196,7 @@ class TabList extends Component {
                   onChange={this.handleEditValue}
                   placeholder="After editing, press Enter."
                   onKeyPress={this.submitEditTitle}
+                  onBlur={this.blurEditTitle}
                 />
               </a>
               {/* setting */}
@@ -221,6 +239,7 @@ class TabList extends Component {
               onChange={this.handleEditValue}
               placeholder="After editing, press Enter."
               onKeyPress={this.submitEditTabTitle}
+              onBlur={this.blurEditTitle}
             />
             {/* setting */}
             <div
@@ -278,7 +297,6 @@ let mapDispatchToProps = dispatch => {
     onClearDragStatus: () => dispatch(clearDragStatus()),
     onSubmitEditTitle: title => dispatch(submitEditTitle(title)),
     onSubmitEditTabTitle: title => dispatch(submitEditTabTitle(title))
-
   };
 };
 

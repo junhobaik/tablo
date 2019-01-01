@@ -109,7 +109,8 @@ class index extends Component {
       <div id="LinkCart">
         <div className="link-list">
           <div className="link-list-title">
-            <p>Cart</p>
+            <Fa icon="shopping-cart" />
+            <h2>Cart</h2>
           </div>
           <ul className="list">{linkList}</ul>
         </div>

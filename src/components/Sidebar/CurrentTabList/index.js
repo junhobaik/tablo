@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { FontAwesomeIcon as Fa } from "@fortawesome/react-fontawesome";
 import { connect } from "react-redux";
 import "./index.scss";
 
@@ -48,9 +49,7 @@ class CurrentTabList extends Component {
           onDragStart={this.dragStart}
           row={i}
         >
-
           <a href={v.url} target="_blank" draggable="false">
-          
             <div className="favicon">
               {v.favIconUrl ? (
                 <img src={v.favIconUrl} alt="favicon" draggable="false" />
@@ -71,7 +70,8 @@ class CurrentTabList extends Component {
       <div id="CurrentTabList">
         <div className="link-list">
           <div className="link-list-title">
-            <p>Current Tabs</p>
+            <Fa icon="window-restore" />
+            <h2>Current Tabs</h2>
           </div>
           <ul className="list">{linkList}</ul>
         </div>

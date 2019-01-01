@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon as Fa } from "@fortawesome/react-fontawesome";
 import { connect } from "react-redux";
+import { setDragStatus } from "../../../redux/actions";
 import "./index.scss";
 
 class CurrentTabList extends Component {
@@ -10,6 +11,13 @@ class CurrentTabList extends Component {
     this.state = {
       list: []
     };
+    this.dragStart = this.dragStart.bind(this);
+  }
+
+  dragStart(event) {
+    console.log("dargStart", event.target);
+    const row = parseInt(event.target.attributes.row.value);
+    this.props.onSetDragStatus(null, null, this.state.list[row]);
   }
 
   getAllTabs() {
@@ -79,8 +87,11 @@ class CurrentTabList extends Component {
     );
   }
 }
+
 let mapDispatchToProps = dispatch => {
-  return {};
+  return {
+    onSetDragStatus: (col, row, item) => dispatch(setDragStatus(col, row, item))
+  };
 };
 
 let mapStateToProps = state => {

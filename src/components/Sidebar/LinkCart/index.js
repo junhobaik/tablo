@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon as Fa } from "@fortawesome/react-fontawesome";
+import { setDragStatus } from "../../../redux/actions";
+import { connect } from "react-redux";
 import "./index.scss";
 
-class index extends Component {
+class LinkCart extends Component {
   constructor(props) {
     super(props);
 
@@ -12,6 +14,13 @@ class index extends Component {
     };
 
     this.removeLink = this.removeLink.bind(this);
+    this.dragStart = this.dragStart.bind(this);
+  }
+
+  dragStart(event) {
+    console.log("dargStart", event.target);
+    const row = parseInt(event.target.attributes.row.value);
+    this.props.onSetDragStatus(null, null, this.state.list[row]);
   }
 
   componentDidMount() {
@@ -83,7 +92,6 @@ class index extends Component {
           onDragStart={this.dragStart}
           row={i}
         >
-
           <a href={v.url} target="_blank" draggable="false">
             <div className="favicon">
               {v.favIconUrl ? (
@@ -100,7 +108,6 @@ class index extends Component {
           <div className="link-remove" onClick={this.removeLink}>
             <Fa icon="minus-circle" />
           </div>
-
         </li>
       );
     });
@@ -119,6 +126,21 @@ class index extends Component {
   }
 }
 
-index.propTypes = {};
+let mapDispatchToProps = dispatch => {
+  return {
+    onSetDragStatus: (col, row, item) => dispatch(setDragStatus(col, row, item))
+  };
+};
 
-export default index;
+let mapStateToProps = state => {
+  return {};
+};
+
+LinkCart.propTypes = {};
+
+LinkCart = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LinkCart);
+
+export default LinkCart;

@@ -7,16 +7,25 @@ document.addEventListener("DOMContentLoaded", () => {
   chrome.tabs.getSelected(null, function(tab) {
     title = tab.title;
     url = tab.url;
-    favIconUrl = tab.favIconUrl;
+    favIconUrl = tab.favIconUrl || undefined;
     isReady = true;
 
-    if (favIconUrl !== undefined)
-      document.querySelector(".link img").src = favIconUrl;
+    const img = document.querySelector(".link img");
+
+    console.log(favIconUrl);
+    if (favIconUrl !== undefined) {
+      img.src = favIconUrl;
+    } else {
+      const noFavicon = document.querySelector('.no-favicon');
+      img.style.display = 'none';
+      noFavicon.style.display = 'flex';
+      noFavicon.querySelector('span').innerHTML = title[0].toUpperCase();
+    }
     document.querySelector(".link .link-title").innerHTML = title;
   });
 
   document.querySelector(".add-button").addEventListener("click", e => {
-    console.log('click');
+    console.log("click");
 
     if (isReady) {
       chrome.storage.sync.get("tablo_cart", function(items) {
@@ -26,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
             tablo_cart: [
               ...cart,
               {
-                title, 
+                title,
                 url,
                 favIconUrl
               }

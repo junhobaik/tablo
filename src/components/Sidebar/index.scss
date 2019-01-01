@@ -1,11 +1,11 @@
 #Sidebar {
   z-index: 9;
-  background-color: $current-tab-background-color;
-  color: $current-tab-font-color;
+  background-color: $side-bar-background-color;
+  color: $side-bar-font-color;
   height: 100vh;
-  min-width: $current-tab-list-width;
-  max-width: $current-tab-list-width;
-  box-shadow: $current-tab-box-shadow;
+  min-width: $side-bar-width;
+  max-width: $side-bar-width;
+  box-shadow: $side-bar-box-shadow;
   display: flex;
   flex-direction: column;
 

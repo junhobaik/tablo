@@ -72,8 +72,8 @@ class TabList extends Component {
 
     if (target.parentNode.attributes.col) {
       this.setState({
-        settingCol: e.parentNode.attributes.col.value,
-        settingRow: e.parentNode.attributes.row.value,
+        settingCol: target.parentNode.attributes.col.value,
+        settingRow: target.parentNode.attributes.row.value,
       });
     }
   };

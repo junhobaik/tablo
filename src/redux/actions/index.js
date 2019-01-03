@@ -11,7 +11,7 @@ export const SUBMIT_EDIT_TITLE = 'SUBMIT_EDIT_TITLE';
 export const SUBMIT_EDIT_TAB_TITLE = 'SUBMIT_EDIT_TAB_TITLE';
 export const LOAD_TABS = 'LOAD_TABS';
 
-export function addColumn(test) {
+export function addColumn() {
   return {
     type: ADD_COLUMN,
   };

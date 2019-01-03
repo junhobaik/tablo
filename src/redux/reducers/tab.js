@@ -13,7 +13,7 @@ import {
   LOAD_TABS,
 } from '../actions';
 
-let tabInitialState = JSON.parse(localStorage.getItem('tablo')) || {
+let tabInitialState = {
   settingStatus: {
     col: null,
     row: null,
@@ -49,6 +49,7 @@ const tab = (state = tabInitialState, action) => {
           },
         ],
       });
+
     case ADD_ROW:
       return Object.assign({}, state, {
         tabList: [
@@ -64,6 +65,7 @@ const tab = (state = tabInitialState, action) => {
           ...state.tabList.slice(action.col + 1),
         ],
       });
+
     case REMOVE_ROW:
       return Object.assign({}, state, {
         tabList: [
@@ -83,6 +85,7 @@ const tab = (state = tabInitialState, action) => {
           ...state.tabList.slice(state.dragStatus.dragCol + 1),
         ],
       });
+
     case SET_DRAG_STATUS:
       return Object.assign({}, state, {
         dragStatus: {
@@ -91,6 +94,7 @@ const tab = (state = tabInitialState, action) => {
           dragRow: action.row,
         },
       });
+
     case SET_EDIT_STATUS:
       return Object.assign({}, state, {
         settingStatus: {
@@ -98,6 +102,7 @@ const tab = (state = tabInitialState, action) => {
           row: action.row,
         },
       });
+
     case SET_REMOVE_ROW:
       return Object.assign({}, state, {
         tabList: [
@@ -117,6 +122,7 @@ const tab = (state = tabInitialState, action) => {
           ...state.tabList.slice(state.settingStatus.col + 1),
         ],
       });
+
     case SET_REMOVE_COL:
       return Object.assign({}, state, {
         tabList: [
@@ -124,6 +130,7 @@ const tab = (state = tabInitialState, action) => {
           ...state.tabList.slice(state.settingStatus.col + 1),
         ],
       });
+
     case SUBMIT_EDIT_TITLE:
       return Object.assign({}, state, {
         tabList: [
@@ -154,6 +161,7 @@ const tab = (state = tabInitialState, action) => {
           ...state.tabList.slice(state.settingStatus.col + 1),
         ],
       });
+
     case SUBMIT_EDIT_TAB_TITLE:
       return Object.assign({}, state, {
         tabList: [
@@ -165,8 +173,7 @@ const tab = (state = tabInitialState, action) => {
           ...state.tabList.slice(state.settingStatus.col + 1),
         ],
       });
-    default:
-      return state;
+
     case CLEAR_DRAG_STATUS:
       return Object.assign({}, state, {
         dragStatus: {
@@ -175,6 +182,7 @@ const tab = (state = tabInitialState, action) => {
           dragRow: null,
         },
       });
+
     case CLEAR_EDIT_STATUS:
       return Object.assign({}, state, {
         settingStatus: {
@@ -182,8 +190,12 @@ const tab = (state = tabInitialState, action) => {
           row: null,
         },
       });
+
     case LOAD_TABS:
       return Object.assign({}, state, action.state);
+
+    default:
+      return state;
   }
 };
 

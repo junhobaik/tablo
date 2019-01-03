@@ -10,6 +10,7 @@ export const SET_REMOVE_COL = 'SET_REMOVE_COL';
 export const SUBMIT_EDIT_TITLE = 'SUBMIT_EDIT_TITLE';
 export const SUBMIT_EDIT_TAB_TITLE = 'SUBMIT_EDIT_TAB_TITLE';
 export const LOAD_TABS = 'LOAD_TABS';
+export const MOVE_INSIDE_ROW = 'MOVE_INSIDE_ROW';
 
 export function addColumn() {
   return {
@@ -18,6 +19,7 @@ export function addColumn() {
 }
 
 export function addRow(col, row) {
+  console.log('addRow', col, row);
   return {
     type: ADD_ROW,
     col,
@@ -26,12 +28,21 @@ export function addRow(col, row) {
 }
 
 export function removeRow() {
+  console.log('removeRow()', );
   return {
     type: REMOVE_ROW,
   };
 }
 
+export function moveInsideRow(dropRow) {
+  return {
+    type: MOVE_INSIDE_ROW,
+    dropRow,
+  };
+}
+
 export function setDragStatus(col, row, item) {
+  console.log('setDragStatus(col, row, item): ', col, row, item);
   return {
     type: SET_DRAG_STATUS,
     col,

@@ -11,6 +11,7 @@ import {
   SUBMIT_EDIT_TITLE,
   SUBMIT_EDIT_TAB_TITLE,
   LOAD_TABS,
+  MOVE_INSIDE_ROW,
 } from '../actions';
 
 let tabInitialState = {
@@ -79,6 +80,30 @@ const tab = (state = tabInitialState, action) => {
               ),
               ...state.tabList[state.dragStatus.dragCol].tabs.slice(
                 state.dragStatus.dragRow + 1
+              ),
+            ],
+          },
+          ...state.tabList.slice(state.dragStatus.dragCol + 1),
+        ],
+      });
+
+    case MOVE_INSIDE_ROW:
+      return Object.assign({}, state, {
+        tabList: [
+          ...state.tabList.slice(0, state.dragStatus.dragCol),
+          {
+            title: state.tabList[state.dragStatus.dragCol].title,
+            tabs: [
+              ...state.tabList[state.dragStatus.dragCol].tabs.slice(
+                0,
+                state.dragStatus.dragRow < action.dropRow
+                  ? state.dragStatus.dragRow
+                  : state.dragStatus.dragRow + 1
+              ),
+              ...state.tabList[state.dragStatus.dragCol].tabs.slice(
+                state.dragStatus.dragRow < action.dropRow 
+                ? state.dragStatus.dragRow + 1
+                : state.dragStatus.dragRow + 2
               ),
             ],
           },

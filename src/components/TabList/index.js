@@ -9,6 +9,7 @@ import {
   clearDragStatus,
   submitEditTitle,
   submitEditTabTitle,
+  moveInsideRow,
 } from '../../redux/actions';
 import './index.scss';
 import Setting from './Setting';
@@ -23,8 +24,6 @@ class TabList extends Component {
       settingRow: null,
     };
   }
-
-
 
   allDragOver = e => {
     e.preventDefault();
@@ -46,13 +45,24 @@ class TabList extends Component {
   };
 
   spaceDrop = e => {
-    e.target.classList.remove('drag-hover');
+    const target = e.target;
+    const dropCol = parseInt(target.attributes.col.value);
+    const dropRow = parseInt(target.attributes.row.value);
 
-    this.props.onAddRow(
-      parseInt(e.target.attributes.col.value),
-      parseInt(e.target.attributes.row.value)
-    );
-    if (this.props.dragStatus.dragCol !== null) this.props.onRemoveRow();
+    target.classList.remove('drag-hover');
+
+    this.props.onAddRow(dropCol, dropRow);
+
+    // Sidebar에서 드래그했을때
+    if (this.props.dragStatus.dragCol !== null) {
+      if (this.props.dragStatus.dragCol === dropCol) {
+        console.log('같은 줄');
+        this.props.onMoveInsideRow(dropRow);
+      } else {
+        this.props.onRemoveRow();
+      }
+    }
+
     this.props.onClearDragStatus();
   };
 
@@ -107,8 +117,7 @@ class TabList extends Component {
         editValue: '',
       });
       target.style.display = 'none';
-      target.parentNode.querySelector('a>.title-text').style.display =
-        'inline';
+      target.parentNode.querySelector('a>.title-text').style.display = 'inline';
     }
   };
 
@@ -288,6 +297,7 @@ let mapDispatchToProps = dispatch => {
     onAddColumn: () => dispatch(addColumn()),
     onAddRow: (col, row) => dispatch(addRow(col, row)),
     onRemoveRow: () => dispatch(removeRow()),
+    onMoveInsideRow: dropRow => dispatch(moveInsideRow(dropRow)),
     onSetDragStatus: (col, row, item) =>
       dispatch(setDragStatus(col, row, item)),
     onClearDragStatus: () => dispatch(clearDragStatus()),

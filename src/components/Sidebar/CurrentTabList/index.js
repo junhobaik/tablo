@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { FontAwesomeIcon as Fa } from '@fortawesome/react-fontawesome';
 import { connect } from 'react-redux';
 import { setDragStatus } from '../../../redux/actions';
-import './index.scss';
 
 class CurrentTabList extends Component {
   constructor(props) {
@@ -23,7 +21,7 @@ class CurrentTabList extends Component {
       let list = [];
       for (let window of windows) {
         for (let tab of window.tabs) {
-          const { id, title, url, favIconUrl } = tab;
+          const { title, url, favIconUrl } = tab;
           list.push({ title, url, favIconUrl });
         }
       }
@@ -93,14 +91,8 @@ let mapDispatchToProps = dispatch => {
   };
 };
 
-let mapStateToProps = state => {
-  return {};
-};
-
-CurrentTabList.propTypes = {};
-
 CurrentTabList = connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(CurrentTabList);
 

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { FontAwesomeIcon as Fa } from '@fortawesome/react-fontawesome';
 import { setDragStatus } from '../../../redux/actions';
 import { connect } from 'react-redux';
@@ -126,14 +125,8 @@ let mapDispatchToProps = dispatch => {
   };
 };
 
-let mapStateToProps = state => {
-  return {};
-};
-
-LinkCart.propTypes = {};
-
 LinkCart = connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(LinkCart);
 

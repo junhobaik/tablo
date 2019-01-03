@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon as Fa } from '@fortawesome/react-fontawesome';
 import {
@@ -7,7 +6,7 @@ import {
   clearEditStatus,
   setRemoveRow,
   setRemoveCol,
-} from '../../redux/actions';
+} from '../../../redux/actions';
 
 class Setting extends Component {
   compMouseEnter = e => {
@@ -15,10 +14,6 @@ class Setting extends Component {
       parseInt(this.props.col),
       parseInt(this.props.row)
     );
-  };
-
-  compMouseLeave = e => {
-    // this.props.onClearEditStatus();
   };
 
   clickRemove = e => {
@@ -60,11 +55,7 @@ class Setting extends Component {
 
   render() {
     return (
-      <div
-        className="setting-component"
-        onMouseEnter={this.compMouseEnter}
-        onMouseLeave={this.compMouseLeave}
-      >
+      <div className="setting-component" onMouseEnter={this.compMouseEnter}>
         <div className="remove" onClick={this.clickRemove}>
           <Fa className="no-event" icon="trash-alt" />
         </div>
@@ -85,16 +76,8 @@ let mapDispatchToProps = dispatch => {
   };
 };
 
-let mapStateToProps = state => {
-  return {
-    settingStatus: state.tab.settingStatus,
-  };
-};
-
-Setting.propTypes = {};
-
 Setting = connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(Setting);
 

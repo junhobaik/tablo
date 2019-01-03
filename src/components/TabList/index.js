@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon as Fa } from '@fortawesome/react-fontawesome';
 import {
@@ -303,8 +302,6 @@ let mapStateToProps = state => {
     tabList: state.tab.tabList,
   };
 };
-
-TabList.propTypes = {};
 
 TabList = connect(
   mapStateToProps,

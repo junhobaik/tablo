@@ -48,14 +48,8 @@ let mapDispatchToProps = dispatch => {
   };
 };
 
-let mapStateToProps = state => {
-  return {};
-};
-
-App.propTypes = {};
-
 App = connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(App);
 

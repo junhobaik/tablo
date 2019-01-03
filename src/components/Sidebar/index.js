@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import CurrentTabList from './CurrentTabList';
 import LinkCart from './LinkCart';
 import './index.scss';
@@ -14,7 +13,4 @@ class Sidebar extends Component {
     );
   }
 }
-
-Sidebar.propTypes = {};
-
 export default Sidebar;

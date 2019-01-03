@@ -1,5 +1,9 @@
 # Tablo
 
+[Chrome Web Store - Tablo](https://chrome.google.com/webstore/detail/aoccnljcdmmbihgabpoljghfcmbflkhc)
+
+---
+
 Chrome 확장 프로그램,
 
 브라우저에 열려있는 모든 탭을 관리할 수 있습니다.
@@ -13,7 +17,6 @@ Tablo의 사이드바에 나열된 탭들 중 북마크하고 싶은 탭을 원�
 
 데이터는 Chrome storage에 저장되며, 그로 인해 어떤 기기에서도 크롬에 로그인된 상태라면 데이터가 공유됩니다.
 
----
 
 ## Built with:
 

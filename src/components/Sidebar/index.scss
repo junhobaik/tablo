@@ -9,18 +9,22 @@
   display: flex;
   flex-direction: column;
 
-  #CurrentTabList {
+  #CurrentTabList,
+  #LinkCart {
     flex-grow: 1;
     overflow: auto;
+    
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
-  #LinkCart{
-    flex-grow: 1;
+
+  #LinkCart {
     min-height: 30%;
     border-top: 2px solid lightgray;
   }
 
   .link-list {
-    overflow: scroll !important;
     padding: 0 1rem;
 
     a {

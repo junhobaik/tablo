@@ -4,10 +4,7 @@
   display: flex;
   flex-grow: 1;
   overflow: auto;
-  padding-right: 10rem;
-  & > div {
-    margin: 1rem;
-  }
+  padding: 2em;
 
   .tab {
     display: flex;
@@ -93,7 +90,7 @@
           transition: 0.3s;
         }
 
-        .drag-hover {
+        .space-drag-hover {
           height: 3em;
         }
 
@@ -153,6 +150,16 @@
       font-size: 0.9em;
       width: 100%;
     }
+  }
+
+  .space-tab {
+    min-width: 3em;
+    margin: 0;
+    transition: 0.3s;
+  }
+
+  .space-tab-drag-hover {
+    min-width: 10em;
   }
 
   .add-column-wrap {

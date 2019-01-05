@@ -51,7 +51,7 @@ class TabList extends Component {
       const dropCol = parseInt(target.attributes.col.value);
       const dropRow = parseInt(target.attributes.row.value);
 
-      target.classList.remove('drag-hover');
+      target.classList.remove('space-drag-hover');
 
       this.props.onAddRow(dropCol, dropRow);
 
@@ -70,11 +70,49 @@ class TabList extends Component {
   };
 
   spaceDragEnter = e => {
-    e.target.classList.add('drag-hover');
+    if (this.props.dragStatus.dragEl === 'link')
+      e.target.classList.add('space-drag-hover');
   };
 
   spaceDragLeave = e => {
-    e.target.classList.remove('drag-hover');
+    e.target.classList.remove('space-drag-hover');
+  };
+
+
+  tabDragStart = e => {
+    const dragCol = parseInt(e.target.attributes.col.value);
+
+    this.props.onSetDragStatus(
+      'tab',
+      dragCol,
+      null,
+      this.props.tabList[dragCol]
+    );
+  };
+
+  tabDragEnd = e => {
+    this.props.onClearDragStatus();
+  };
+
+  spaceTabDrop = e => {
+    console.log('spaceTabDrop', e.target);
+    if (this.props.dragStatus.dragEl === 'tab') {
+      const target = e.target;
+      const dropCol = parseInt(target.attributes.col.value);
+      const dropRow = parseInt(target.attributes.row.value);
+
+      target.classList.remove('space-tab-drag-hover');
+
+      this.props.onClearDragStatus();
+    }
+  };
+
+  spaceTabDragEnter = e => {
+    e.target.classList.add('space-tab-drag-hover');
+  };
+
+  spaceTabDragLeave = e => {
+    e.target.classList.remove('space-tab-drag-hover');
   };
 
   settingMouseEnter = e => {
@@ -232,48 +270,59 @@ class TabList extends Component {
       }, this);
 
       return (
-        <div className="tab" key={`tab-${i}`} draggable="true">
-          <div className="tab-header">
-            <h2 className="tab-title title">{v.title}</h2>
+        <React.Fragment key={`tab-${i}`}>
+          <div className="tab" col={colData.num} draggable="true" onDragStart={this.tabDragStart} onDragEnd={this.tabDragEnd}>
+            <div className="tab-header">
+              <h2 className="tab-title title">{v.title}</h2>
 
-            <input
-              className="tab-title-edit edit"
-              type="text"
-              value={this.state.editValue}
-              onClick={e => {
-                e.preventDefault();
-              }}
-              onChange={this.handleEditValue}
-              placeholder="After editing, press Enter."
-              onKeyPress={this.submitEditTabTitle}
-              onBlur={this.blurEditTitles}
-            />
-
-            <div
-              className="tab-setting setting-icon"
-              onMouseEnter={this.settingMouseEnter}
-              onMouseLeave={this.settingMouseLeave}
-            >
-              <Fa className="no-event" icon="ellipsis-v" />
-              <Setting col={colData.num} />
-            </div>
-          </div>
-
-          <ul className="link-list">
-            <div className="link-container" col={colData.num} row={0}>
-              <div
-                className="space"
-                col={colData.num}
-                row={0}
-                onDrop={this.spaceDrop}
-                onDragOver={this.allDragOver}
-                onDragEnter={this.spaceDragEnter}
-                onDragLeave={this.spaceDragLeave}
+              <input
+                className="tab-title-edit edit"
+                type="text"
+                value={this.state.editValue}
+                onClick={e => {
+                  e.preventDefault();
+                }}
+                onChange={this.handleEditValue}
+                placeholder="After editing, press Enter."
+                onKeyPress={this.submitEditTabTitle}
+                onBlur={this.blurEditTitles}
               />
+
+              <div
+                className="tab-setting setting-icon"
+                onMouseEnter={this.settingMouseEnter}
+                onMouseLeave={this.settingMouseLeave}
+              >
+                <Fa className="no-event" icon="ellipsis-v" />
+                <Setting col={colData.num} />
+              </div>
             </div>
-            {linkList}
-          </ul>
-        </div>
+
+            <ul className="link-list">
+              <div className="link-container" col={colData.num} row={0}>
+                <div
+                  className="space"
+                  col={colData.num}
+                  row={0}
+                  onDrop={this.spaceDrop}
+                  onDragOver={this.allDragOver}
+                  onDragEnter={this.spaceDragEnter}
+                  onDragLeave={this.spaceDragLeave}
+                />
+              </div>
+              {linkList}
+            </ul>
+          </div>
+          <div
+            className="space-tab"
+            col={colData.num}
+            row={i + 1}
+            onDrop={this.spaceTabDrop}
+            onDragOver={this.allDragOver}
+            onDragEnter={this.spaceTabDragEnter}
+            onDragLeave={this.spaceTabDragLeave}
+          />
+        </React.Fragment>
       );
     }, this);
 

@@ -151,28 +151,10 @@ class TabList extends Component {
   };
 
   submitEditTitle = e => {
-    const target = e.target;
-
-    if (e.key === 'Enter') {
-      this.props.onSubmitEditTitle(this.state.editValue);
-      this.setState({
-        editValue: '',
-      });
-      target.style.display = 'none';
-      target.parentNode.querySelector('a>.title-text').style.display = 'inline';
-    }
-  };
-
-  submitEditTabTitle = e => {
     const { key, target } = e;
 
     if (key === 'Enter') {
-      this.props.onSubmitEditTabTitle(this.state.editValue);
-      this.setState({
-        editValue: '',
-      });
       target.style.display = 'none';
-      target.parentNode.querySelector('.tab-title').style.display = 'inline';
     }
   };
 
@@ -314,8 +296,9 @@ class TabList extends Component {
                 }}
                 onChange={this.handleEditValue}
                 placeholder="After editing, press Enter."
-                onKeyPress={this.submitEditTabTitle}
+                onKeyPress={this.submitEditTitle}
                 onBlur={this.blurEditTitles}
+                onFocus={this.focusEditTitle}
               />
 
               <div

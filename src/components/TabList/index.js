@@ -332,8 +332,7 @@ class TabList extends Component {
           </div>
           <div
             className="space-tab"
-            col={colData.num}
-            row={i + 1}
+            col={colData.num + 1}
             onDrop={this.spaceTabDrop}
             onDragOver={this.allDragOver}
             onDragEnter={this.spaceTabDragEnter}

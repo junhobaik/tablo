@@ -187,8 +187,20 @@ class TabList extends Component {
       v.style.display = 'inline';
     }
 
+    if (e.target.classList.contains('title-edit')) {
+      this.props.onSubmitEditTitle(this.state.editValue);
+    } else {
+      this.props.onSubmitEditTabTitle(this.state.editValue);
+    }
+
     this.setState({
       editValue: '',
+    });
+  };
+
+  focusEditTitle = e => {
+    this.setState({
+      editValue: e.target.parentNode.querySelector('.title').innerHTML,
     });
   };
 
@@ -241,6 +253,7 @@ class TabList extends Component {
                   placeholder="After editing, press Enter."
                   onKeyPress={this.submitEditTitle}
                   onBlur={this.blurEditTitles}
+                  onFocus={this.focusEditTitle}
                 />
               </a>
 

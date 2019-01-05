@@ -10,6 +10,7 @@ import {
   submitEditTitle,
   submitEditTabTitle,
   moveInsideRow,
+  moveCol,
 } from '../../redux/actions';
 import './index.scss';
 import Setting from './Setting';
@@ -30,6 +31,7 @@ class TabList extends Component {
   };
 
   linkDragStart = e => {
+    e.stopPropagation();
     const dragCol = parseInt(e.target.attributes.col.value);
     const dragRow = parseInt(e.target.attributes.row.value);
 
@@ -58,7 +60,6 @@ class TabList extends Component {
       // Sidebar에서 드래그했을때
       if (this.props.dragStatus.dragCol !== null) {
         if (this.props.dragStatus.dragCol === dropCol) {
-          console.log('같은 줄');
           this.props.onMoveInsideRow(dropRow);
         } else {
           this.props.onRemoveRow();
@@ -78,7 +79,6 @@ class TabList extends Component {
     e.target.classList.remove('space-drag-hover');
   };
 
-
   tabDragStart = e => {
     const dragCol = parseInt(e.target.attributes.col.value);
 
@@ -95,13 +95,13 @@ class TabList extends Component {
   };
 
   spaceTabDrop = e => {
-    console.log('spaceTabDrop', e.target);
     if (this.props.dragStatus.dragEl === 'tab') {
       const target = e.target;
       const dropCol = parseInt(target.attributes.col.value);
-      const dropRow = parseInt(target.attributes.row.value);
 
       target.classList.remove('space-tab-drag-hover');
+
+      this.props.onMoveCol(dropCol);
 
       this.props.onClearDragStatus();
     }
@@ -271,7 +271,23 @@ class TabList extends Component {
 
       return (
         <React.Fragment key={`tab-${i}`}>
-          <div className="tab" col={colData.num} draggable="true" onDragStart={this.tabDragStart} onDragEnd={this.tabDragEnd}>
+          {i === 0 ? (
+            <div
+              className="space-tab"
+              col="0"
+              onDrop={this.spaceTabDrop}
+              onDragOver={this.allDragOver}
+              onDragEnter={this.spaceTabDragEnter}
+              onDragLeave={this.spaceTabDragLeave}
+            />
+          ) : null}
+          <div
+            className="tab"
+            col={colData.num}
+            draggable="true"
+            onDragStart={this.tabDragStart}
+            onDragEnd={this.tabDragEnd}
+          >
             <div className="tab-header">
               <h2 className="tab-title title">{v.title}</h2>
 
@@ -355,6 +371,7 @@ let mapDispatchToProps = dispatch => {
     onClearDragStatus: () => dispatch(clearDragStatus()),
     onSubmitEditTitle: title => dispatch(submitEditTitle(title)),
     onSubmitEditTabTitle: title => dispatch(submitEditTabTitle(title)),
+    onMoveCol: dropCol => dispatch(moveCol(dropCol)),
   };
 };
 

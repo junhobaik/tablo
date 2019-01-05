@@ -12,6 +12,7 @@ import {
   SUBMIT_EDIT_TAB_TITLE,
   LOAD_TABS,
   MOVE_INSIDE_ROW,
+  MOVE_COL,
 } from '../actions';
 
 let tabInitialState = {
@@ -204,6 +205,7 @@ const tab = (state = tabInitialState, action) => {
     case CLEAR_DRAG_STATUS:
       return Object.assign({}, state, {
         dragStatus: {
+          dragEl: null,
           dragData: null,
           dragCol: null,
           dragRow: null,
@@ -221,9 +223,24 @@ const tab = (state = tabInitialState, action) => {
     case LOAD_TABS:
       return Object.assign({}, state, action.state);
 
+    case MOVE_COL:
+      return moveTabItem(state, action);
+
     default:
       return state;
   }
 };
+
+function moveTabItem(state, action) {
+  const tabList = state.tabList;
+  const dragCol = state.dragStatus.dragCol;
+  const dropCol = action.dropCol;
+
+  let temp = [...tabList.slice(0, dragCol), ...tabList.slice(dragCol + 1)];
+
+  temp = [...temp.slice(0, dropCol), tabList[dragCol], ...temp.slice(dropCol)];
+
+  return { ...state, tabList: [...temp] };
+}
 
 export default tab;

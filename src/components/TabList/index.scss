@@ -4,7 +4,7 @@
   display: flex;
   flex-grow: 1;
   overflow: auto;
-  padding: 2em;
+  padding: 2em 2em 2em 0;
 
   .tab {
     display: flex;
@@ -158,8 +158,12 @@
     transition: 0.3s;
   }
 
+  .space-tab:nth-child(1){
+    min-width: 2em;
+  }
+
   .space-tab-drag-hover {
-    min-width: 10em;
+    min-width: 10em !important;
   }
 
   .add-column-wrap {

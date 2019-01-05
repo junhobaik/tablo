@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const img = document.querySelector('.link img');
 
-    console.log(favIconUrl);
     if (favIconUrl !== undefined) {
       img.src = favIconUrl;
     } else {
@@ -25,8 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.querySelector('.add-button').addEventListener('click', e => {
-    console.log('click');
-
     if (isReady) {
       chrome.storage.sync.get('tablo_cart', function(items) {
         const cart = items.tablo_cart;

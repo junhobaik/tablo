@@ -20,9 +20,10 @@ let tabInitialState = {
     row: null,
   },
   dragStatus: {
-    dragData: null,
+    dragEl: null,
     dragCol: null,
     dragRow: null,
+    dragData: null,
   },
   tabList: [
     {
@@ -101,9 +102,9 @@ const tab = (state = tabInitialState, action) => {
                   : state.dragStatus.dragRow + 1
               ),
               ...state.tabList[state.dragStatus.dragCol].tabs.slice(
-                state.dragStatus.dragRow < action.dropRow 
-                ? state.dragStatus.dragRow + 1
-                : state.dragStatus.dragRow + 2
+                state.dragStatus.dragRow < action.dropRow
+                  ? state.dragStatus.dragRow + 1
+                  : state.dragStatus.dragRow + 2
               ),
             ],
           },
@@ -114,9 +115,10 @@ const tab = (state = tabInitialState, action) => {
     case SET_DRAG_STATUS:
       return Object.assign({}, state, {
         dragStatus: {
-          dragData: action.item,
+          dragEl: action.dragEl,
           dragCol: action.col,
           dragRow: action.row,
+          dragData: action.item,
         },
       });
 

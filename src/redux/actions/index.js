@@ -41,10 +41,11 @@ export function moveInsideRow(dropRow) {
   };
 }
 
-export function setDragStatus(col, row, item) {
-  console.log('setDragStatus(col, row, item): ', col, row, item);
+export function setDragStatus(dragEl, col, row, item) {
+  console.log('setDragStatus(col, row, item): ', dragEl, col, row, item);
   return {
     type: SET_DRAG_STATUS,
+    dragEl,
     col,
     row,
     item,

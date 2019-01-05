@@ -15,7 +15,7 @@ class LinkCart extends Component {
 
   linkDragStart = e => {
     const row = parseInt(e.target.attributes.row.value);
-    this.props.onSetDragStatus(null, null, this.state.list[row]);
+    this.props.onSetDragStatus('link', null, null, this.state.list[row]);
   };
 
   componentDidMount() {
@@ -120,8 +120,8 @@ class LinkCart extends Component {
 
 let mapDispatchToProps = dispatch => {
   return {
-    onSetDragStatus: (col, row, item) =>
-      dispatch(setDragStatus(col, row, item)),
+    onSetDragStatus: (dragEl, col, row, item) =>
+      dispatch(setDragStatus(dragEl, col, row, item)),
   };
 };
 

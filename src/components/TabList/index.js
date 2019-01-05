@@ -34,6 +34,7 @@ class TabList extends Component {
     const dragRow = parseInt(e.target.attributes.row.value);
 
     this.props.onSetDragStatus(
+      'link',
       dragCol,
       dragRow,
       this.props.tabList[dragCol].tabs[dragRow]
@@ -45,25 +46,27 @@ class TabList extends Component {
   };
 
   spaceDrop = e => {
-    const target = e.target;
-    const dropCol = parseInt(target.attributes.col.value);
-    const dropRow = parseInt(target.attributes.row.value);
+    if (this.props.dragStatus.dragEl === 'link') {
+      const target = e.target;
+      const dropCol = parseInt(target.attributes.col.value);
+      const dropRow = parseInt(target.attributes.row.value);
 
-    target.classList.remove('drag-hover');
+      target.classList.remove('drag-hover');
 
-    this.props.onAddRow(dropCol, dropRow);
+      this.props.onAddRow(dropCol, dropRow);
 
-    // Sidebar에서 드래그했을때
-    if (this.props.dragStatus.dragCol !== null) {
-      if (this.props.dragStatus.dragCol === dropCol) {
-        console.log('같은 줄');
-        this.props.onMoveInsideRow(dropRow);
-      } else {
-        this.props.onRemoveRow();
+      // Sidebar에서 드래그했을때
+      if (this.props.dragStatus.dragCol !== null) {
+        if (this.props.dragStatus.dragCol === dropCol) {
+          console.log('같은 줄');
+          this.props.onMoveInsideRow(dropRow);
+        } else {
+          this.props.onRemoveRow();
+        }
       }
-    }
 
-    this.props.onClearDragStatus();
+      this.props.onClearDragStatus();
+    }
   };
 
   spaceDragEnter = e => {
@@ -229,7 +232,7 @@ class TabList extends Component {
       }, this);
 
       return (
-        <div className="tab" key={`tab-${i}`}>
+        <div className="tab" key={`tab-${i}`} draggable="true">
           <div className="tab-header">
             <h2 className="tab-title title">{v.title}</h2>
 
@@ -298,8 +301,8 @@ let mapDispatchToProps = dispatch => {
     onAddRow: (col, row) => dispatch(addRow(col, row)),
     onRemoveRow: () => dispatch(removeRow()),
     onMoveInsideRow: dropRow => dispatch(moveInsideRow(dropRow)),
-    onSetDragStatus: (col, row, item) =>
-      dispatch(setDragStatus(col, row, item)),
+    onSetDragStatus: (dragEl, col, row, item) =>
+      dispatch(setDragStatus(dragEl, col, row, item)),
     onClearDragStatus: () => dispatch(clearDragStatus()),
     onSubmitEditTitle: title => dispatch(submitEditTitle(title)),
     onSubmitEditTabTitle: title => dispatch(submitEditTabTitle(title)),

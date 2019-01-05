@@ -108,7 +108,8 @@ class TabList extends Component {
   };
 
   spaceTabDragEnter = e => {
-    e.target.classList.add('space-tab-drag-hover');
+    if (this.props.dragStatus.dragEl === 'tab')
+      e.target.classList.add('space-tab-drag-hover');
   };
 
   spaceTabDragLeave = e => {

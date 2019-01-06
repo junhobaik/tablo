@@ -28,12 +28,12 @@ let tabInitialState = {
   },
   tabList: [
     {
-      title: 'Column 1',
+      title: 'Welcome!',
       tabs: [
         {
-          title: "HUNDRED's Blog",
-          url: 'https://junhobaik.github.io',
-          favIconUrl: '',
+          title: 'Github - junhobaik',
+          url: 'https://github.com/junhobaik',
+          favIconUrl: 'https://github.githubassets.com/favicon.ico',
         },
       ],
     },

@@ -13,6 +13,7 @@ import {
   faWindowRestore,
   faShoppingCart,
   faGripHorizontal,
+  faCog,
 } from '@fortawesome/free-solid-svg-icons';
 library.add(
   faEllipsisH,
@@ -22,7 +23,8 @@ library.add(
   faMinusCircle,
   faWindowRestore,
   faShoppingCart,
-  faGripHorizontal
+  faGripHorizontal,
+  faCog
 );
 
 import { loadTabs } from '../redux/actions';

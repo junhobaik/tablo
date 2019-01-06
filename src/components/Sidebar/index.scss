@@ -14,8 +14,7 @@
     padding: 0 1rem;
     flex-grow: 1;
     overflow: auto;
-    height: 50%;
-    
+    height: calc(50% - 1.5em);
     &::-webkit-scrollbar {
       display: none;
     }
@@ -23,6 +22,42 @@
 
   #LinkCart {
     border-top: 1px solid gray;
+  }
+
+  #AppFooter {
+    padding: 0 1rem;
+    height: 3em;
+    background-color: #006988;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+
+    .app-title {
+      display: flex;
+      align-items: center;
+      flex-grow: 1;
+      color: #00AECC;
+      h1 {
+        font-size: 1.2em;
+      }
+      span {
+        opacity: 0.5;
+        margin-left: 0.5em;
+        position: relative;
+        font-size: 0.8em;
+        top: 0.1em;
+      }
+    }
+    .footer-side{
+      .app-setting {
+        cursor: pointer;
+        svg {
+          color: #00AECC;
+        }
+      }
+    }
+    
+    
   }
 
   .link-list-title {

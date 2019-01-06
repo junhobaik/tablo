@@ -1,11 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-</head>
-<body>
-  options
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <style>
+      body {
+        padding: 0 1em;
+      }
+      hr {
+        margin: 2em auto;
+      }
+      .wrap {
+        padding: 1em;
+      }
+      #backupCode {
+        width: 30em;
+      }
+      .data-setting>div {
+        margin: 1em 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Tablo - Setting</h1>
+    <div class="wrap">
+      <div class="basic-setting">
+        <div>
+          <h2>Link: Open</h2>
+          <p>Where the link will open.</p>
+          <div>
+            <input type="radio" name="link-open" id="openBlank" />
+            <label for="openBlank">Open in New Tab</label>
+          </div>
+          <div>
+            <input type="radio" name="link-open" id="openSelf" />
+            <label for="openSelf">Open in the same frame</label>
+          </div>
+        </div>
+      </div>
+
+      <hr />
+
+      <div class="data-setting">
+        <h2>Data Management</h2>
+        <div class="reset">Reset Data: <button>RESET</button></div>
+
+        <div class="backup">
+          <label for="backupCode">Current Data: </label>
+          <input id="backupCode" readonly />
+        </div>
+
+        <div class="restore">
+          <label for="restoreCode">Restore Data: </label>
+          <input id="restoreCode" /> <button>Submit</button>
+        </div>
+      </div>
+    </div>
+    <script src="./index.js"></script>
+  </body>
 </html>

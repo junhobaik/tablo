@@ -74,7 +74,7 @@ class CurrentTabList extends Component {
       <div id="CurrentTabList">
       
         <div className="link-list-title">
-          <Fa icon="window-restore" />
+          <Fa icon="grip-horizontal" />
           <h2>Current Tabs</h2>
         </div>
 

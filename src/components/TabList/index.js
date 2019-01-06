@@ -207,7 +207,7 @@ class TabList extends Component {
               className="link"
               col={colData.num}
               row={i}
-              draggable="true"
+              draggable={this.state.editValue === '' ? 'true' : 'false'}
               onDragStart={this.linkDragStart}
               onDragEnd={this.linkDragEnd}
             >
@@ -280,7 +280,7 @@ class TabList extends Component {
           <div
             className="tab"
             col={colData.num}
-            draggable="true"
+            draggable={this.state.editValue === '' ? 'true' : 'false'}
             onDragStart={this.tabDragStart}
             onDragEnd={this.tabDragEnd}
           >

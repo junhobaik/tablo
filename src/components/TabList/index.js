@@ -186,6 +186,17 @@ class TabList extends Component {
     });
   };
 
+  openLinksClick = e => {
+    const { tabs } = this.props.tabList[
+      parseInt(e.target.parentNode.parentNode.parentNode.attributes.col.value)
+    ];
+    let links = [];
+    for (let v of tabs) {
+      links.push(v.url);
+    }
+    chrome.windows.create({ url: links, type: 'normal' });
+  };
+
   render() {
     const tabList = this.props.tabList.map((v, i) => {
       const colData = {
@@ -300,7 +311,16 @@ class TabList extends Component {
                 onBlur={this.blurEditTitles}
                 onFocus={this.focusEditTitle}
               />
+
               <div className="tab-side">
+                <div
+                  className="open-links"
+                  onClick={this.openLinksClick}
+                  alt="test"
+                >
+                  <Fa className="no-event" icon="window-restore" />
+                </div>
+
                 <div
                   className="tab-setting setting-icon"
                   onMouseEnter={this.settingMouseEnter}

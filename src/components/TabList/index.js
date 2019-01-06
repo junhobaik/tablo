@@ -224,7 +224,7 @@ class TabList extends Component {
 
                 <span className="title-text title">{data.title}</span>
 
-                <input
+                <textarea
                   className="title-edit edit"
                   type="text"
                   value={this.state.editValue}
@@ -300,14 +300,15 @@ class TabList extends Component {
                 onBlur={this.blurEditTitles}
                 onFocus={this.focusEditTitle}
               />
-
-              <div
-                className="tab-setting setting-icon"
-                onMouseEnter={this.settingMouseEnter}
-                onMouseLeave={this.settingMouseLeave}
-              >
-                <Fa className="no-event" icon="ellipsis-v" />
-                <Setting col={colData.num} />
+              <div className="tab-side">
+                <div
+                  className="tab-setting setting-icon"
+                  onMouseEnter={this.settingMouseEnter}
+                  onMouseLeave={this.settingMouseLeave}
+                >
+                  <Fa className="no-event" icon="ellipsis-v" />
+                  <Setting col={colData.num} />
+                </div>
               </div>
             </div>
 

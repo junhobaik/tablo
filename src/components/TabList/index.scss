@@ -18,18 +18,31 @@
     box-shadow: $tab-box-shadow;
 
     .tab-header {
+      padding-top: 0.5em;
       display: flex;
       align-items: center;
-      height: 4em;
+      height: 5em;
       color: $tab-title-color;
 
       .tab-title,
       .tab-title-edit {
+        display: inline-block;
+        text-overflow: ellipsis;
+        word-wrap: break-word;
+        overflow: hidden;
+        max-height: 3em;
+        line-height: 1.5em;
         flex-grow: 1;
       }
       .tab-title-edit {
         display: none;
         font-size: 1em;
+      }
+
+      .tab-side {
+        display: flex;
+        align-items: center;
+        height: 100%;
       }
     }
 
@@ -82,6 +95,10 @@
             .title-edit {
               display: none;
             }
+          }
+
+          .link-setting {
+            min-width: 10%;
           }
         }
 
@@ -145,10 +162,15 @@
       }
     }
 
-    input.edit {
+    .edit {
       all: unset;
-      font-size: 0.9em;
       width: 100%;
+    }
+    .tab-title-edit.edit {
+      font-size: 1.5em;
+    }
+    .title-edit.edit {
+      font-size: 1em;
     }
   }
 
@@ -158,7 +180,7 @@
     transition: 0.3s;
   }
 
-  .space-tab:nth-child(1){
+  .space-tab:nth-child(1) {
     min-width: 2em;
   }
 

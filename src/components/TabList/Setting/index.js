@@ -25,7 +25,7 @@ class Setting extends Component {
   };
 
   clickModify = e => {
-    const link = e.target.parentNode.parentNode.parentNode;
+    const link = e.target.parentNode.parentNode.parentNode.parentNode;
 
     const editInputs = document.querySelectorAll('.edit');
     for (let v of editInputs) {

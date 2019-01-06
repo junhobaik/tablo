@@ -72,11 +72,13 @@ class CurrentTabList extends Component {
 
     return (
       <div id="CurrentTabList">
+      
+        <div className="link-list-title">
+          <Fa icon="window-restore" />
+          <h2>Current Tabs</h2>
+        </div>
+
         <div className="link-list">
-          <div className="link-list-title">
-            <Fa icon="window-restore" />
-            <h2>Current Tabs</h2>
-          </div>
           <ul className="list">{linkList}</ul>
         </div>
       </div>

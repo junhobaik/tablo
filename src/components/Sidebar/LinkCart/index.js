@@ -106,11 +106,11 @@ class LinkCart extends Component {
 
     return (
       <div id="LinkCart">
+        <div className="link-list-title">
+          <Fa icon="shopping-cart" />
+          <h2>Cart</h2>
+        </div>
         <div className="link-list">
-          <div className="link-list-title">
-            <Fa icon="shopping-cart" />
-            <h2>Cart</h2>
-          </div>
           <ul className="list">{linkList}</ul>
         </div>
       </div>

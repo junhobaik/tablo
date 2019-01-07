@@ -23,7 +23,25 @@ class TabList extends Component {
       editValue: '',
       settingCol: null,
       settingRow: null,
+      openLink: {
+        link: null,
+        tab: null,
+      },
     };
+  }
+
+  componentDidMount() {
+    const _setState = (key, data) => {
+      this.setState({
+        [key]: data
+      });
+    };
+
+    chrome.storage.sync.get('tablo_app', function(items) {
+      if(items.tablo_app){
+        _setState('openLink', items.tablo_app.openLink);
+      }
+    });
   }
 
   allDragOver = e => {
@@ -198,6 +216,9 @@ class TabList extends Component {
   };
 
   render() {
+    const openLink = this.state.openLink;
+    console.log(openLink);
+
     const tabList = this.props.tabList.map((v, i) => {
       const colData = {
         title: v.title,
@@ -222,7 +243,11 @@ class TabList extends Component {
               onDragStart={this.linkDragStart}
               onDragEnd={this.linkDragEnd}
             >
-              <a href={data.url} target="_blank" draggable="false">
+              <a
+                href={data.url}
+                target={openLink.link === '_self' ? '_self' : '_blank'}
+                draggable="false"
+              >
                 <div className="favicon">
                   {data.favIconUrl ? (
                     <img src={data.favIconUrl} alt="favicon" />

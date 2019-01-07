@@ -17,7 +17,7 @@
       #backupCode {
         width: 30em;
       }
-      .data-setting>div {
+      .data-setting > div {
         margin: 1em 0;
       }
     </style>
@@ -27,15 +27,27 @@
     <div class="wrap">
       <div class="basic-setting">
         <div>
-          <h2>Link: Open</h2>
+          <h2>Open link</h2>
           <p>Where the link will open.</p>
           <div>
-            <input type="radio" name="link-open" id="openBlank" />
+            <input type="radio" name="link-open" id="openLinkBlank" />
             <label for="openBlank">Open in New Tab</label>
           </div>
           <div>
-            <input type="radio" name="link-open" id="openSelf" />
+            <input type="radio" name="link-open" id="openLinkSelf" />
             <label for="openSelf">Open in the same frame</label>
+          </div>
+        </div>
+
+        <div>
+          <h2>Open all links in the tab</h2>
+          <div>
+            <input type="radio" name="tab-links-open" id="openTabBlank" />
+            <label for="openBlank">Open in new window</label>
+          </div>
+          <div>
+            <input type="radio" name="tab-links-open" id="openTabSelf" />
+            <label for="openSelf">Open in current window</label>
           </div>
         </div>
       </div>
@@ -56,6 +68,8 @@
           <input id="restoreCode" /> <button>Submit</button>
         </div>
       </div>
+      <hr />
+      <p>Refreshing the "Tablo" page takes effect the modified settings.</p>
     </div>
     <script src="./index.js"></script>
   </body>

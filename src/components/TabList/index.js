@@ -33,12 +33,12 @@ class TabList extends Component {
   componentDidMount() {
     const _setState = (key, data) => {
       this.setState({
-        [key]: data
+        [key]: data,
       });
     };
 
     chrome.storage.sync.get('tablo_app', function(items) {
-      if(items.tablo_app){
+      if (items.tablo_app) {
         _setState('openLink', items.tablo_app.openLink);
       }
     });
@@ -212,7 +212,14 @@ class TabList extends Component {
     for (let v of tabs) {
       links.push(v.url);
     }
-    chrome.windows.create({ url: links, type: 'normal' });
+
+    if (this.state.openLink.tab === '_self') {
+      for (let v of links) {
+        chrome.tabs.create({ url: v });
+      }
+    } else {
+      chrome.windows.create({ url: links, type: 'normal' });
+    }
   };
 
   render() {

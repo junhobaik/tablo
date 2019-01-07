@@ -30,11 +30,21 @@
           <h2>Open link</h2>
           <p>Where the link will open.</p>
           <div>
-            <input type="radio" name="link-open" id="openLinkBlank" />
+            <input
+              type="radio"
+              name="link-open"
+              id="openLinkBlank"
+              value="_blank"
+            />
             <label for="openLinkBlank">Open in New Tab</label>
           </div>
           <div>
-            <input type="radio" name="link-open" id="openLinkSelf" />
+            <input
+              type="radio"
+              name="link-open"
+              id="openLinkSelf"
+              value="_self"
+            />
             <label for="openLinkSelf">Open in the same frame</label>
           </div>
         </div>
@@ -42,11 +52,21 @@
         <div class="tab-links-open">
           <h2>Open all links in the tab</h2>
           <div>
-            <input type="radio" name="tab-links-open" id="openTabBlank" />
+            <input
+              type="radio"
+              name="tab-links-open"
+              id="openTabBlank"
+              value="_blank"
+            />
             <label for="openTabBlank">Open in new window</label>
           </div>
           <div>
-            <input type="radio" name="tab-links-open" id="openTabSelf" />
+            <input
+              type="radio"
+              name="tab-links-open"
+              id="openTabSelf"
+              value="_self"
+            />
             <label for="openTabSelf">Open in current window</label>
           </div>
         </div>
@@ -56,7 +76,7 @@
 
       <div class="data-setting">
         <h2>Data Management</h2>
-        <div class="reset">Reset Data: <button>RESET</button></div>
+        <div class="reset">Reset Data: <button class="reset-button">RESET</button></div>
 
         <div class="backup">
           <label for="backupCode">Current Data: </label>
@@ -65,7 +85,7 @@
 
         <div class="restore">
           <label for="restoreCode">Restore Data: </label>
-          <input id="restoreCode" /> <button>Submit</button>
+          <input id="restoreCode" /> <button class="restore-button">Restore</button>
         </div>
       </div>
       <hr />

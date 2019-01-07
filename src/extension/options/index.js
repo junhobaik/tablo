@@ -46,11 +46,59 @@ const renderBasicSetting = (tablo_app = null) => {
   }
 };
 
+const addEventBasicSetting = tablo_app => {
+  document.querySelector('.link-open').addEventListener('change', e => {
+    setStorage('tablo_app', {
+      openLink: {
+        link: e.target.value,
+        tab: tablo_app.openLink.tab,
+      },
+    });
+  });
+
+  document.querySelector('.tab-links-open').addEventListener('change', e => {
+    setStorage('tablo_app', {
+      openLink: {
+        link: tablo_app.openLink.link,
+        tab: e.target.value,
+      },
+    });
+  });
+};
+
+const addEventDataManagement = () => {
+  document.querySelector('.reset-button').addEventListener('click', e => {
+    if (confirm('RESET ALL DATA!, Are you sure?')) {
+      chrome.storage.sync.clear();
+      setTimeout(() => {
+        location.reload();
+      }, 1000);
+    }
+  });
+
+  document.querySelector('.restore-button').addEventListener('click', e => {
+    if (
+      confirm(
+        'Are you sure?, If an error occurs after restore, reset the data.'
+      )
+    ) {
+      const { tablo_tab, tablo_cart } = JSON.parse(
+        document.querySelector('#restoreCode').value
+      );
+
+      setStorage('tablo_cart', tablo_cart);
+      setStorage('tablo_tab', tablo_tab);
+    }
+  });
+};
+
 document.addEventListener('DOMContentLoaded', () => {
   (async () => {
     const { tablo_cart, tablo_tab, tablo_app } = await getStorage();
 
     renderDataManagement(tablo_tab, tablo_cart);
     renderBasicSetting(tablo_app);
+    addEventBasicSetting(tablo_app);
+    addEventDataManagement();
   })();
 });

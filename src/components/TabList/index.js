@@ -224,7 +224,6 @@ class TabList extends Component {
 
   render() {
     const openLink = this.state.openLink;
-    console.log(openLink);
 
     const tabList = this.props.tabList.map((v, i) => {
       const colData = {

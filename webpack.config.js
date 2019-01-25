@@ -44,6 +44,7 @@ const options = {
     path: path.join(__dirname, 'build'),
     filename: '[name].bundle.js',
   },
+
   module: {
     rules: [
       {
@@ -90,6 +91,18 @@ const options = {
         loader: 'html-loader',
         exclude: /node_modules/,
       },
+      {
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'images/',
+            },
+          },
+        ],
+      },
     ],
   },
   resolve: {
@@ -112,6 +125,9 @@ const options = {
             })
           );
         },
+      },
+      {
+        from: 'static',
       },
     ]),
     new HtmlWebpackPlugin({

@@ -14,6 +14,8 @@ import {
 } from '../../redux/actions';
 import './index.scss';
 import Setting from './Setting';
+import $ from 'jquery';
+import 'jquery-mousewheel';
 
 class TabList extends Component {
   constructor(props) {
@@ -31,6 +33,13 @@ class TabList extends Component {
   }
 
   componentDidMount() {
+    $(function() {
+      $('#TabList').mousewheel(function(event, delta) {
+        this.scrollLeft -= delta * 1;
+        event.preventDefault();
+      });
+    });
+
     const _setState = (key, data) => {
       this.setState({
         [key]: data,

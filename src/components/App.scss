@@ -1,5 +1,9 @@
 @import "variables";
 
+* {
+  overscroll-behavior: none;
+}
+
 html, body {
   padding: 0;
   margin: 0;

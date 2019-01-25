@@ -22,7 +22,7 @@ class CurrentTabList extends Component {
       for (let window of windows) {
         for (let tab of window.tabs) {
           const { title, url, favIconUrl } = tab;
-          list.push({ title, url, favIconUrl });
+          if (url !== 'chrome://newtab/') list.push({ title, url, favIconUrl });
         }
       }
       this.setState({

@@ -35,7 +35,7 @@ class TabList extends Component {
   componentDidMount() {
     $(function() {
       $('#TabList').mousewheel(function(event, delta) {
-        this.scrollLeft -= delta * 1;
+        this.scrollLeft -= delta * 10;
         event.preventDefault();
       });
     });

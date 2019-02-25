@@ -22,5 +22,6 @@ module.exports = {
     'no-class-assign': 0,
     'no-restricted-syntax': ['error', 'ForInStatement'],
     'jsx-a11y/click-events-have-key-events': 0,
+    'react/prefer-stateless-function': 0,
   },
 };

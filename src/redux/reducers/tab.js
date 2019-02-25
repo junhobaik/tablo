@@ -15,7 +15,7 @@ import {
   MOVE_COL,
 } from '../actions';
 
-let tabInitialState = {
+const tabInitialState = {
   settingStatus: {
     col: null,
     row: null,
@@ -39,6 +39,18 @@ let tabInitialState = {
     },
   ],
 };
+
+function moveTabItem(state, action) {
+  const { tabList, dragStatus } = state;
+  const { dragCol } = dragStatus;
+  const { dropCol } = action;
+
+  let temp = [...tabList.slice(0, dragCol), ...tabList.slice(dragCol + 1)];
+
+  temp = [...temp.slice(0, dropCol), tabList[dragCol], ...temp.slice(dropCol)];
+
+  return { ...state, tabList: [...temp] };
+}
 
 const tab = (state = tabInitialState, action) => {
   switch (action.type) {
@@ -230,17 +242,5 @@ const tab = (state = tabInitialState, action) => {
       return state;
   }
 };
-
-function moveTabItem(state, action) {
-  const tabList = state.tabList;
-  const dragCol = state.dragStatus.dragCol;
-  const dropCol = action.dropCol;
-
-  let temp = [...tabList.slice(0, dragCol), ...tabList.slice(dragCol + 1)];
-
-  temp = [...temp.slice(0, dropCol), tabList[dragCol], ...temp.slice(dropCol)];
-
-  return { ...state, tabList: [...temp] };
-}
 
 export default tab;

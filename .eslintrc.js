@@ -17,5 +17,10 @@ module.exports = {
   },
   parser: 'babel-eslint',
   plugins: ['react'],
-  rules: {},
+  rules: {
+    'react/jsx-filename-extension': 0,
+    'no-class-assign': 0,
+    'no-restricted-syntax': ['error', 'ForInStatement'],
+    'jsx-a11y/click-events-have-key-events': 0,
+  },
 };

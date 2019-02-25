@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { FontAwesomeIcon as Fa } from '@fortawesome/react-fontawesome';
+import $ from 'jquery';
 import {
   addColumn,
   addRow,
@@ -14,7 +16,6 @@ import {
 } from '../../redux/actions';
 import './index.scss';
 import Setting from './Setting';
-import $ from 'jquery';
 import 'jquery-mousewheel';
 
 class TabList extends Component {
@@ -33,22 +34,23 @@ class TabList extends Component {
   }
 
   componentDidMount() {
-    $(function() {
-      $('#TabList').mousewheel(function(event, delta) {
+    $(() => {
+      $('#TabList').mousewheel((event, delta) => {
         this.scrollLeft -= delta * 10;
         event.preventDefault();
       });
     });
 
-    const _setState = (key, data) => {
+    const setState = (key, data) => {
       this.setState({
         [key]: data,
       });
     };
 
-    chrome.storage.sync.get('tablo_app', function(items) {
+    // eslint-disable-next-line no-undef
+    chrome.storage.sync.get('tablo_app', items => {
       if (items.tablo_app) {
-        _setState('openLink', items.tablo_app.openLink);
+        setState('openLink', items.tablo_app.openLink);
       }
     });
   }
@@ -59,46 +61,51 @@ class TabList extends Component {
 
   linkDragStart = e => {
     e.stopPropagation();
-    const dragCol = parseInt(e.target.attributes.col.value);
-    const dragRow = parseInt(e.target.attributes.row.value);
-
-    this.props.onSetDragStatus(
-      'link',
-      dragCol,
-      dragRow,
-      this.props.tabList[dragCol].tabs[dragRow]
-    );
+    const dragCol = parseInt(e.target.attributes.col.value, 10);
+    const dragRow = parseInt(e.target.attributes.row.value, 10);
+    const { onSetDragStatus, tabList } = this.props;
+    onSetDragStatus('link', dragCol, dragRow, tabList[dragCol].tabs[dragRow]);
   };
 
-  linkDragEnd = e => {
-    this.props.onClearDragStatus();
+  linkDragEnd = () => {
+    const { onClearDragStatus } = this.props;
+    onClearDragStatus();
   };
 
   spaceDrop = e => {
-    if (this.props.dragStatus.dragEl === 'link') {
-      const target = e.target;
-      const dropCol = parseInt(target.attributes.col.value);
-      const dropRow = parseInt(target.attributes.row.value);
+    const { dragStatus } = this.props;
+
+    if (dragStatus.dragEl === 'link') {
+      const {
+        onAddRow,
+        onClearDragStatus,
+        onRemoveRow,
+        onMoveInsideRow,
+      } = this.props;
+      const { target } = e;
+      const dropCol = parseInt(target.attributes.col.value, 10);
+      const dropRow = parseInt(target.attributes.row.value, 10);
 
       target.classList.remove('space-drag-hover');
 
-      this.props.onAddRow(dropCol, dropRow);
+      onAddRow(dropCol, dropRow);
 
       // Sidebar에서 드래그했을때
-      if (this.props.dragStatus.dragCol !== null) {
-        if (this.props.dragStatus.dragCol === dropCol) {
-          this.props.onMoveInsideRow(dropRow);
+      if (dragStatus.dragCol !== null) {
+        if (dragStatus.dragCol === dropCol) {
+          onMoveInsideRow(dropRow);
         } else {
-          this.props.onRemoveRow();
+          onRemoveRow();
         }
       }
 
-      this.props.onClearDragStatus();
+      onClearDragStatus();
     }
   };
 
   spaceDragEnter = e => {
-    if (this.props.dragStatus.dragEl === 'link')
+    const { dragStatus } = this.props;
+    if (dragStatus.dragEl === 'link')
       e.target.classList.add('space-drag-hover');
   };
 
@@ -107,35 +114,34 @@ class TabList extends Component {
   };
 
   tabDragStart = e => {
-    const dragCol = parseInt(e.target.attributes.col.value);
-
-    this.props.onSetDragStatus(
-      'tab',
-      dragCol,
-      null,
-      this.props.tabList[dragCol]
-    );
+    const dragCol = parseInt(e.target.attributes.col.value, 10);
+    const { onSetDragStatus, tabList } = this.props;
+    onSetDragStatus('tab', dragCol, null, tabList[dragCol]);
   };
 
-  tabDragEnd = e => {
-    this.props.onClearDragStatus();
+  tabDragEnd = () => {
+    const { onClearDragStatus } = this.props;
+    onClearDragStatus();
   };
 
   spaceTabDrop = e => {
-    if (this.props.dragStatus.dragEl === 'tab') {
-      const target = e.target;
-      const dropCol = parseInt(target.attributes.col.value);
+    const { dragStatus } = this.props;
+    if (dragStatus.dragEl === 'tab') {
+      const { onMoveCol, onClearDragStatus } = this.props;
+      const { target } = e;
+      const dropCol = parseInt(target.attributes.col.value, 10);
 
       target.classList.remove('space-tab-drag-hover');
 
-      this.props.onMoveCol(dropCol);
-
-      this.props.onClearDragStatus();
+      onMoveCol(dropCol);
+      onClearDragStatus();
     }
   };
 
   spaceTabDragEnter = e => {
-    if (this.props.dragStatus.dragEl === 'tab')
+    const { dragStatus } = this.props;
+
+    if (dragStatus.dragEl === 'tab')
       e.target.classList.add('space-tab-drag-hover');
   };
 
@@ -144,7 +150,7 @@ class TabList extends Component {
   };
 
   settingMouseEnter = e => {
-    const target = e.target;
+    const { target } = e;
     if (target.classList.contains('setting-icon'))
       target.querySelector('.setting-component').style.display = 'inline';
 
@@ -157,7 +163,7 @@ class TabList extends Component {
   };
 
   settingMouseLeave = e => {
-    const target = e.target;
+    const { target } = e;
     if (target.querySelector('.setting-component')) {
       target.querySelector('.setting-component').style.display = 'none';
     } else {
@@ -189,17 +195,20 @@ class TabList extends Component {
     const edit = document.querySelectorAll('.edit');
     const title = document.querySelectorAll('.title');
 
-    for (let v of edit) {
+    for (const v of edit) {
       v.style.display = 'none';
     }
-    for (let v of title) {
+    for (const v of title) {
       v.style.display = 'inline';
     }
 
+    const { editValue } = this.state;
+    const { onSubmitEditTitle, onSubmitEditTabTitle } = this.props;
+
     if (e.target.classList.contains('title-edit')) {
-      this.props.onSubmitEditTitle(this.state.editValue);
+      onSubmitEditTitle(editValue);
     } else {
-      this.props.onSubmitEditTabTitle(this.state.editValue);
+      onSubmitEditTabTitle(editValue);
     }
 
     this.setState({
@@ -214,34 +223,42 @@ class TabList extends Component {
   };
 
   openLinksClick = e => {
-    const { tabs } = this.props.tabList[
-      parseInt(e.target.parentNode.parentNode.parentNode.attributes.col.value)
+    const { tabList } = this.props;
+    const { tabs, openLink } = tabList[
+      parseInt(
+        e.target.parentNode.parentNode.parentNode.attributes.col.value,
+        10
+      )
     ];
-    let links = [];
-    for (let v of tabs) {
+    const links = [];
+    for (const v of tabs) {
       links.push(v.url);
     }
 
-    if (this.state.openLink.tab === '_self') {
-      for (let v of links) {
+    if (openLink.tab === '_self') {
+      for (const v of links) {
+        // eslint-disable-next-line no-undef
         chrome.tabs.create({ url: v });
       }
     } else {
+      // eslint-disable-next-line no-undef
       chrome.windows.create({ url: links, type: 'normal' });
     }
   };
 
   render() {
-    const openLink = this.state.openLink;
+    const { tabList, onAddColumn } = this.props;
 
-    const tabList = this.props.tabList.map((v, i) => {
+    const mapTabList = tabList.map((v, i) => {
+      const { editValue } = this.state;
       const colData = {
         title: v.title,
         num: i,
         tabs: v.tabs,
       };
 
-      const linkList = colData.tabs.map((tab, i) => {
+      const linkList = colData.tabs.map((tab, j) => {
+        const { openLink, settingCol, settingRow } = this.state;
         const data = {
           title: tab.title,
           url: tab.url,
@@ -249,12 +266,13 @@ class TabList extends Component {
         };
 
         return (
-          <div className="link-container" key={'link-' + i}>
+          // TODO: key에 로다쉬 카멜케이스 적용하기
+          <div className="link-container" key={`link-container-${data.title}`}>
             <li
               className="link"
               col={colData.num}
               row={i}
-              draggable={this.state.editValue === '' ? 'true' : 'false'}
+              draggable={editValue === '' ? 'true' : 'false'}
               onDragStart={this.linkDragStart}
               onDragEnd={this.linkDragEnd}
             >
@@ -278,7 +296,7 @@ class TabList extends Component {
                 <textarea
                   className="title-edit edit"
                   type="text"
-                  value={this.state.editValue}
+                  value={editValue}
                   onClick={e => {
                     e.preventDefault();
                   }}
@@ -296,17 +314,14 @@ class TabList extends Component {
                 onMouseLeave={this.settingMouseLeave}
               >
                 <Fa className="no-event" icon="ellipsis-h" />
-                <Setting
-                  col={this.state.settingCol}
-                  row={this.state.settingRow}
-                />
+                <Setting col={settingCol} row={settingRow} />
               </div>
             </li>
 
             <div
               className="space"
               col={colData.num}
-              row={i + 1}
+              row={j + 1}
               onDrop={this.spaceDrop}
               onDragOver={this.allDragOver}
               onDragEnter={this.spaceDragEnter}
@@ -317,7 +332,8 @@ class TabList extends Component {
       }, this);
 
       return (
-        <React.Fragment key={`tab-${i}`}>
+        // TODO: key에 로다쉬 카멜케이스 적용하기
+        <React.Fragment key={`tab-${colData.title}`}>
           {i === 0 ? (
             <div
               className="space-tab"
@@ -331,7 +347,7 @@ class TabList extends Component {
           <div
             className="tab"
             col={colData.num}
-            draggable={this.state.editValue === '' ? 'true' : 'false'}
+            draggable={editValue === '' ? 'true' : 'false'}
             onDragStart={this.tabDragStart}
             onDragEnd={this.tabDragEnd}
           >
@@ -341,7 +357,7 @@ class TabList extends Component {
               <input
                 className="tab-title-edit edit"
                 type="text"
-                value={this.state.editValue}
+                value={editValue}
                 onClick={e => {
                   e.preventDefault();
                 }}
@@ -356,7 +372,7 @@ class TabList extends Component {
                 <div
                   className="open-links"
                   onClick={this.openLinksClick}
-                  alt="test"
+                  role="presentation"
                 >
                   <Fa className="no-event" icon="window-restore" />
                 </div>
@@ -401,13 +417,14 @@ class TabList extends Component {
 
     return (
       <div id="TabList">
-        {tabList}
+        {mapTabList}
         <div className="add-column-wrap">
           <div
             className="add-column"
             onClick={() => {
-              this.props.onAddColumn();
+              onAddColumn();
             }}
+            role="presentation"
           >
             <p>+ Add column</p>
           </div>
@@ -417,7 +434,7 @@ class TabList extends Component {
   }
 }
 
-let mapDispatchToProps = dispatch => {
+const mapDispatchToProps = dispatch => {
   return {
     onAddColumn: () => dispatch(addColumn()),
     onAddRow: (col, row) => dispatch(addRow(col, row)),
@@ -432,11 +449,25 @@ let mapDispatchToProps = dispatch => {
   };
 };
 
-let mapStateToProps = state => {
+const mapStateToProps = state => {
   return {
     dragStatus: state.tab.dragStatus,
     tabList: state.tab.tabList,
   };
+};
+
+TabList.propTypes = {
+  dragStatus: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  tabList: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
+  onAddColumn: PropTypes.func.isRequired,
+  onAddRow: PropTypes.func.isRequired,
+  onRemoveRow: PropTypes.func.isRequired,
+  onMoveInsideRow: PropTypes.func.isRequired,
+  onSetDragStatus: PropTypes.func.isRequired,
+  onClearDragStatus: PropTypes.func.isRequired,
+  onSubmitEditTitle: PropTypes.func.isRequired,
+  onSubmitEditTabTitle: PropTypes.func.isRequired,
+  onMoveCol: PropTypes.func.isRequired,
 };
 
 TabList = connect(

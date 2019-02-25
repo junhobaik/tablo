@@ -1,15 +1,15 @@
-var webpack = require('webpack'),
-  path = require('path'),
-  fileSystem = require('fs'),
-  env = require('./utils/env'),
-  CleanWebpackPlugin = require('clean-webpack-plugin'),
-  CopyWebpackPlugin = require('copy-webpack-plugin'),
-  HtmlWebpackPlugin = require('html-webpack-plugin'),
-  WriteFilePlugin = require('write-file-webpack-plugin');
+const webpack = require('webpack');
+const path = require('path');
+const fileSystem = require('fs');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const WriteFilePlugin = require('write-file-webpack-plugin');
+const env = require('./utils/env');
 
-var alias = {};
-var secretsPath = path.join(__dirname, 'secrets.' + env.NODE_ENV + '.js');
-var fileExtensions = [
+const alias = {};
+const secretsPath = path.join(__dirname, `secrets.${env.NODE_ENV}.js`);
+const fileExtensions = [
   'jpg',
   'jpeg',
   'png',
@@ -23,7 +23,7 @@ var fileExtensions = [
 ];
 
 if (fileSystem.existsSync(secretsPath)) {
-  alias['secrets'] = secretsPath;
+  alias.secrets = secretsPath;
 }
 
 const options = {
@@ -82,7 +82,7 @@ const options = {
         exclude: /node_modules/,
       },
       {
-        test: new RegExp('.(' + fileExtensions.join('|') + ')$'),
+        test: new RegExp(`.(${fileExtensions.join('|')})$`),
         loader: 'file-loader?name=[name].[ext]',
         exclude: /node_modules/,
       },
@@ -106,7 +106,7 @@ const options = {
     ],
   },
   resolve: {
-    alias: alias,
+    alias,
   },
   plugins: [
     new CleanWebpackPlugin(['build']),
@@ -116,7 +116,8 @@ const options = {
     new CopyWebpackPlugin([
       {
         from: 'src/manifest.json',
-        transform: function(content, path) {
+        // eslint-disable-next-line no-shadow, no-unused-vars
+        transform(content, path) {
           return Buffer.from(
             JSON.stringify({
               description: process.env.npm_package_description,

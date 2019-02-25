@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { FontAwesomeIcon as Fa } from '@fortawesome/react-fontawesome';
 import { connect } from 'react-redux';
 import { setDragStatus } from '../../../redux/actions';
@@ -11,16 +12,26 @@ class CurrentTabList extends Component {
     };
   }
 
-  linkDragStart = e => {
-    const row = parseInt(e.target.attributes.row.value);
-    this.props.onSetDragStatus('link', null, null, this.state.list[row]);
-  };
+  componentDidMount() {
+    this.getAllTabs();
+
+    // eslint-disable-next-line no-undef
+    chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
+      if (changeInfo.status === 'complete') this.getAllTabs();
+    });
+
+    // eslint-disable-next-line no-undef
+    chrome.tabs.onRemoved.addListener(() => {
+      this.getAllTabs();
+    });
+  }
 
   getAllTabs() {
+    // eslint-disable-next-line no-undef
     chrome.windows.getAll({ populate: true }, windows => {
-      let list = [];
-      for (let window of windows) {
-        for (let tab of window.tabs) {
+      const list = [];
+      for (const window of windows) {
+        for (const tab of window.tabs) {
           const { title, url, favIconUrl } = tab;
           if (url !== 'chrome://newtab/') list.push({ title, url, favIconUrl });
         }
@@ -31,29 +42,33 @@ class CurrentTabList extends Component {
     });
   }
 
-  componentDidMount() {
-    this.getAllTabs();
+  linkDragStart = e => {
+    const { list } = this.state;
+    const { onSetDragStatus } = this.props;
 
-    chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-      if (changeInfo.status === 'complete') this.getAllTabs();
-    });
+    const row = parseInt(e.target.attributes.row.value, 10);
 
-    chrome.tabs.onRemoved.addListener((tabId, removeInfo) => {
-      this.getAllTabs();
-    });
-  }
+    onSetDragStatus('link', null, null, list[row]);
+  };
 
   render() {
-    const linkList = (this.state.list || []).map((v, i) => {
+    const { list } = this.state;
+
+    const linkList = (list || []).map((v, i) => {
       return (
         <li
           className="link"
-          key={'link-' + i}
+          key={`link-${i}`}
           draggable="true"
           onDragStart={this.linkDragStart}
           row={i}
         >
-          <a href={v.url} target="_blank" draggable="false">
+          <a
+            href={v.url}
+            target="_blank"
+            draggable="false"
+            rel="noopener noreferrer"
+          >
             <div className="favicon">
               {v.favIconUrl ? (
                 <img src={v.favIconUrl} alt="favicon" draggable="false" />
@@ -85,11 +100,15 @@ class CurrentTabList extends Component {
   }
 }
 
-let mapDispatchToProps = dispatch => {
+const mapDispatchToProps = dispatch => {
   return {
     onSetDragStatus: (dragEl, col, row, item) =>
       dispatch(setDragStatus(dragEl, col, row, item)),
   };
+};
+
+CurrentTabList.propTypes = {
+  onSetDragStatus: PropTypes.func.isRequired,
 };
 
 CurrentTabList = connect(

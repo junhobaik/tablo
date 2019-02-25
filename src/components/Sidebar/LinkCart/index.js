@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { FontAwesomeIcon as Fa } from '@fortawesome/react-fontawesome';
 import { setDragStatus } from '../../../redux/actions';
-import { connect } from 'react-redux';
 import './index.scss';
 
 class LinkCart extends Component {
@@ -13,11 +14,6 @@ class LinkCart extends Component {
     };
   }
 
-  linkDragStart = e => {
-    const row = parseInt(e.target.attributes.row.value);
-    this.props.onSetDragStatus('link', null, null, this.state.list[row]);
-  };
-
   componentDidMount() {
     const updateCartList = list => {
       this.setState({
@@ -25,6 +21,7 @@ class LinkCart extends Component {
       });
     };
 
+    // eslint-disable-next-line no-undef
     chrome.storage.sync.get('tablo_cart', i => {
       if (i.tablo_cart) {
         this.setState({
@@ -39,6 +36,7 @@ class LinkCart extends Component {
           },
         ];
 
+        // eslint-disable-next-line no-undef
         chrome.storage.sync.set(
           {
             tablo_cart: list,
@@ -51,17 +49,27 @@ class LinkCart extends Component {
         );
       }
     });
-
-    chrome.storage.onChanged.addListener(function(changes, namespace) {
+    // eslint-disable-next-line no-undef
+    chrome.storage.onChanged.addListener(changes => {
       if (changes.tablo_cart) updateCartList(changes.tablo_cart.newValue);
     });
   }
 
+  linkDragStart = e => {
+    const { list } = this.state;
+    const { onSetDragStatus } = this.props;
+
+    const row = parseInt(e.target.attributes.row.value, 10);
+
+    onSetDragStatus('link', null, null, list[row]);
+  };
+
   removeLink = e => {
-    const row = parseInt(e.target.parentNode.attributes.row.value);
-    const list = this.state.list;
+    const { list } = this.state;
+    const row = parseInt(e.target.parentNode.attributes.row.value, 10);
     list.splice(row, 1);
 
+    // eslint-disable-next-line no-undef
     chrome.storage.sync.set(
       {
         tablo_cart: list,
@@ -75,16 +83,23 @@ class LinkCart extends Component {
   };
 
   render() {
-    const linkList = (this.state.list || []).map((v, i) => {
+    const { list } = this.state;
+    const linkList = (list || []).map((v, i) => {
       return (
+        // TODO: key lodash camelcase
         <li
           className="link"
-          key={'link-' + i}
+          key={`link-${v.title}`}
           draggable="true"
           onDragStart={this.linkDragStart}
           row={i}
         >
-          <a href={v.url} target="_blank" draggable="false">
+          <a
+            href={v.url}
+            target="_blank"
+            draggable="false"
+            rel="noopener noreferrer"
+          >
             <div className="favicon">
               {v.favIconUrl ? (
                 <img src={v.favIconUrl} alt="favicon" draggable="false" />
@@ -97,7 +112,11 @@ class LinkCart extends Component {
             <span className="link-title">{v.title}</span>
           </a>
 
-          <div className="link-remove" onClick={this.removeLink}>
+          <div
+            className="link-remove"
+            onClick={this.removeLink}
+            role="presentation"
+          >
             <Fa icon="minus-circle" />
           </div>
         </li>
@@ -118,11 +137,15 @@ class LinkCart extends Component {
   }
 }
 
-let mapDispatchToProps = dispatch => {
+const mapDispatchToProps = dispatch => {
   return {
     onSetDragStatus: (dragEl, col, row, item) =>
       dispatch(setDragStatus(dragEl, col, row, item)),
   };
+};
+
+LinkCart.propTypes = {
+  onSetDragStatus: PropTypes.func.isRequired,
 };
 
 LinkCart = connect(

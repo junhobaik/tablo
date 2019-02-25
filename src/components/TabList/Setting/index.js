@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { FontAwesomeIcon as Fa } from '@fortawesome/react-fontawesome';
 import {
   setEditStatus,
@@ -9,34 +10,34 @@ import {
 } from '../../../redux/actions';
 
 class Setting extends Component {
-  compMouseEnter = e => {
-    this.props.onSetEditStatus(
-      parseInt(this.props.col),
-      parseInt(this.props.row)
-    );
+  compMouseEnter = () => {
+    const { col, row, onSetEditStatus } = this.props;
+    onSetEditStatus(parseInt(col, 10), parseInt(row, 10));
   };
 
-  clickRemove = e => {
-    if (this.props.row !== undefined) {
-      this.props.onSetRemoveRow();
+  clickRemove = () => {
+    const { row, onSetRemoveCol, onSetRemoveRow } = this.props;
+    if (row !== undefined) {
+      onSetRemoveRow();
     } else {
-      this.props.onSetRemoveCol();
+      onSetRemoveCol();
     }
   };
 
   clickModify = e => {
+    const { row } = this.props;
     const link = e.target.parentNode.parentNode.parentNode.parentNode;
 
     const editInputs = document.querySelectorAll('.edit');
-    for (let v of editInputs) {
+    for (const v of editInputs) {
       v.style.display = 'none';
     }
     const titles = document.querySelectorAll('.title');
-    for (let v of titles) {
+    for (const v of titles) {
       v.style.display = 'inline';
     }
 
-    if (this.props.row !== undefined) {
+    if (row !== undefined) {
       const titleText = link.querySelector('a>.title-text');
       const titleEdit = link.querySelector('a>.title-edit');
 
@@ -56,10 +57,10 @@ class Setting extends Component {
   render() {
     return (
       <div className="setting-component" onMouseEnter={this.compMouseEnter}>
-        <div className="remove" onClick={this.clickRemove}>
+        <div className="remove" onClick={this.clickRemove} role="presentation">
           <Fa className="no-event" icon="trash-alt" />
         </div>
-        <div className="modify" onClick={this.clickModify}>
+        <div className="modify" onClick={this.clickModify} role="presentation">
           <Fa className="no-event" icon="edit" />
         </div>
       </div>
@@ -67,13 +68,28 @@ class Setting extends Component {
   }
 }
 
-let mapDispatchToProps = dispatch => {
+const mapDispatchToProps = dispatch => {
   return {
     onSetEditStatus: (col, row) => dispatch(setEditStatus(col, row)),
     onClearEditStatus: () => dispatch(clearEditStatus()),
     onSetRemoveRow: () => dispatch(setRemoveRow()),
     onSetRemoveCol: () => dispatch(setRemoveCol()),
   };
+};
+
+Setting.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  col: PropTypes.any,
+  // eslint-disable-next-line react/forbid-prop-types
+  row: PropTypes.any,
+  onSetEditStatus: PropTypes.func.isRequired,
+  onSetRemoveRow: PropTypes.func.isRequired,
+  onSetRemoveCol: PropTypes.func.isRequired,
+};
+
+Setting.defaultProps = {
+  col: undefined,
+  row: undefined,
 };
 
 Setting = connect(

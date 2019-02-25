@@ -266,12 +266,11 @@ class TabList extends Component {
         };
 
         return (
-          // TODO: key에 로다쉬 카멜케이스 적용하기
-          <div className="link-container" key={`link-container-${data.title}`}>
+          <div className="link-container" key={`link-container-${j}`}>
             <li
               className="link"
               col={colData.num}
-              row={i}
+              row={j}
               draggable={editValue === '' ? 'true' : 'false'}
               onDragStart={this.linkDragStart}
               onDragEnd={this.linkDragEnd}
@@ -332,8 +331,7 @@ class TabList extends Component {
       }, this);
 
       return (
-        // TODO: key에 로다쉬 카멜케이스 적용하기
-        <React.Fragment key={`tab-${colData.title}`}>
+        <React.Fragment key={`tab-${i}`}>
           {i === 0 ? (
             <div
               className="space-tab"

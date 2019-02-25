@@ -23,5 +23,6 @@ module.exports = {
     'no-restricted-syntax': ['error', 'ForInStatement'],
     'jsx-a11y/click-events-have-key-events': 0,
     'react/prefer-stateless-function': 0,
+    'react/no-array-index-key': 0,
   },
 };

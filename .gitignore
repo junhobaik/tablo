@@ -3,3 +3,4 @@ build
 secrets.*.js
 package-lock.json
 *.zip
+.DS_Store

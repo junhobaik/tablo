@@ -1,6 +1,12 @@
+/* eslint-disable camelcase */
+/* eslint-disable no-alert, no-restricted-globals */
+/* eslint-disable no-undef */
+
 const getStorage = (key = null) => {
   return new Promise(resolve => {
+    // eslint-disable-next-line no-undef
     chrome.storage.sync.get(key, item => {
+      // eslint-disable-next-line no-unused-expressions
       key ? resolve(item[key]) : resolve(item);
     });
   });
@@ -8,6 +14,7 @@ const getStorage = (key = null) => {
 
 const setStorage = (key, data) => {
   return new Promise(resolve => {
+    // eslint-disable-next-line no-undef
     chrome.storage.sync.set(
       {
         [key]: data,
@@ -67,16 +74,17 @@ const addEventBasicSetting = tablo_app => {
 };
 
 const addEventDataManagement = () => {
-  document.querySelector('.reset-button').addEventListener('click', e => {
+  document.querySelector('.reset-button').addEventListener('click', () => {
     if (confirm('RESET ALL DATA!, Are you sure?')) {
+      // eslint-disable-next-line no-undef
       chrome.storage.sync.clear();
       setTimeout(() => {
-        location.reload();
+        window.location.reload();
       }, 1000);
     }
   });
 
-  document.querySelector('.restore-button').addEventListener('click', e => {
+  document.querySelector('.restore-button').addEventListener('click', () => {
     if (
       confirm(
         'Are you sure?, If an error occurs after restore, reset the data.'

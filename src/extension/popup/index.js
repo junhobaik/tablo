@@ -19,9 +19,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const noFavicon = document.querySelector('.no-favicon');
       img.style.display = 'none';
       noFavicon.style.display = 'flex';
-      noFavicon.querySelector('span').innerHTML = title[0].toUpperCase();
+      noFavicon.querySelector('span').innerHTML = loadedTitle[0].toUpperCase();
     }
-    document.querySelector('.link .link-title').innerHTML = title;
+    document.querySelector('.link .link-title').innerHTML = loadedTitle;
   });
 
   document.querySelector('.add-button').addEventListener('click', () => {

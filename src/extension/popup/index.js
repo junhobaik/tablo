@@ -1,12 +1,13 @@
+/* eslint-disable no-undef */
 document.addEventListener('DOMContentLoaded', () => {
-  let title,
-    url,
-    favIconUrl,
-    isReady = false;
+  let loadedTitle;
+  let loadedUrl;
+  let favIconUrl;
+  let isReady = false;
 
-  chrome.tabs.getSelected(null, function(tab) {
-    title = tab.title;
-    url = tab.url;
+  chrome.tabs.getSelected(null, tab => {
+    loadedTitle = tab.title;
+    loadedUrl = tab.url;
     favIconUrl = tab.favIconUrl || undefined;
     isReady = true;
 
@@ -23,17 +24,17 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('.link .link-title').innerHTML = title;
   });
 
-  document.querySelector('.add-button').addEventListener('click', e => {
+  document.querySelector('.add-button').addEventListener('click', () => {
     if (isReady) {
-      chrome.storage.sync.get('tablo_cart', function(items) {
+      chrome.storage.sync.get('tablo_cart', items => {
         const cart = items.tablo_cart;
         chrome.storage.sync.set(
           {
             tablo_cart: [
               ...cart,
               {
-                title,
-                url,
+                title: loadedTitle,
+                url: loadedUrl,
                 favIconUrl,
               },
             ],
@@ -42,7 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
         );
       });
     } else {
-      alert('fail');
+      // eslint-disable-next-line no-alert
+      alert('ERROR');
     }
   });
 });

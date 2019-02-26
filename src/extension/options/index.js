@@ -31,25 +31,66 @@ const renderDataManagement = (tablo_tab, tablo_cart) => {
 
 const renderBasicSetting = (tablo_app = null) => {
   if (tablo_app) {
-    if (tablo_app.openLink.link === '_blank') {
-      document.querySelector('#openLinkBlank').checked = 'true';
+    // openLink Setting
+    if (tablo_app.openLink) {
+      if (tablo_app.openLink.link === '_blank') {
+        document.querySelector('#openLinkBlank').checked = 'true';
+      } else {
+        document.querySelector('#openLinkSelf').checked = 'true';
+      }
+
+      if (tablo_app.openLink.tab === '_blank') {
+        document.querySelector('#openTabBlank').checked = 'true';
+      } else {
+        document.querySelector('#openTabSelf').checked = 'true';
+      }
     } else {
-      document.querySelector('#openLinkSelf').checked = 'true';
+      setStorage('tablo_app', {
+        ...tablo_app,
+        openLink: {
+          link: '_blank',
+          tab: '_blank',
+        },
+      });
     }
-    if (tablo_app.openLink.tab === '_blank') {
-      document.querySelector('#openTabBlank').checked = 'true';
+
+    // scroll Setting
+    if (tablo_app.scroll) {
+      if (tablo_app.scroll.xScroll === true) {
+        document.querySelector('#enableScrollX').checked = 'true';
+      } else {
+        document.querySelector('#disableScrollX').checked = 'true';
+      }
+
+      if (tablo_app.scroll.xScrollSpeed) {
+        document.querySelector('#speedScrollX').value =
+          tablo_app.scroll.xScrollSpeed;
+      }
     } else {
-      document.querySelector('#openTabSelf').checked = 'true';
+      setStorage('tablo_app', {
+        ...tablo_app,
+        scroll: {
+          xScroll: true,
+          xScrollSpeed: 30,
+        },
+      });
     }
   } else {
+    // init default data
     setStorage('tablo_app', {
       openLink: {
         link: '_blank',
         tab: '_blank',
       },
+      scroll: {
+        xScroll: true,
+        xScrollSpeed: 30,
+      },
     });
     document.querySelector('#openLinkBlank').checked = 'true';
     document.querySelector('#openTabBlank').checked = 'true';
+    document.querySelector('#enableScrollX').checked = 'true';
+    document.querySelector('#speedScrollX').value = '30';
   }
 };
 
@@ -71,6 +112,30 @@ const addEventBasicSetting = tablo_app => {
       },
     });
   });
+
+  document
+    .querySelector('.x-scroll-use-setting')
+    .addEventListener('change', e => {
+      setStorage('tablo_app', {
+        ...tablo_app,
+        scroll: {
+          ...tablo_app.scroll,
+          xScroll: e.target.value === 'enable',
+        },
+      });
+    });
+
+  document
+    .querySelector('.x-scroll-speed-setting')
+    .addEventListener('change', e => {
+      setStorage('tablo_app', {
+        ...tablo_app,
+        scroll: {
+          ...tablo_app.scroll,
+          xScrollSpeed: e.target.value,
+        },
+      });
+    });
 };
 
 const addEventDataManagement = () => {

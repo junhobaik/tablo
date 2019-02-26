@@ -34,11 +34,14 @@ class TabList extends Component {
   }
 
   componentDidMount() {
-    $(() => {
-      $('#TabList').mousewheel((event, delta) => {
-        this.scrollLeft -= delta * 10;
-        event.preventDefault();
-      });
+    // eslint-disable-next-line no-undef
+    chrome.storage.sync.get('tablo_app', i => {
+      if (i.tablo_app) {
+        const { scroll } = i.tablo_app;
+        if (scroll.xScroll) this.addXScrollEvent(scroll.xScrollSpeed);
+      } else {
+        this.addXScrollEvent(30);
+      }
     });
 
     const setState = (key, data) => {
@@ -54,6 +57,17 @@ class TabList extends Component {
       }
     });
   }
+
+  addXScrollEvent = speed => {
+    // eslint-disable-next-line func-names
+    $(function() {
+      // eslint-disable-next-line func-names
+      $('#TabList').mousewheel(function(event, delta) {
+        this.scrollLeft -= delta * parseInt(speed, 10);
+        event.preventDefault();
+      });
+    });
+  };
 
   allDragOver = e => {
     e.preventDefault();

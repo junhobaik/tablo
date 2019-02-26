@@ -38,7 +38,11 @@ class TabList extends Component {
     chrome.storage.sync.get('tablo_app', i => {
       if (i.tablo_app) {
         const { scroll } = i.tablo_app;
-        if (scroll.xScroll) this.addXScrollEvent(scroll.xScrollSpeed);
+        if (scroll) {
+          this.addXScrollEvent(scroll.xScrollSpeed);
+        } else {
+          this.addXScrollEvent(30);
+        }
       } else {
         this.addXScrollEvent(30);
       }

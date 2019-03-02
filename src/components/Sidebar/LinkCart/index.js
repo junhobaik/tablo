@@ -82,6 +82,22 @@ class LinkCart extends Component {
     );
   };
 
+  removeAllLink = () => {
+    // eslint-disable-next-line no-console
+    console.log('test');
+    // eslint-disable-next-line no-undef
+    chrome.storage.sync.set(
+      {
+        tablo_cart: [],
+      },
+      () => {
+        this.setState({
+          list: [],
+        });
+      }
+    );
+  };
+
   render() {
     const { list } = this.state;
     const linkList = (list || []).map((v, i) => {
@@ -126,8 +142,19 @@ class LinkCart extends Component {
     return (
       <div id="LinkCart">
         <div className="link-list-title">
-          <Fa icon="shopping-cart" />
-          <h2>Cart</h2>
+          <div className="title-text">
+            <Fa icon="shopping-cart" />
+            <h2>Cart</h2>
+          </div>
+          <div className="clear-cart">
+            <div
+              className="clear-button"
+              onClick={this.removeAllLink}
+              role="presentation"
+            >
+              <Fa icon="trash-alt" />
+            </div>
+          </div>
         </div>
         <div className="link-list">
           <ul className="list">{linkList}</ul>

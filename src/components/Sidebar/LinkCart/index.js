@@ -83,8 +83,6 @@ class LinkCart extends Component {
   };
 
   removeAllLink = () => {
-    // eslint-disable-next-line no-console
-    console.log('test');
     // eslint-disable-next-line no-undef
     chrome.storage.sync.set(
       {

@@ -105,7 +105,7 @@ class LinkCart extends Component {
         // TODO: key lodash camelcase
         <li
           className="link"
-          key={`link-${v.title}`}
+          key={`link-${v.title}-${i}`}
           draggable="true"
           onDragStart={this.linkDragStart}
           row={i}

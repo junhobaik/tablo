@@ -39,7 +39,9 @@ class TabList extends Component {
       if (i.tablo_app) {
         const { scroll } = i.tablo_app;
         if (scroll) {
-          this.addXScrollEvent(scroll.xScrollSpeed);
+          if (scroll.xScroll) {
+            this.addXScrollEvent(scroll.xScrollSpeed);
+          }
         } else {
           this.addXScrollEvent(30);
         }

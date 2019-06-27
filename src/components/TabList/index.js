@@ -369,57 +369,59 @@ class TabList extends Component {
             onDragStart={this.tabDragStart}
             onDragEnd={this.tabDragEnd}
           >
-            <div className="tab-header">
-              <h2 className="tab-title title">{v.title}</h2>
+            <div className="tab-inner-wrap">
+              <div className="tab-header">
+                <h2 className="tab-title title">{v.title}</h2>
 
-              <input
-                className="tab-title-edit edit"
-                type="text"
-                value={editValue}
-                onClick={e => {
-                  e.preventDefault();
-                }}
-                onChange={this.handleEditValue}
-                placeholder="After editing, press Enter."
-                onKeyPress={this.submitEditTitle}
-                onBlur={this.blurEditTitles}
-                onFocus={this.focusEditTitle}
-              />
-
-              <div className="tab-side">
-                <div
-                  className="open-links"
-                  onClick={this.openLinksClick}
-                  role="presentation"
-                >
-                  <Fa className="no-event" icon="window-restore" />
-                </div>
-
-                <div
-                  className="tab-setting setting-icon"
-                  onMouseEnter={this.settingMouseEnter}
-                  onMouseLeave={this.settingMouseLeave}
-                >
-                  <Fa className="no-event" icon="ellipsis-v" />
-                  <Setting col={colData.num} />
-                </div>
-              </div>
-            </div>
-
-            <ul className="link-list">
-              <div className="link-container" col={colData.num} row={0}>
-                <div
-                  className="space"
-                  col={colData.num}
-                  row={0}
-                  onDrop={this.spaceDrop}
-                  onDragOver={this.allDragOver}
-                  onDragEnter={this.spaceDragEnter}
-                  onDragLeave={this.spaceDragLeave}
+                <input
+                  className="tab-title-edit edit"
+                  type="text"
+                  value={editValue}
+                  onClick={e => {
+                    e.preventDefault();
+                  }}
+                  onChange={this.handleEditValue}
+                  placeholder="After editing, press Enter."
+                  onKeyPress={this.submitEditTitle}
+                  onBlur={this.blurEditTitles}
+                  onFocus={this.focusEditTitle}
                 />
+
+                <div className="tab-side">
+                  <div
+                    className="open-links"
+                    onClick={this.openLinksClick}
+                    role="presentation"
+                  >
+                    <Fa className="no-event" icon="window-restore" />
+                  </div>
+
+                  <div
+                    className="tab-setting setting-icon"
+                    onMouseEnter={this.settingMouseEnter}
+                    onMouseLeave={this.settingMouseLeave}
+                  >
+                    <Fa className="no-event" icon="ellipsis-v" />
+                    <Setting col={colData.num} />
+                  </div>
+                </div>
               </div>
-              {linkList}
-            </ul>
+
+              <ul className="link-list">
+                <div className="link-container" col={colData.num} row={0}>
+                  <div
+                    className="space"
+                    col={colData.num}
+                    row={0}
+                    onDrop={this.spaceDrop}
+                    onDragOver={this.allDragOver}
+                    onDragEnter={this.spaceDragEnter}
+                    onDragLeave={this.spaceDragLeave}
+                  />
+                </div>
+                {linkList}
+              </ul>
+            </div>
           </div>
           <div
             className="space-tab"

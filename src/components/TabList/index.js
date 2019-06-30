@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon as Fa } from '@fortawesome/react-fontawesome';
-import $ from 'jquery';
 import {
   addColumn,
   addRow,
@@ -16,7 +15,6 @@ import {
 } from '../../redux/actions';
 import './index.scss';
 import Setting from './Setting';
-import 'jquery-mousewheel';
 
 class TabList extends Component {
   constructor(props) {

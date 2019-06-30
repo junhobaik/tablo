@@ -1,7 +1,8 @@
 #Sidebar {
   display: flex;
-  position: sticky;
+  position: fixed;
   top: 0;
+  right: 0;
   flex-direction: column;
   height: 100vh;
   background-color: $side-bar-background-color;
@@ -78,6 +79,7 @@
         }
 
         a {
+          pointer-events: none;
           display: flex;
           flex-grow: 1;
 

@@ -214,14 +214,17 @@ class TabList extends Component {
   };
 
   openLinksClick = e => {
+    const { openLink } = this.state;
     const { tabList } = this.props;
-    const { tabs, openLink } = tabList[
+    const { tabs } = tabList[
       parseInt(
-        e.target.parentNode.parentNode.parentNode.attributes.col.value,
+        e.target.parentNode.parentNode.parentNode.parentNode.attributes.col
+          .value,
         10
       )
     ];
     const links = [];
+
     for (const v of tabs) {
       links.push(v.url);
     }

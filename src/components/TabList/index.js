@@ -407,7 +407,7 @@ class TabList extends Component {
     }, this);
 
     return (
-      <div id="TabList">
+      <div id="TabList" className="tab-col">
         {mapTabList}
         <div className="add-column-wrap">
           <div

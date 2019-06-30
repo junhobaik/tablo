@@ -22,7 +22,8 @@ ul, li {
 #App {
   display: flex;
   background-color: $app-background-color;
-
+  height: 100vh;
+  width: 100vw;
   &>:first-child{
     flex-grow: 1;
   }

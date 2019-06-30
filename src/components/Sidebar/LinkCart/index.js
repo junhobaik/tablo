@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon as Fa } from '@fortawesome/react-fontawesome';
 import { setDragStatus } from '../../../redux/actions';
-import './index.scss';
 
 class LinkCart extends Component {
   constructor(props) {

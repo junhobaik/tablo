@@ -88,8 +88,10 @@ class CurrentTabList extends Component {
     return (
       <div id="CurrentTabList">
         <div className="link-list-title">
-          <Fa icon="grip-horizontal" />
-          <h2>Current Tabs</h2>
+          <div className="title-text">
+            <Fa icon="grip-horizontal" />
+            <h2>Current Tabs</h2>
+          </div>
         </div>
 
         <div className="link-list">

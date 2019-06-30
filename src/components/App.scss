@@ -22,7 +22,10 @@ ul, li {
 #App {
   display: flex;
   background-color: $app-background-color;
-  min-height: 100vh;
+
+  &>:first-child{
+    flex-grow: 1;
+  }
 }
 
 .no-event {

@@ -136,6 +136,7 @@
 
         &:last-child {
           flex-grow: 1;
+          display: flex;
 
           .space {
             flex-grow: 1;
@@ -170,6 +171,7 @@
           width: 2em;
           background-color: gray;
           border-radius: 100%;
+
           &:first-child {
             margin-bottom: 0.2em;
           }

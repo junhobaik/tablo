@@ -26,10 +26,10 @@
     }
 
     .link-list-title {
-      z-index: 2;
+      display: flex;
       position: sticky;
       top: 0;
-      display: flex;
+      z-index: 2;
       align-items: center;
       height: 3rem;
       background-color: $side-bar-background-color;
@@ -37,8 +37,8 @@
       padding: 0 1rem 0 0.5rem;
 
       .title-text {
-        flex-grow: 1;
         display: flex;
+        flex-grow: 1;
         align-items: center;
 
         svg {
@@ -138,6 +138,7 @@
 
   .app-title {
     display: flex;
+    user-select: none;
     align-items: center;
     flex-grow: 1;
     color: #00aecc;

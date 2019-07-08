@@ -1,3 +1,5 @@
+/* eslint-disable no-alert */
+/* eslint-disable no-undef */
 import './App.scss';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -28,15 +30,59 @@ library.add(
   faWindowRestore,
   faShoppingCart,
   faGripHorizontal,
-  faCog,
+  faCog
 );
 class App extends Component {
   componentDidMount() {
     const { onLoadTabs } = this.props;
-    // eslint-disable-next-line no-undef
+
     chrome.storage.sync.get('tablo_tab', items => {
       onLoadTabs(items.tablo_tab);
     });
+
+    /** Update Alert */
+    chrome.storage.sync.get('tablo_app', items => {
+      const app = items.tablo_app;
+
+      fetch('../manifest.json')
+        .then(res => res.json())
+        .then(json => {
+          if (app === undefined) {
+            chrome.storage.sync.set(
+              {
+                tablo_app: {
+                  openLink: {
+                    link: '_blank',
+                    tab: '_blank',
+                  },
+                  scroll: {
+                    xScrollSpeed: 30,
+                  },
+                  version: json.version,
+                },
+              },
+              () => {
+                // first use
+                alert(`[Update ${json.version}] ${json.update_alert}`);
+              }
+            );
+          } else if (app.version !== json.version) {
+            chrome.storage.sync.set(
+              {
+                tablo_app: {
+                  ...app,
+                  version: json.version,
+                },
+              },
+              () => {
+                // update
+                alert(`[Update ${json.version}] ${json.update_alert}`);
+              }
+            );
+          }
+        });
+    });
+    /** END - Update Alert */
   }
 
   render() {
@@ -59,7 +105,7 @@ App.propTypes = {
 
 App = connect(
   null,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(App);
 
 export default App;

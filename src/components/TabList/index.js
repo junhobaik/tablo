@@ -35,6 +35,23 @@ class TabList extends Component {
   }
 
   componentDidMount() {
+    let xScrollSpeed = 0;
+    // eslint-disable-next-line no-undef
+    chrome.storage.sync.get('tablo_app', i => {
+      if (i.tablo_app) {
+        const { scroll } = i.tablo_app;
+
+        if (scroll) {
+          // eslint-disable-next-line prefer-destructuring
+          xScrollSpeed = scroll.xScrollSpeed;
+        } else {
+          xScrollSpeed = 30;
+        }
+      } else {
+        xScrollSpeed = 30;
+      }
+    });
+
     const controlScrollDirection = getScrollDirection => {
       $('#TabList')
         .off('mousewheel')
@@ -42,7 +59,7 @@ class TabList extends Component {
         .mousewheel(function(e, delta) {
           setTimeout(() => {
             if (getScrollDirection()) {
-              this.scrollLeft -= delta * 2;
+              this.scrollLeft -= delta * xScrollSpeed;
             }
             e.preventDefault();
           }, 0);

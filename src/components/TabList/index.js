@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon as Fa } from '@fortawesome/react-fontawesome';
+import $ from 'jquery';
+import 'jquery-mousewheel';
 import {
   addColumn,
   addRow,
@@ -28,10 +30,32 @@ class TabList extends Component {
         link: null,
         tab: null,
       },
+      scrollHoriz: false,
     };
   }
 
   componentDidMount() {
+    const controlScrollDirection = getScrollDirection => {
+      $('#TabList')
+        .off('mousewheel')
+        // eslint-disable-next-line func-names
+        .mousewheel(function(e, delta) {
+          setTimeout(() => {
+            if (getScrollDirection()) {
+              this.scrollLeft -= delta * 2;
+            }
+            e.preventDefault();
+          }, 0);
+        });
+    };
+
+    const getScrollDirection = () => {
+      // eslint-disable-next-line react/destructuring-assignment
+      return this.state.scrollHoriz;
+    };
+
+    controlScrollDirection(getScrollDirection);
+
     const setState = (key, data) => {
       this.setState({
         [key]: data,
@@ -240,6 +264,18 @@ class TabList extends Component {
     }
   };
 
+  horizScrollAreaMouseEnter = () => {
+    this.setState({
+      scrollHoriz: true,
+    });
+  };
+
+  horizScrollAreaMouseLeave = () => {
+    this.setState({
+      scrollHoriz: false,
+    });
+  };
+
   render() {
     const { tabList, onAddColumn } = this.props;
 
@@ -411,6 +447,11 @@ class TabList extends Component {
 
     return (
       <div id="TabList">
+        <div
+          id="horizScrollArea"
+          onMouseEnter={this.horizScrollAreaMouseEnter}
+          onMouseLeave={this.horizScrollAreaMouseLeave}
+        />
         {mapTabList}
         <div className="add-column-wrap">
           <div

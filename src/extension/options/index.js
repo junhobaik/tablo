@@ -70,6 +70,7 @@ const renderBasicSetting = (tablo_app = null) => {
   } else {
     // init default data
     setStorage('tablo_app', {
+      ...tablo_app,
       openLink: {
         link: '_blank',
         tab: '_blank',
@@ -88,6 +89,7 @@ const renderBasicSetting = (tablo_app = null) => {
 const addEventBasicSetting = tablo_app => {
   document.querySelector('.link-open').addEventListener('change', e => {
     setStorage('tablo_app', {
+      ...tablo_app,
       openLink: {
         link: e.target.value,
         tab: tablo_app.openLink.tab,
@@ -97,6 +99,7 @@ const addEventBasicSetting = tablo_app => {
 
   document.querySelector('.tab-links-open').addEventListener('change', e => {
     setStorage('tablo_app', {
+      ...tablo_app,
       openLink: {
         link: tablo_app.openLink.link,
         tab: e.target.value,

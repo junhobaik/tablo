@@ -2,6 +2,8 @@
 
 [Chrome Web Store - Tablo](https://chrome.google.com/webstore/detail/aoccnljcdmmbihgabpoljghfcmbflkhc)
 
+![screenshot](./tablo.jpg)
+
 ---
 
 Chrome 확장 프로그램,

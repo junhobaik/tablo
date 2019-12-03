@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Tablo - Bookmark and manage tabs",
   "description": "Bookmark and manage all the tabs in your browser.",
-  "version": "1.4.5",
+  "version": "1.4.6",
   "update_alert": "Horizontal scrolling is possible when the mouse is positioned in the top area.",
   "icons": {
     "128": "icon.png"

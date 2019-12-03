@@ -469,16 +469,19 @@ class TabList extends Component {
           onMouseEnter={this.horizScrollAreaMouseEnter}
           onMouseLeave={this.horizScrollAreaMouseLeave}
         />
-        {mapTabList}
-        <div className="add-column-wrap">
-          <div
-            className="add-column"
-            onClick={() => {
-              onAddColumn();
-            }}
-            role="presentation"
-          >
-            <p>+ Add column</p>
+
+        <div className="content-wrap">
+          {mapTabList}
+          <div className="add-column-wrap">
+            <div
+              className="add-column"
+              onClick={() => {
+                onAddColumn();
+              }}
+              role="presentation"
+            >
+              <p>+ Add column</p>
+            </div>
           </div>
         </div>
       </div>

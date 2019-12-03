@@ -4,20 +4,31 @@
 }
 
 #horizScrollArea {
-  height: 4.5rem;
-  width: 100%;
+  z-index: 99;
   position: fixed;
   top: 0;
+  left: 0;
+  height: 2rem;
+  min-width: 100%;
+  padding-right: $side-bar-width;
 }
+
 #TabList {
   display: flex;
-  margin-right: $side-bar-width;
+  flex-direction: column;
   overflow: auto;
-  height: 100vh;
+  margin-right: $side-bar-width;
+
+  .content-wrap {
+    display: flex;
+    height: 100vh;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
 
   .tab {
     display: flex;
-    padding: 1rem 0;
+    // padding: 0 0 1rem 0;
 
     .tab-inner-wrap {
       height: 100%;
@@ -142,8 +153,8 @@
         }
 
         &:last-child {
-          flex-grow: 1;
           display: flex;
+          flex-grow: 1;
 
           .space {
             flex-grow: 1;
@@ -221,11 +232,11 @@
   }
 
   .add-column-wrap {
-    padding: 1rem 2rem 1rem 1rem;
+    padding: 0 2rem 1rem 1rem;
 
     .add-column {
-      cursor: pointer;
       display: flex;
+      cursor: pointer;
       opacity: 0.7;
       align-items: center;
       background-color: $add-column-background-color;
